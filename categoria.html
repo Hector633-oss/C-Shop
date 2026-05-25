@@ -1,0 +1,105 @@
+<!-- Declaración del tipo de documento HTML5 -->
+<!DOCTYPE html> <!-- Declara el tipo de documento como HTML5 -->
+<!-- Apertura del documento con idioma español -->
+<html lang="es"> <!-- Abre el documento HTML con idioma español para SEO y accesibilidad -->
+<!-- Bloque de metadatos de la página de categoría -->
+<head> <!-- Abre la cabecera con metadatos de la página de listado por categoría -->
+  <meta charset="UTF-8"> <!-- Define la codificación de caracteres UTF-8 para soporte multilingüe -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura el viewport para diseño responsivo en móviles -->
+  <meta name="theme-color" content="#0a0a0b"> <!-- Define el color de la barra del navegador en móviles -->
+  <title>Categoría · C-Shop</title> <!-- Título genérico de la pestaña, actualizado dinámicamente por categoria.js -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Preconecta con el servidor de Google Fonts para reducir latencia -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Preconecta con el CDN de fuentes de Google con CORS habilitado -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"> <!-- Carga las fuentes tipográficas Syne y DM Sans usadas en toda la tienda -->
+  <link rel="stylesheet" href="styles.css"> <!-- Enlaza la hoja de estilos principal de C-Shop -->
+</head> <!-- Cierra la cabecera de metadatos -->
+<!-- Cuerpo visible de la página de categoría -->
+<body> <!-- Abre el cuerpo de la página de listado de productos por categoría -->
+
+<!-- Contenedor principal de la página de categoría -->
+<main> <!-- Abre el contenido principal de la página de categoría -->
+<!-- Sección de listado de productos de la categoría seleccionada -->
+  <section class="section visible"> <!-- Abre la sección principal visible de la página de categoría -->
+<!-- Cabecera con título y botón de retorno -->
+    <div class="pv-header"> <!-- Contenedor de la cabecera de la vista de categoría -->
+      <div class="pv-title"> <!-- Contenedor del título de la categoría con icono y nombre -->
+        <a class="back-btn" href="index.html" data-i18n="nav.back">← Volver</a> <!-- Botón de retorno a la página de inicio -->
+        <span id="pvCatIcon"></span> <span id="pvCatName"></span> <!-- Icono y nombre de la categoría, inyectados dinámicamente por categoria.js -->
+      </div> <!-- Cierra el contenedor del título de la categoría -->
+    </div> <!-- Cierra la cabecera de la vista de categoría -->
+
+<!-- Barra de filtros y ordenación de productos -->
+    <div class="filters-bar"> <!-- Contenedor de la barra de filtros de la página de categoría -->
+<!-- Grupo de filtro de ordenación -->
+      <div class="filter-group"> <!-- Contenedor del selector de ordenación de productos -->
+        <span class="filter-label" data-i18n="filter.sort">Ordenar:</span> <!-- Etiqueta del selector de ordenación -->
+        <select class="filter-select" id="sortSelect" onchange="applyFilters()"> <!-- Selector desplegable que dispara el reordenado del listado al cambiar -->
+          <option value="default"    data-i18n="filter.default">Por defecto</option> <!-- Opción de ordenación por defecto del catálogo -->
+          <option value="price-asc"  data-i18n="filter.price_asc">Precio ↑</option> <!-- Opción de ordenación por precio ascendente -->
+          <option value="price-desc" data-i18n="filter.price_desc">Precio ↓</option> <!-- Opción de ordenación por precio descendente -->
+          <option value="name-asc"   data-i18n="filter.name_az">Nombre A-Z</option> <!-- Opción de ordenación alfabética ascendente por nombre -->
+          <option value="name-desc"  data-i18n="filter.name_za">Nombre Z-A</option> <!-- Opción de ordenación alfabética descendente por nombre -->
+          <option value="rating"     data-i18n="filter.best_rated">Mejor valorado</option> <!-- Opción de ordenación por valoración de usuarios -->
+        </select> <!-- Cierra el selector de ordenación -->
+      </div> <!-- Cierra el grupo de filtro de ordenación -->
+<!-- Grupo de filtro de rango de precios dual -->
+      <div class="filter-group"> <!-- Contenedor del filtro de rango de precios con dos controles deslizantes -->
+        <span class="filter-label" data-i18n="filter.price">Precio:</span> <!-- Etiqueta del filtro de rango de precios -->
+        <div class="price-range-dual"> <!-- Contenedor del control de rango de precios doble -->
+          <div class="prd-track-wrap"> <!-- Envoltura de la pista de los controles deslizantes de precio -->
+            <div class="prd-track"><div class="prd-fill" id="prdFill"></div></div> <!-- Pista visual con relleno que indica el rango de precio seleccionado -->
+            <input type="range" id="priceMin" min="0" max="15000" value="0"     step="10" oninput="updateDualPrice()"> <!-- Control deslizante para el precio mínimo del filtro, paso de 10€ -->
+            <input type="range" id="priceMax" min="0" max="15000" value="15000" step="10" oninput="updateDualPrice()"> <!-- Control deslizante para el precio máximo del filtro, paso de 10€ -->
+          </div> <!-- Cierra la envoltura de la pista de los controles de precio -->
+          <div class="prd-labels"> <!-- Contenedor de las etiquetas de valor del rango de precios -->
+            <span class="prd-val" id="priceMinVal">0€</span> <!-- Etiqueta que muestra el valor mínimo de precio seleccionado -->
+            <span style="color:var(--text-dim);font-size:.8rem">—</span> <!-- Separador visual entre los valores mínimo y máximo del rango -->
+            <span class="prd-val" id="priceMaxVal">15000€</span> <!-- Etiqueta que muestra el valor máximo de precio seleccionado -->
+          </div> <!-- Cierra el contenedor de etiquetas del rango de precios -->
+        </div> <!-- Cierra el control de rango de precios doble -->
+      </div> <!-- Cierra el grupo del filtro de precio -->
+<!-- Campo de búsqueda por nombre dentro de la categoría -->
+      <div class="filter-search"> <!-- Contenedor del campo de búsqueda por nombre en la categoría -->
+        <input type="text" id="filterSearch"
+               data-i18n-placeholder="filter.name_placeholder"
+               placeholder="Filtrar por nombre…"
+               oninput="applyFilters()"> <!-- Campo de texto que filtra el listado por nombre al escribir -->
+      </div> <!-- Cierra el contenedor del campo de búsqueda por nombre -->
+<!-- Grupo de filtro por tipo de componente, visible solo en la categoría Componentes -->
+      <div class="filter-group" id="compTypeGroup" style="display:none"> <!-- Contenedor del selector de tipo de componente, oculto por defecto -->
+        <span class="filter-label" data-i18n="filter.type">Tipo:</span> <!-- Etiqueta del selector de tipo de componente -->
+        <select class="filter-select" id="compTypeSelect" onchange="applyFilters()"> <!-- Selector de subtipo de componente que filtra el listado al cambiar -->
+          <option value="all"              data-i18n="filter.all_components">Todos los componentes</option> <!-- Opción para mostrar todos los subtipos de componentes -->
+          <option value="procesador"       data-i18n="filter.processors">🔲 Procesadores</option> <!-- Opción para filtrar solo procesadores -->
+          <option value="grafica"          data-i18n="filter.graphics">🎮 Tarjetas Gráficas</option> <!-- Opción para filtrar solo tarjetas gráficas -->
+          <option value="ram"              data-i18n="filter.ram">💾 Memorias RAM</option> <!-- Opción para filtrar solo memorias RAM -->
+          <option value="almacenamiento"   data-i18n="filter.storage">💿 Almacenamiento</option> <!-- Opción para filtrar solo dispositivos de almacenamiento -->
+          <option value="placa"            data-i18n="filter.motherboards">🖥 Placas Base</option> <!-- Opción para filtrar solo placas base -->
+          <option value="refrigeración"    data-i18n="filter.cooling">𖣘 Refrigeración</option> <!-- Opción para filtrar solo sistemas de refrigeración -->
+          <option value="tarjeta de red"   data-i18n="filter.network_cards">🛜 Tarjetas de red</option> <!-- Opción para filtrar solo tarjetas de red -->
+          <option value="tarjeta de sonido"data-i18n="filter.sound_cards">🔊 Tarjetas de sonido</option> <!-- Opción para filtrar solo tarjetas de sonido -->
+          <option value="fuente"           data-i18n="filter.psus">⚡ Fuentes de Alimentación</option> <!-- Opción para filtrar solo fuentes de alimentación -->
+          <option value="torre"            data-i18n="filter.cases">🗄 Cajas/Torres</option> <!-- Opción para filtrar solo cajas y torres de PC -->
+        </select> <!-- Cierra el selector de tipo de componente -->
+      </div> <!-- Cierra el grupo del filtro por tipo de componente -->
+      <span class="filter-count" id="filterCount"></span> <!-- Contador de resultados visibles, actualizado dinámicamente por categoria.js -->
+    </div> <!-- Cierra la barra de filtros de la categoría -->
+
+<!-- Cuadrícula de productos de la categoría -->
+    <div class="products-grid" id="productsGrid"></div> <!-- Cuadrícula populada dinámicamente por categoria.js con las tarjetas de producto -->
+  </section> <!-- Cierra la sección principal de la página de categoría -->
+</main> <!-- Cierra el contenido principal de la página de categoría -->
+
+<!-- Bloque de scripts de la página de categoría -->
+<script defer src="js/i18n.js?v=1"></script> <!-- Carga el sistema de internacionalización para textos multilingüe -->
+<script defer src="js/data-lite.js?v=5"></script> <!-- Carga el módulo de acceso a datos de productos de la tienda -->
+<script defer src="js/common.js?v=5"></script> <!-- Carga utilidades y funciones compartidas entre todas las páginas -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script> <!-- Carga el núcleo de Firebase para la conexión con la base de datos -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script> <!-- Carga el módulo de autenticación de Firebase para el login de usuarios -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script> <!-- Carga el módulo Firestore de Firebase para la base de datos de productos y pedidos -->
+<script defer src="js/auth.js?v=5"></script> <!-- Carga la lógica de autenticación y sesión de usuario de C-Shop -->
+<script defer src="js/layout.js?v=5"></script> <!-- Carga el módulo que construye la navegación, carrito y modal de login -->
+<script defer src="js/products.js?v=5"></script> <!-- Carga el módulo de renderizado de tarjetas de producto -->
+<script defer src="js/categoria.js?v=5"></script> <!-- Carga la lógica específica de la página de categoría: filtros, ordenación y listado -->
+</body> <!-- Cierra el cuerpo de la página de categoría -->
+</html> <!-- Cierra el documento HTML de la página de categoría -->

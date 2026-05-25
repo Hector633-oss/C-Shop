@@ -1,0 +1,106 @@
+<!-- Declaración del tipo de documento HTML5 -->
+<!DOCTYPE html> <!-- Declara el tipo de documento como HTML5 -->
+
+<!-- Apertura del documento con idioma español -->
+<html lang="es"> <!-- Abre el documento HTML con idioma español para SEO y accesibilidad -->
+
+<!-- Bloque de metadatos de la página principal -->
+<head> <!-- Abre la cabecera con metadatos de la página de inicio -->
+  <meta charset="UTF-8"> <!-- Define la codificación de caracteres UTF-8 para soporte multilingüe -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura el viewport para diseño responsivo en móviles -->
+  <meta name="description" content="C-Shop — Tu tienda de tecnología. Componentes, periféricos y dispositivos al mejor precio."> <!-- Descripción de la tienda para motores de búsqueda -->
+  <meta name="theme-color" content="#0a0a0b"> <!-- Define el color de la barra del navegador en móviles -->
+  <title>C-Shop · Tu tienda de tecnología</title> <!-- Título de la pestaña del navegador para la página de inicio -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Preconecta con el servidor de Google Fonts para reducir latencia -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Preconecta con el CDN de fuentes de Google con CORS habilitado -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"> <!-- Carga las fuentes tipográficas Syne y DM Sans 
+  usadas en toda la tienda -->
+
+  <link rel="stylesheet" href="styles.css"> <!-- Enlaza la hoja de estilos principal de C-Shop -->
+</head> <!-- Cierra la cabecera de metadatos -->
+
+<!-- Cuerpo visible de la página principal -->
+<body> <!-- Abre el cuerpo de la página de inicio de la tienda -->
+
+<!-- Contenedor principal de la página de inicio -->
+<main id="mainContent"> <!-- Abre el contenido principal con id para accesibilidad y anclas internas -->
+
+<!-- Bloque del hero de la página de inicio -->
+  <div class="hero"> <!-- Contenedor exterior del bloque hero con imagen de fondo -->
+    <div class="hero-main hero-main--full"> <!-- Contenedor interior del hero en modo ancho completo -->
+      <div class="hero-badge" data-i18n="home.hero_badge">✨ Tecnología de última generación</div> <!-- Etiqueta decorativa sobre el titular del hero -->
+      <h1 data-i18n-html="home.hero_h1">Construye tu <span class="hl">mundo digital</span></h1> <!-- Titular principal del hero con fragmento resaltado en color de marca -->
+      <p data-i18n="home.hero_desc">Encuentra los mejores componentes, periféricos y dispositivos al mejor precio. Calidad garantizada y envío rápido.</p> <!-- Subtexto descriptivo de la propuesta de valor de la tienda -->
+
+      <!-- Bloque de botones de llamada a la acción del hero -->
+      <div class="hero-cta"> <!-- Contenedor de los botones de acción del hero -->
+        <a class="btn-primary btn-xl" href="#cats-section" data-i18n="home.explore">Explorar categorías →</a> <!-- Botón primario que desplaza la vista a la sección de categorías -->
+        <a class="btn-ghost btn-xl" href="ofertas.html" data-i18n="home.see_offers">Ver ofertas</a> <!-- Botón secundario que navega a la página de ofertas -->
+      </div> <!-- Cierra el contenedor de botones de acción del hero -->
+      <div class="hero-deco">⚡</div> <!-- Elemento decorativo del hero con icono de rayo -->
+    </div> <!-- Cierra el contenedor interior del hero -->
+  </div> <!-- Cierra el contenedor exterior del hero -->
+
+<!-- Sección de accesos rápidos a funcionalidades destacadas -->
+  <section class="section visible"> <!-- Abre la sección de accesos rápidos, visible sin animación de entrada -->
+    <div class="section-header"> <!-- Contenedor del encabezado de la sección de accesos rápidos -->
+      <div class="section-title"><span data-i18n="home.quick_title">Accesos rápidos</span></div> <!-- Título de la sección de accesos rápidos -->
+    </div> <!-- Cierra el encabezado de la sección -->
+
+    <!-- Cuadrícula de tarjetas de acceso rápido -->
+    <div class="quick-grid"> <!-- Contenedor de cuadrícula para las tarjetas de acceso rápido -->
+
+      <!-- Tarjeta de acceso rápido a Ofertas -->
+      <a class="quick-card quick-card--offers" href="ofertas.html"> <!-- Tarjeta enlace que navega a la página de ofertas -->
+        <div class="quick-icon">🔥</div> <!-- Icono decorativo de la tarjeta de ofertas -->
+        <div class="quick-info"> <!-- Contenedor del texto informativo de la tarjeta de ofertas -->
+          <div class="quick-title" data-i18n="home.offers_title">Ofertas</div> <!-- Título de la tarjeta de acceso rápido a ofertas -->
+          <div class="quick-sub" data-i18n="home.offers_sub">Hasta -60% en productos seleccionados</div> <!-- Subtexto descriptivo de la tarjeta de ofertas -->
+        </div> <!-- Cierra el contenedor de texto de la tarjeta de ofertas -->
+        <div class="quick-arrow">→</div> <!-- Flecha decorativa indicando navegación en la tarjeta de ofertas -->
+      </a> <!-- Cierra la tarjeta de acceso rápido a ofertas -->
+
+      <!-- Tarjeta de acceso rápido al Configurador de PC -->
+      <a class="quick-card quick-card--config" href="configurador.html"> <!-- Tarjeta enlace que navega al configurador de PC -->
+        <div class="quick-icon">🔧</div> <!-- Icono decorativo de la tarjeta del configurador -->
+        <div class="quick-info"> <!-- Contenedor del texto informativo de la tarjeta del configurador -->
+          <div class="quick-title" data-i18n="home.config_title">Configurar PC</div> <!-- Título de la tarjeta de acceso rápido al configurador -->
+          <div class="quick-sub" data-i18n="home.config_sub">Arma tu PC ideal pieza a pieza</div> <!-- Subtexto descriptivo de la tarjeta del configurador -->
+        </div> <!-- Cierra el contenedor de texto de la tarjeta del configurador -->
+        <div class="quick-arrow">→</div> <!-- Flecha decorativa indicando navegación en la tarjeta del configurador -->
+      </a> <!-- Cierra la tarjeta de acceso rápido al configurador -->
+
+      <!-- Tarjeta de acceso rápido a Favoritos -->
+      <a class="quick-card quick-card--fav" href="favoritos.html"> <!-- Tarjeta enlace que navega a la página de favoritos -->
+        <div class="quick-icon">❤️</div> <!-- Icono decorativo de la tarjeta de favoritos -->
+        <div class="quick-info"> <!-- Contenedor del texto informativo de la tarjeta de favoritos -->
+          <div class="quick-title" data-i18n="home.fav_title">Mis favoritos</div> <!-- Título de la tarjeta de acceso rápido a favoritos -->
+          <div class="quick-sub" data-i18n="home.fav_sub">Tu lista personal de productos guardados</div> <!-- Subtexto descriptivo de la tarjeta de favoritos -->
+        </div> <!-- Cierra el contenedor de texto de la tarjeta de favoritos -->
+        <div class="quick-arrow">→</div> <!-- Flecha decorativa indicando navegación en la tarjeta de favoritos -->
+      </a> <!-- Cierra la tarjeta de acceso rápido a favoritos -->
+    </div> <!-- Cierra la cuadrícula de accesos rápidos -->
+  </section> <!-- Cierra la sección de accesos rápidos -->
+
+<!-- Sección de navegación por categorías de productos -->
+  <section class="section visible" id="cats-section"> <!-- Abre la sección de categorías, ancla destino del botón del hero -->
+    <div class="section-header"> <!-- Contenedor del encabezado de la sección de categorías -->
+      <div class="section-title"><span data-i18n="home.cats_title">🗂️ Explora por categoría</span></div> <!-- Título de la sección de categorías de la tienda -->
+    </div> <!-- Cierra el encabezado de la sección de categorías -->
+    <div class="cats-grid cats-grid--big" id="homeCatsGrid"></div> <!-- Cuadrícula de categorías populada dinámicamente por home.js -->
+  </section> <!-- Cierra la sección de categorías -->
+</main> <!-- Cierra el contenido principal de la página de inicio -->
+
+<!-- Bloque de scripts de la página de inicio -->
+<script defer src="js/i18n.js?v=1"></script> <!-- Carga el sistema de internacionalización para textos multilingüe -->
+<script defer src="js/data-lite.js?v=5"></script> <!-- Carga el módulo de acceso a datos de productos de la tienda -->
+<script defer src="js/common.js?v=5"></script> <!-- Carga utilidades y funciones compartidas entre todas las páginas -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script> <!-- Carga el núcleo de Firebase para la conexión con la base de datos -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script> <!-- Carga el módulo de autenticación de Firebase para el login de usuarios -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script> <!-- Carga el módulo Firestore de Firebase para la base de datos de productos y pedidos -->
+<script defer src="js/auth.js?v=5"></script> <!-- Carga la lógica de autenticación y sesión de usuario de C-Shop -->
+<script defer src="js/layout.js?v=5"></script> <!-- Carga el módulo que construye la navegación, carrito y modal de login -->
+<script defer src="js/products.js?v=5"></script> <!-- Carga el módulo de renderizado de tarjetas de producto -->
+<script defer src="js/home.js?v=5"></script> <!-- Carga la lógica específica de la página de inicio: cuadrícula de categorías -->
+</body> <!-- Cierra el cuerpo de la página de inicio -->
+</html> <!-- Cierra el documento HTML de la página principal -->

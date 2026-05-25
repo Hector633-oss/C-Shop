@@ -1,0 +1,55 @@
+<!-- Declaración del tipo de documento HTML5 -->
+<!DOCTYPE html> <!-- Declara el tipo de documento como HTML5 -->
+<!-- Apertura del documento con idioma español -->
+<html lang="es"> <!-- Abre el documento HTML con idioma español para SEO y accesibilidad -->
+<!-- Bloque de metadatos de la página de favoritos -->
+<head> <!-- Abre la cabecera con metadatos de la página de productos favoritos del usuario -->
+  <meta charset="UTF-8"> <!-- Define la codificación de caracteres UTF-8 para soporte multilingüe -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura el viewport para diseño responsivo en móviles -->
+  <meta name="theme-color" content="#0a0a0b"> <!-- Define el color de la barra del navegador en móviles -->
+  <title>Favoritos · C-Shop</title> <!-- Título de la pestaña del navegador para la página de favoritos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Preconecta con el servidor de Google Fonts para reducir latencia -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Preconecta con el CDN de fuentes de Google con CORS habilitado -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"> <!-- Carga las fuentes tipográficas Syne y DM Sans usadas en toda la tienda -->
+  <link rel="stylesheet" href="styles.css"> <!-- Enlaza la hoja de estilos principal de C-Shop -->
+</head> <!-- Cierra la cabecera de metadatos -->
+<!-- Cuerpo visible de la página de favoritos -->
+<body> <!-- Abre el cuerpo de la página de lista de productos favoritos del usuario -->
+
+<!-- Contenedor principal de la página de favoritos -->
+<main> <!-- Abre el contenido principal de la página de favoritos -->
+<!-- Sección de la lista de productos marcados como favoritos -->
+  <section class="section visible"> <!-- Abre la sección principal visible de la página de favoritos -->
+<!-- Cabecera con título, botón de retorno y botón de vaciado -->
+    <div class="pv-header" style="display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap"> <!-- Cabecera de la página de favoritos con distribución flexible y espacio entre título y botón de vaciado -->
+      <div class="pv-title"> <!-- Contenedor del título y navegación de retorno de la página de favoritos -->
+        <a class="back-btn" href="index.html" data-i18n="nav.back">← Volver</a> <!-- Botón de retorno a la página de inicio -->
+        <span data-i18n="favorites.title">❤️ Favoritos</span> <!-- Título de la página de favoritos del usuario -->
+      </div> <!-- Cierra el contenedor del título de favoritos -->
+      <button class="btn-danger-ghost" onclick="clearAllFavorites()"
+              data-i18n="favorites.clear_all">Vaciar favoritos</button> <!-- Botón que elimina todos los productos de la lista de favoritos -->
+    </div> <!-- Cierra la cabecera de la página de favoritos -->
+<!-- Mensaje de estado vacío cuando no hay favoritos guardados -->
+    <div id="favEmptyMsg" style="display:none;text-align:center;padding:60px 20px;color:var(--text-muted)"> <!-- Contenedor del mensaje de lista vacía, oculto cuando hay favoritos -->
+      <div style="font-size:3.5rem;margin-bottom:14px;opacity:.35">❤️</div> <!-- Icono decorativo grande para el estado vacío de favoritos -->
+      <div style="font-size:1rem;font-weight:600;color:var(--text)" data-i18n="favorites.empty_title">Aún no tienes productos favoritos</div> <!-- Título del estado vacío de la lista de favoritos -->
+      <div style="font-size:.82rem;margin-top:8px;color:var(--text-dim)" data-i18n="favorites.empty_hint">Pulsa el ♥ en cualquier producto para guardarlo aquí</div> <!-- Instrucción de ayuda para añadir productos a favoritos -->
+    </div> <!-- Cierra el contenedor del mensaje de lista de favoritos vacía -->
+<!-- Cuadrícula de productos marcados como favoritos -->
+    <div class="products-grid" id="favoritesGrid"></div> <!-- Cuadrícula populada dinámicamente por favoritos.js con las tarjetas de productos favoritos del usuario -->
+  </section> <!-- Cierra la sección principal de la página de favoritos -->
+</main> <!-- Cierra el contenido principal de la página de favoritos -->
+
+<!-- Bloque de scripts de la página de favoritos -->
+<script defer src="js/i18n.js?v=1"></script> <!-- Carga el sistema de internacionalización para textos multilingüe -->
+<script defer src="js/data-lite.js?v=5"></script> <!-- Carga el módulo de acceso a datos de productos de la tienda -->
+<script defer src="js/common.js?v=5"></script> <!-- Carga utilidades y funciones compartidas entre todas las páginas -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script> <!-- Carga el núcleo de Firebase para la conexión con la base de datos -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script> <!-- Carga el módulo de autenticación de Firebase para el login de usuarios -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script> <!-- Carga el módulo Firestore de Firebase para la base de datos de productos y pedidos -->
+<script defer src="js/auth.js?v=5"></script> <!-- Carga la lógica de autenticación y sesión de usuario de C-Shop -->
+<script defer src="js/layout.js?v=5"></script> <!-- Carga el módulo que construye la navegación, carrito y modal de login -->
+<script defer src="js/products.js?v=5"></script> <!-- Carga el módulo de renderizado de tarjetas de producto -->
+<script defer src="js/favoritos.js?v=5"></script> <!-- Carga la lógica específica de favoritos: lectura del almacenamiento local, renderizado de la lista y vaciado -->
+</body> <!-- Cierra el cuerpo de la página de favoritos -->
+</html> <!-- Cierra el documento HTML de la página de favoritos -->

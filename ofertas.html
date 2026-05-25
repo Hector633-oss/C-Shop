@@ -1,0 +1,76 @@
+<!-- Declaración del tipo de documento HTML5 -->
+<!DOCTYPE html> <!-- Declara el tipo de documento como HTML5 -->
+<!-- Apertura del documento con idioma español -->
+<html lang="es"> <!-- Abre el documento HTML con idioma español para SEO y accesibilidad -->
+<!-- Bloque de metadatos de la página de ofertas -->
+<head> <!-- Abre la cabecera con metadatos de la página de productos en oferta -->
+  <meta charset="UTF-8"> <!-- Define la codificación de caracteres UTF-8 para soporte multilingüe -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura el viewport para diseño responsivo en móviles -->
+  <meta name="theme-color" content="#0a0a0b"> <!-- Define el color de la barra del navegador en móviles -->
+  <title>Ofertas · C-Shop</title> <!-- Título de la pestaña del navegador para la página de ofertas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Preconecta con el servidor de Google Fonts para reducir latencia -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Preconecta con el CDN de fuentes de Google con CORS habilitado -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"> <!-- Carga las fuentes tipográficas Syne y DM Sans usadas en toda la tienda -->
+  <link rel="stylesheet" href="styles.css"> <!-- Enlaza la hoja de estilos principal de C-Shop -->
+</head> <!-- Cierra la cabecera de metadatos -->
+<!-- Cuerpo visible de la página de ofertas -->
+<body> <!-- Abre el cuerpo de la página de productos en oferta y con descuento -->
+
+<!-- Contenedor principal de la página de ofertas -->
+<main> <!-- Abre el contenido principal de la página de ofertas -->
+<!-- Sección de productos en oferta con filtros y cuadrícula -->
+  <section class="section visible"> <!-- Abre la sección principal visible de la página de ofertas -->
+<!-- Cabecera con título y botón de retorno -->
+    <div class="pv-header"> <!-- Contenedor de la cabecera de la página de ofertas -->
+      <div class="pv-title"> <!-- Contenedor del título y botón de retorno de la página de ofertas -->
+        <a class="back-btn" href="index.html" data-i18n="nav.back">← Volver</a> <!-- Botón de retorno a la página de inicio -->
+        <span data-i18n="offers.title">🔥 Ofertas</span> <!-- Título de la página de productos en oferta -->
+      </div> <!-- Cierra el contenedor del título de ofertas -->
+    </div> <!-- Cierra la cabecera de la página de ofertas -->
+
+<!-- Barra de filtros y ordenación de ofertas -->
+    <div class="filters-bar"> <!-- Contenedor de la barra de filtros de la página de ofertas -->
+<!-- Grupo de filtro de ordenación de ofertas -->
+      <div class="filter-group"> <!-- Contenedor del selector de ordenación de productos en oferta -->
+        <span class="filter-label" data-i18n="filter.sort">Ordenar:</span> <!-- Etiqueta del selector de ordenación de ofertas -->
+        <select class="filter-select" id="offerSortSelect" onchange="applyOfferFilters()"> <!-- Selector que reordena el listado de ofertas al cambiar -->
+          <option value="discount"  data-i18n="filter.most_discount">Mayor descuento</option> <!-- Opción para ordenar las ofertas por mayor porcentaje de descuento -->
+          <option value="price-asc" data-i18n="filter.price_asc">Precio ↑</option> <!-- Opción para ordenar las ofertas por precio ascendente -->
+          <option value="price-desc"data-i18n="filter.price_desc">Precio ↓</option> <!-- Opción para ordenar las ofertas por precio descendente -->
+        </select> <!-- Cierra el selector de ordenación de ofertas -->
+      </div> <!-- Cierra el grupo del filtro de ordenación de ofertas -->
+<!-- Grupo de filtro por categoría de oferta -->
+      <div class="filter-group"> <!-- Contenedor del selector de categoría en la página de ofertas -->
+        <span class="filter-label" data-i18n="filter.filter">Filtrar:</span> <!-- Etiqueta del selector de filtro por categoría -->
+        <select class="filter-select" id="offerCatSelect" onchange="applyOfferFilters()"> <!-- Selector de categoría que filtra las ofertas al cambiar, opciones generadas por ofertas.js -->
+          <option value="all" data-i18n="filter.all_categories">Todas las categorías</option> <!-- Opción para mostrar ofertas de todas las categorías -->
+        </select> <!-- Cierra el selector de categoría de ofertas -->
+      </div> <!-- Cierra el grupo del filtro por categoría -->
+<!-- Campo de búsqueda por nombre dentro de las ofertas -->
+      <div class="filter-search" style="flex:1"> <!-- Contenedor del campo de búsqueda por nombre en ofertas, expandido para ocupar el espacio restante -->
+        <input type="text" id="offerSearch"
+               data-i18n-placeholder="filter.offers_placeholder"
+               placeholder="Buscar en ofertas…"
+               oninput="applyOfferFilters()"> <!-- Campo de texto que filtra las ofertas por nombre al escribir -->
+      </div> <!-- Cierra el contenedor del campo de búsqueda en ofertas -->
+      <span class="filter-count" id="offerCount"></span> <!-- Contador de ofertas visibles, actualizado dinámicamente por ofertas.js -->
+    </div> <!-- Cierra la barra de filtros de la página de ofertas -->
+
+<!-- Cuadrícula de productos en oferta -->
+    <div class="products-grid" id="offersGrid"></div> <!-- Cuadrícula populada dinámicamente por ofertas.js con los productos que tienen descuento activo -->
+  </section> <!-- Cierra la sección principal de la página de ofertas -->
+</main> <!-- Cierra el contenido principal de la página de ofertas -->
+
+<!-- Bloque de scripts de la página de ofertas -->
+<script defer src="js/i18n.js?v=1"></script> <!-- Carga el sistema de internacionalización para textos multilingüe -->
+<script defer src="js/data-lite.js?v=5"></script> <!-- Carga el módulo de acceso a datos de productos de la tienda -->
+<script defer src="js/common.js?v=5"></script> <!-- Carga utilidades y funciones compartidas entre todas las páginas -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script> <!-- Carga el núcleo de Firebase para la conexión con la base de datos -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script> <!-- Carga el módulo de autenticación de Firebase para el login de usuarios -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script> <!-- Carga el módulo Firestore de Firebase para la base de datos de productos y pedidos -->
+<script defer src="js/auth.js?v=5"></script> <!-- Carga la lógica de autenticación y sesión de usuario de C-Shop -->
+<script defer src="js/layout.js?v=5"></script> <!-- Carga el módulo que construye la navegación, carrito y modal de login -->
+<script defer src="js/products.js?v=5"></script> <!-- Carga el módulo de renderizado de tarjetas de producto -->
+<script defer src="js/ofertas.js?v=5"></script> <!-- Carga la lógica específica de ofertas: filtrado por descuento, generación dinámica de categorías y ordenación -->
+</body> <!-- Cierra el cuerpo de la página de ofertas -->
+</html> <!-- Cierra el documento HTML de la página de ofertas -->

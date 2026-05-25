@@ -1,0 +1,2168 @@
+/* Variables CSS globales de diseño de la tienda */
+:root { /* Contenedor de variables CSS de ámbito global */
+
+  /* Colores de fondo de la tienda */
+  --bg:           #0a0a0b; /* Define el color de fondo oscuro base de toda la tienda */
+  --bg-elev:      #0f0f11; /* Define el fondo ligeramente elevado para topbar y pie de página */
+  --surface:      #141416; /* Define el fondo de tarjetas, modales y paneles principales */
+  --surface-2:    #1a1a1d; /* Define el fondo de elementos secundarios dentro de tarjetas */
+  --surface-3:    #232328; /* Define el fondo del nivel más profundo de capas de interfaz */
+
+  /* Colores de bordes de la tienda */
+  --border:       rgba(255,255,255,0.07); /* Define el borde sutil por defecto de tarjetas y divisores */
+  --border-mid:   rgba(255,255,255,0.12); /* Define el borde de intensidad media para énfasis moderado */
+  --border-strong:rgba(255,255,255,0.22); /* Define el borde fuerte para estados de foco o hover */
+
+  /* Colores de texto de la tienda */
+  --text:         #fafafa; /* Define el color de texto principal de la tienda */
+  --text-muted:   #a1a1aa; /* Define el color de texto secundario y etiquetas menos relevantes */
+  --text-dim:     #6b6b75; /* Define el color de texto atenuado para información auxiliar */
+
+  /* Color de acento violeta de la tienda */
+  --accent:       #8b5cf6; /* Define el color de acento violeta principal de botones y badges */
+  --accent-hover: #a78bfa; /* Define el color de acento violeta en estado hover */
+  --accent-dim:   rgba(139,92,246,0.15); /* Define el fondo semitransparente de acento para badges y focos */
+  --accent-ring:  rgba(139,92,246,0.35); /* Define el anillo de enfoque semitransparente de acento violeta */
+
+  /* Colores de estado del sistema */
+  --success:      #22c55e; /* Define el color verde para estados de éxito y confirmación */
+  --warning:      #f59e0b; /* Define el color ámbar para alertas y avisos */
+  --danger:       #ef4444; /* Define el color rojo para errores, eliminar y badges de oferta */
+
+  /* Degradados del hero y llamadas a la acción */
+  --grad-accent:  linear-gradient(135deg,#8b5cf6 0%,#6366f1 100%); /* Define el degradado violeta-índigo del hero y logo */
+  --grad-fade:    linear-gradient(180deg,rgba(139,92,246,0.08) 0%,transparent 70%); /* Define el degradado de fondo sutil del hero */
+
+  /* Sombras de la tienda */
+  --shadow-sm:    0 1px 2px rgba(0,0,0,0.4); /* Define la sombra pequeña para elementos sutilmente elevados */
+  --shadow:       0 4px 12px rgba(0,0,0,0.5); /* Define la sombra estándar para tarjetas y paneles */
+  --shadow-lg:    0 16px 48px rgba(0,0,0,0.6); /* Define la sombra grande para drawers, dropdowns y modales */
+  --shadow-glow:  0 0 0 1px var(--accent-ring), 0 8px 24px rgba(139,92,246,0.25); /* Define la sombra con brillo violeta para elementos destacados */
+
+  /* Radios de borde de la tienda */
+  --r-xs: 4px; /* Define el radio de borde mínimo para badges y elementos pequeños */
+  --r-sm: 6px; /* Define el radio de borde pequeño para botones secundarios e inputs */
+  --r:    10px; /* Define el radio de borde estándar de la tienda */
+  --r-lg: 14px; /* Define el radio de borde grande para tarjetas de producto y paneles */
+  --r-xl: 20px; /* Define el radio de borde extra grande para el hero y modales */
+
+  /* Velocidades de transición de la tienda */
+  --t-fast:   120ms ease; /* Define la transición rápida para cambios de color y opacidad */
+  --t:        180ms ease; /* Define la transición estándar para hover de tarjetas y botones */
+  --t-slow:   320ms cubic-bezier(.4,0,.2,1); /* Define la transición lenta y suavizada para el drawer del carrito */
+}
+
+/* Reset general de márgenes, rellenos y modelo de caja */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; } /* Aplica modelo de caja y elimina márgenes en todos los elementos */
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; } /* Activa desplazamiento suave y evita ajuste automático de texto en móvil */
+
+/* Estilos base del cuerpo de la página */
+body { /* Contenedor raíz de toda la interfaz de la tienda */
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif; /* Establece la tipografía principal de la tienda */
+  background: var(--bg); /* Aplica el fondo oscuro base a toda la página */
+  color: var(--text); /* Aplica el color de texto principal a toda la página */
+  min-height: 100vh; /* Asegura que la página ocupe al menos toda la altura de la ventana */
+  overflow-x: hidden; /* Oculta el desbordamiento horizontal para evitar scroll lateral */
+  font-feature-settings: 'cv11','ss01'; /* Activa variantes tipográficas para mejor legibilidad */
+  -webkit-font-smoothing: antialiased; /* Suaviza el renderizado de fuentes en WebKit */
+  line-height: 1.5; /* Establece el interlineado base de la tienda */
+}
+a { color: inherit; text-decoration: none; } /* Elimina estilos por defecto de enlaces heredando el color del contenedor */
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; } /* Normaliza los botones heredando la tipografía y eliminando estilos nativos */
+img { max-width: 100%; display: block; } /* Hace las imágenes responsivas y elimina el espacio inferior por defecto */
+input, select, textarea { font-family: inherit; } /* Aplica la tipografía de la tienda a todos los campos de formulario */
+
+/* Estilos de la barra de desplazamiento personalizada */
+::-webkit-scrollbar { width: 8px; height: 8px; } /* Define el ancho y alto de la scrollbar personalizada */
+::-webkit-scrollbar-track { background: transparent; } /* Hace transparente el fondo del carril de la scrollbar */
+::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 8px; } /* Estiliza el thumb de la scrollbar con fondo oscuro y bordes redondeados */
+::-webkit-scrollbar-thumb:hover { background: var(--border-strong); } /* Aclara el thumb de la scrollbar al pasar el ratón */
+
+/* Estilos de texto seleccionado */
+::selection { background: var(--accent-dim); color: var(--text); } /* Aplica fondo violeta semitransparente al texto seleccionado por el usuario */
+
+/* Estilos del topbar de anuncios superior */
+.topbar { /* Banda de información promocional fija encima del header */
+  background: var(--bg-elev); /* Aplica el fondo elevado al topbar */
+  border-bottom: 1px solid var(--border); /* Añade borde inferior sutil al topbar */
+  text-align: center; /* Centra el contenido del topbar */
+  font-size: .75rem; /* Reduce el tamaño de texto del topbar */
+  padding: 8px 20px; /* Añade relleno vertical y horizontal al topbar */
+  color: var(--text-muted); /* Aplica el color de texto secundario al topbar */
+  letter-spacing: .2px; /* Añade espaciado mínimo entre letras del topbar */
+}
+.topbar span { color: var(--text); font-weight: 600; } /* Resalta palabras clave del mensaje del topbar */
+
+/* Estilos del encabezado fijo de la tienda */
+header { /* Contenedor del encabezado principal con logo, buscador y acciones */
+  position: sticky; /* Fija el encabezado al desplazarse por la página */
+  top: 0; /* Ancla el encabezado en el borde superior de la ventana */
+  z-index: 100; /* Coloca el encabezado por encima del contenido principal */
+  background: rgba(10,10,11,0.85); /* Aplica fondo oscuro semitransparente al encabezado */
+  backdrop-filter: saturate(180%) blur(20px); /* Desenfoca y satura el contenido detrás del encabezado */
+  -webkit-backdrop-filter: saturate(180%) blur(20px); /* Versión WebKit del filtro de fondo del encabezado */
+  border-bottom: 1px solid var(--border); /* Añade borde inferior sutil al encabezado */
+}
+
+/* Contenedor interno del encabezado principal */
+.header-main { /* Rejilla interna del encabezado con logo, buscador y botones */
+  display: grid; /* Activa el layout de rejilla para el encabezado */
+  grid-template-columns: auto 1fr auto; /* Distribuye logo, buscador y acciones en tres columnas */
+  align-items: center; /* Alinea verticalmente los elementos del encabezado */
+  gap: 24px; /* Añade separación entre las columnas del encabezado */
+  max-width: 1440px; /* Limita el ancho máximo del encabezado */
+  margin: 0 auto; /* Centra el encabezado horizontalmente */
+  padding: 14px 24px; /* Añade relleno interno al encabezado */
+}
+
+/* Estilos del logotipo de la tienda */
+.logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; } /* Alinea el icono y el texto del logotipo horizontalmente */
+.logo-icon { /* Caja cuadrada con degradado violeta del icono del logotipo */
+  width: 34px; height: 34px; /* Define el tamaño del icono del logotipo */
+  background: var(--grad-accent); /* Aplica el degradado violeta al icono del logotipo */
+  border-radius: 8px; /* Redondea las esquinas del icono del logotipo */
+  display: flex; align-items: center; justify-content: center; /* Centra el contenido dentro del icono */
+  font-size: 1.05rem; /* Define el tamaño del símbolo dentro del icono */
+  color: #fff; /* Aplica color blanco al símbolo del icono */
+  font-weight: 700; /* Aplica negrita al símbolo del icono */
+}
+.logo-text { /* Texto tipográfico del nombre de la tienda */
+  font-family: 'Syne', sans-serif; /* Aplica la tipografía Syne al nombre de la tienda */
+  font-weight: 700; /* Aplica negrita al nombre de la tienda */
+  font-size: 1.2rem; /* Define el tamaño del nombre de la tienda */
+  letter-spacing: -.02em; /* Ajusta el espaciado del nombre de la tienda */
+}
+.logo-text span { /* Parte del nombre de la tienda con degradado violeta */
+  background: var(--grad-accent); /* Aplica el degradado violeta al texto del logotipo */
+  -webkit-background-clip: text; /* Recorta el degradado al contorno del texto */
+  background-clip: text; /* Versión estándar del recorte de degradado al texto */
+  -webkit-text-fill-color: transparent; /* Hace transparente el relleno del texto para mostrar el degradado */
+}
+
+/* Estilos del buscador del encabezado */
+.search-wrap { position: relative; width: 100%; max-width: 560px; justify-self: center; } /* Contenedor relativo del campo de búsqueda centrado en el encabezado */
+.search-wrap input { /* Campo de texto del buscador principal */
+  width: 100%; /* Ocupa todo el ancho del contenedor del buscador */
+  background: var(--surface); /* Aplica el fondo de superficie al input del buscador */
+  border: 1px solid var(--border); /* Añade borde sutil al input del buscador */
+  border-radius: var(--r); /* Redondea las esquinas del input del buscador */
+  padding: 10px 44px 10px 16px; /* Añade relleno con espacio para el botón de búsqueda */
+  color: var(--text); /* Aplica el color de texto principal al input del buscador */
+  font-size: .9rem; /* Define el tamaño de texto del input del buscador */
+  transition: all var(--t); /* Anima los cambios de estado del input del buscador */
+  outline: none; /* Elimina el contorno nativo del foco del input */
+}
+.search-wrap input::placeholder { color: var(--text-dim); } /* Estiliza el texto de placeholder del buscador */
+.search-wrap input:focus { /* Estado de foco del input del buscador */
+  border-color: var(--accent); /* Cambia el borde al color de acento al enfocar el buscador */
+  box-shadow: 0 0 0 3px var(--accent-dim); /* Añade anillo de foco violeta semitransparente al buscador */
+  background: var(--surface-2); /* Aclara ligeramente el fondo del buscador al enfocarlo */
+}
+
+/* Botón de lupa dentro del buscador */
+.search-btn { /* Botón icónico de búsqueda dentro del campo */
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%); /* Posiciona el botón centrado verticalmente a la derecha */
+  background: transparent; /* Fondo transparente del botón de búsqueda */
+  border-radius: var(--r-sm); /* Redondea las esquinas del botón de búsqueda */
+  width: 32px; height: 32px; /* Define el tamaño del botón de búsqueda */
+  display: flex; align-items: center; justify-content: center; /* Centra el icono dentro del botón */
+  color: var(--text-muted); /* Aplica el color de texto secundario al icono de búsqueda */
+  font-size: .9rem; /* Define el tamaño del icono de búsqueda */
+  transition: all var(--t); /* Anima los cambios de estado del botón de búsqueda */
+}
+.search-btn:hover { color: var(--text); background: var(--surface-2); } /* Resalta el botón de búsqueda al pasar el ratón */
+
+/* Dropdown de resultados de búsqueda en tiempo real */
+.search-results-dropdown { /* Panel flotante de resultados del buscador */
+  position: absolute; /* Posiciona el dropdown relativo al buscador */
+  top: calc(100% + 6px); /* Separa el dropdown 6px por debajo del buscador */
+  left: 0; right: 0; /* Ocupa el mismo ancho que el buscador */
+  background: var(--surface); /* Aplica el fondo de superficie al dropdown */
+  border: 1px solid var(--border-mid); /* Añade borde de intensidad media al dropdown */
+  border-radius: var(--r); /* Redondea las esquinas del dropdown */
+  max-height: 420px; /* Limita la altura máxima del dropdown */
+  overflow-y: auto; /* Añade scroll vertical al dropdown cuando hay muchos resultados */
+  box-shadow: var(--shadow-lg); /* Aplica sombra grande al dropdown de búsqueda */
+  display: none; /* Oculta el dropdown por defecto */
+  z-index: 200; /* Coloca el dropdown por encima del contenido */
+  padding: 4px; /* Añade relleno interno al dropdown */
+}
+.search-results-dropdown.open { display: block; } /* Muestra el dropdown cuando tiene la clase open */
+
+/* Fila de resultado individual en el dropdown de búsqueda */
+.search-result-item { /* Elemento de resultado dentro del dropdown de búsqueda */
+  display: flex; align-items: center; gap: 12px; /* Alinea imagen, información y precio horizontalmente */
+  padding: 10px 12px; /* Añade relleno interno a cada resultado */
+  cursor: pointer; /* Muestra cursor de puntero sobre cada resultado */
+  border-radius: var(--r-sm); /* Redondea las esquinas de cada resultado */
+  transition: background var(--t-fast); /* Anima el fondo del resultado al pasar el ratón */
+}
+.search-result-item:hover { background: var(--surface-2); } /* Resalta el resultado al pasar el ratón */
+.search-result-item .sri-img { /* Miniatura del producto en el resultado de búsqueda */
+  width: 40px; height: 40px; /* Define el tamaño de la miniatura del resultado */
+  background: var(--surface-2); /* Aplica fondo al contenedor de la miniatura */
+  border-radius: var(--r-sm); /* Redondea las esquinas de la miniatura */
+  flex-shrink: 0; /* Impide que la miniatura se encoja */
+  display: flex; align-items: center; justify-content: center; /* Centra el contenido de la miniatura */
+  font-size: 1.2rem; /* Define el tamaño del emoji de fallback */
+  overflow: hidden; /* Recorta la imagen al contenedor de la miniatura */
+}
+.search-result-item .sri-img img { width: 100%; height: 100%; object-fit: cover; } /* Ajusta la imagen de producto al contenedor del resultado */
+.search-result-item .sri-info { flex: 1; min-width: 0; } /* Bloque de información del resultado que ocupa el espacio disponible */
+.search-result-item .sri-name { /* Nombre del producto en el resultado de búsqueda */
+  font-size: .85rem; font-weight: 500; /* Define tamaño y peso del nombre del resultado */
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; /* Trunca el nombre largo con puntos suspensivos */
+  color: var(--text); /* Aplica el color de texto principal al nombre del resultado */
+}
+.search-result-item .sri-cat { font-size: .72rem; color: var(--text-dim); margin-top: 2px; } /* Muestra la categoría del producto en el resultado de búsqueda */
+.search-result-item .sri-price { /* Precio del producto en el resultado de búsqueda */
+  font-size: .9rem; font-weight: 600; /* Define tamaño y peso del precio del resultado */
+  color: var(--accent-hover); /* Aplica el color de acento al precio del resultado */
+  flex-shrink: 0; /* Impide que el precio se encoja */
+}
+.search-no-results { /* Mensaje cuando no hay resultados en el buscador */
+  padding: 24px; /* Añade relleno al mensaje de sin resultados */
+  text-align: center; /* Centra el mensaje de sin resultados */
+  color: var(--text-muted); /* Aplica color secundario al mensaje de sin resultados */
+  font-size: .85rem; /* Define el tamaño del mensaje de sin resultados */
+}
+
+/* Zona derecha del encabezado con botones de acción */
+.header-right { display: flex; align-items: center; gap: 6px; } /* Alinea horizontalmente los botones de acción del encabezado */
+.hbtn { /* Botón genérico del encabezado para acciones como idioma, favoritos y carrito */
+  display: inline-flex; align-items: center; gap: 6px; /* Alinea icono y etiqueta del botón del encabezado */
+  background: transparent; /* Fondo transparente del botón del encabezado */
+  border: 1px solid transparent; /* Borde transparente para reservar espacio en el botón */
+  border-radius: var(--r); /* Redondea las esquinas del botón del encabezado */
+  padding: 8px 12px; /* Añade relleno interno al botón del encabezado */
+  font-size: .85rem; font-weight: 500; /* Define tamaño y peso del texto del botón */
+  color: var(--text-muted); /* Aplica color secundario al botón del encabezado */
+  position: relative; /* Establece contexto de posicionamiento para el badge del carrito */
+  transition: all var(--t); /* Anima los cambios de estado del botón del encabezado */
+}
+.hbtn:hover { color: var(--text); background: var(--surface); } /* Resalta el botón del encabezado al pasar el ratón */
+.hbtn-icon { font-size: 1rem; } /* Define el tamaño del icono dentro del botón del encabezado */
+.hbtn-label { display: inline; } /* Muestra la etiqueta de texto del botón del encabezado */
+.lang-btn { font-weight: 600; } /* Aplica negrita al botón de selección de idioma */
+
+/* Badge de cantidad del carrito */
+.cart-count { /* Indicador numérico de productos en el carrito */
+  position: absolute; top: -4px; right: -4px; /* Posiciona el badge en la esquina superior derecha del botón */
+  min-width: 18px; height: 18px; padding: 0 5px; /* Define el tamaño mínimo del badge del carrito */
+  background: var(--accent); /* Aplica el color de acento al badge del carrito */
+  color: #fff; /* Aplica color blanco al número del badge */
+  border-radius: 9px; /* Hace el badge circular */
+  font-size: .68rem; font-weight: 700; /* Define tamaño y peso del número del badge */
+  display: none; align-items: center; justify-content: center; /* Oculta y centra el badge por defecto */
+  border: 2px solid var(--bg); /* Añade borde oscuro para separar el badge del botón */
+}
+.cart-count.visible { display: flex; } /* Muestra el badge del carrito cuando tiene productos */
+
+/* Botón de inicio de sesión del encabezado */
+.login-btn-header { /* Botón principal de acceso a la cuenta del usuario */
+  background: var(--text); /* Aplica fondo blanco al botón de login */
+  color: var(--bg); /* Aplica color oscuro al texto del botón de login */
+  font-weight: 600; /* Aplica negrita al texto del botón de login */
+  font-size: .82rem; /* Define el tamaño del texto del botón de login */
+  padding: 8px 16px; /* Añade relleno al botón de login */
+  border-radius: var(--r); /* Redondea las esquinas del botón de login */
+  transition: all var(--t); /* Anima los cambios de estado del botón de login */
+}
+.login-btn-header:hover { background: var(--text-muted); } /* Oscurece el botón de login al pasar el ratón */
+
+/* Chip de usuario autenticado en el encabezado */
+.user-chip { /* Indicador del usuario que ha iniciado sesión */
+  display: flex; align-items: center; gap: 8px; /* Alinea avatar y nombre del usuario horizontalmente */
+  background: var(--surface); /* Aplica fondo de superficie al chip de usuario */
+  border: 1px solid var(--border); /* Añade borde sutil al chip de usuario */
+  border-radius: var(--r); /* Redondea las esquinas del chip de usuario */
+  padding: 6px 12px; /* Añade relleno interno al chip de usuario */
+  font-size: .82rem; font-weight: 500; /* Define tamaño y peso del texto del chip de usuario */
+  cursor: pointer; /* Muestra cursor de puntero sobre el chip de usuario */
+  transition: all var(--t); /* Anima los cambios de estado del chip de usuario */
+}
+.user-chip:hover { border-color: var(--border-strong); } /* Resalta el borde del chip de usuario al pasar el ratón */
+.user-avatar { /* Círculo con las iniciales del usuario autenticado */
+  width: 22px; height: 22px; /* Define el tamaño del avatar del usuario */
+  border-radius: 50%; /* Hace circular el avatar del usuario */
+  background: var(--grad-accent); /* Aplica el degradado violeta al avatar del usuario */
+  color: #fff; /* Aplica color blanco a las iniciales del avatar */
+  display: flex; align-items: center; justify-content: center; /* Centra las iniciales dentro del avatar */
+  font-size: .72rem; font-weight: 700; /* Define tamaño y peso de las iniciales del avatar */
+}
+
+/* Estilos de la barra de navegación secundaria de categorías */
+.subnav { /* Barra de categorías fija debajo del encabezado principal */
+  background: var(--bg); /* Aplica el fondo oscuro base a la subnav */
+  border-bottom: 1px solid var(--border); /* Añade borde inferior a la subnav */
+  position: sticky; /* Fija la subnav al desplazarse por la página */
+  top: 64px; /* Ancla la subnav justo debajo del encabezado principal */
+  z-index: 90; /* Coloca la subnav por encima del contenido pero debajo del header */
+}
+.subnav-inner { /* Contenedor interno de la barra de categorías */
+  max-width: 1440px; /* Limita el ancho máximo de la subnav */
+  margin: 0 auto; /* Centra la subnav horizontalmente */
+  padding: 0 24px; /* Añade relleno horizontal a la subnav */
+  display: flex; /* Activa el layout flex para los botones de la subnav */
+  align-items: center; /* Alinea verticalmente los botones de la subnav */
+  gap: 4px; /* Añade separación mínima entre los botones de la subnav */
+  overflow-x: auto; /* Permite scroll horizontal si hay muchas categorías */
+  scrollbar-width: none; /* Oculta la scrollbar en Firefox */
+}
+.subnav-inner::-webkit-scrollbar { display: none; } /* Oculta la scrollbar en WebKit para la subnav */
+.subnav-cats { position: relative; } /* Establece contexto de posicionamiento para el dropdown de categorías */
+
+/* Botón de categoría en la subnav */
+.subnav-btn { /* Botón de navegación por categoría en la barra secundaria */
+  display: inline-flex; align-items: center; gap: 8px; /* Alinea icono y texto del botón de categoría */
+  padding: 12px 14px; /* Añade relleno interno al botón de categoría */
+  font-size: .85rem; font-weight: 500; /* Define tamaño y peso del texto del botón */
+  color: var(--text-muted); /* Aplica color secundario al botón de categoría inactivo */
+  white-space: nowrap; /* Impide el salto de línea en el texto del botón */
+  border-bottom: 2px solid transparent; /* Reserva espacio para el indicador activo del botón */
+  transition: all var(--t); /* Anima los cambios de estado del botón de categoría */
+  position: relative; /* Establece contexto para el badge de favoritos */
+}
+.subnav-btn:hover { color: var(--text); } /* Resalta el texto del botón de categoría al pasar el ratón */
+.subnav-btn.active { /* Estado activo del botón de categoría seleccionada */
+  color: var(--text); /* Aplica el color de texto principal al botón activo */
+  border-bottom-color: var(--accent); /* Muestra el indicador violeta en el botón activo */
+}
+.snb-icon { font-size: 1rem; } /* Define el tamaño del icono emoji dentro del botón de subnav */
+.subnav-divider { display: none; } /* Oculta el divisor de la subnav por defecto */
+
+/* Badge de oferta en el botón de ofertas de la subnav */
+.offers-badge { /* Etiqueta roja de oferta dentro del botón de la subnav */
+  font-size: .6rem; font-weight: 700; /* Define tamaño y peso del texto del badge de oferta */
+  padding: 2px 6px; /* Añade relleno interno al badge de oferta */
+  background: var(--danger); /* Aplica color rojo al badge de oferta */
+  color: #fff; /* Aplica color blanco al texto del badge de oferta */
+  border-radius: 4px; /* Redondea ligeramente las esquinas del badge de oferta */
+  letter-spacing: .04em; /* Añade espaciado entre letras del badge de oferta */
+}
+
+/* Badge de cantidad de favoritos en la subnav */
+.fav-badge { /* Indicador numérico de productos favoritos en la subnav */
+  position: absolute; /* Posiciona el badge sobre el botón de favoritos */
+  top: 6px; right: 0; /* Coloca el badge en la esquina superior derecha */
+  min-width: 16px; height: 16px; padding: 0 4px; /* Define el tamaño mínimo del badge de favoritos */
+  background: var(--danger); /* Aplica color rojo al badge de favoritos */
+  color: #fff; /* Aplica color blanco al número del badge de favoritos */
+  border-radius: 8px; /* Hace el badge circular */
+  font-size: .65rem; font-weight: 700; /* Define tamaño y peso del número del badge */
+  display: none; align-items: center; justify-content: center; /* Oculta y centra el badge por defecto */
+}
+.fav-badge.visible { display: flex; } /* Muestra el badge de favoritos cuando hay productos guardados */
+
+/* Dropdown de subcategorías del botón de categorías */
+.cats-dropdown { /* Panel flotante con la lista de todas las categorías */
+  position: fixed; /* Posiciona el dropdown de forma fija en pantalla */
+  min-width: 240px; /* Define el ancho mínimo del dropdown de categorías */
+  background: var(--surface); /* Aplica el fondo de superficie al dropdown */
+  border: 1px solid var(--border-mid); /* Añade borde de intensidad media al dropdown */
+  border-radius: var(--r); /* Redondea las esquinas del dropdown de categorías */
+  padding: 6px; /* Añade relleno interno al dropdown */
+  box-shadow: var(--shadow-lg); /* Aplica sombra grande al dropdown de categorías */
+  display: none; /* Oculta el dropdown por defecto */
+  z-index: 200; /* Coloca el dropdown por encima del contenido */
+  max-height: 460px; /* Limita la altura máxima del dropdown */
+  overflow-y: auto; /* Añade scroll vertical al dropdown si hay muchas categorías */
+}
+.cats-dropdown.open { display: block; } /* Muestra el dropdown de categorías cuando tiene la clase open */
+
+/* Elemento de categoría dentro del dropdown */
+.cat-drop-item { /* Fila de categoría dentro del dropdown de navegación */
+  display: flex; align-items: center; gap: 10px; /* Alinea icono y nombre de la categoría */
+  padding: 10px 12px; /* Añade relleno a cada elemento del dropdown */
+  border-radius: var(--r-sm); /* Redondea las esquinas del elemento del dropdown */
+  cursor: pointer; /* Muestra cursor de puntero sobre el elemento */
+  font-size: .88rem; /* Define el tamaño de texto del elemento del dropdown */
+  color: var(--text-muted); /* Aplica color secundario al elemento del dropdown */
+  transition: all var(--t-fast); /* Anima los cambios de estado del elemento */
+}
+.cat-drop-item:hover { /* Estado hover del elemento de categoría en el dropdown */
+  background: var(--surface-2); /* Resalta el fondo del elemento al pasar el ratón */
+  color: var(--text); /* Aplica el color de texto principal al elemento hover */
+}
+.cdi-icon { font-size: 1.1rem; width: 24px; text-align: center; } /* Icono centrado de la categoría en el dropdown */
+
+/* Estilos del contenedor principal y secciones de vista */
+main { display: block; } /* Establece el elemento main como bloque de contenido */
+.section { /* Contenedor de sección de vista de la tienda */
+  max-width: 1440px; /* Limita el ancho máximo de cada sección */
+  margin: 0 auto; /* Centra la sección horizontalmente */
+  padding: 40px 24px; /* Añade relleno interno a la sección */
+  display: none; /* Oculta todas las secciones por defecto */
+}
+.section.visible, #home-view.visible { display: block; } /* Muestra solo la sección activa de la tienda */
+.section-header { /* Encabezado de sección con título y enlace de ver todo */
+  display: flex; align-items: flex-end; justify-content: space-between; /* Alinea título y enlace en extremos opuestos */
+  margin-bottom: 28px; /* Añade separación entre el encabezado y el contenido de la sección */
+  gap: 16px; /* Añade separación mínima entre los elementos del encabezado de sección */
+  flex-wrap: wrap; /* Permite que los elementos del encabezado salten de línea en pantallas pequeñas */
+}
+.section-title { /* Título principal de cada sección de la tienda */
+  font-family: 'Syne', sans-serif; /* Aplica la tipografía Syne al título de sección */
+  font-size: 1.6rem; /* Define el tamaño del título de sección */
+  font-weight: 700; /* Aplica negrita al título de sección */
+  letter-spacing: -.02em; /* Ajusta el espaciado del título de sección */
+  display: flex; align-items: center; gap: 10px; /* Alinea el icono y el texto del título de sección */
+}
+.st-icon { font-size: 1.4rem; } /* Define el tamaño del icono emoji del título de sección */
+.see-all { /* Enlace para ver todos los productos de una sección */
+  font-size: .85rem; font-weight: 500; /* Define tamaño y peso del enlace de ver todo */
+  color: var(--accent-hover); /* Aplica el color de acento al enlace de ver todo */
+  cursor: pointer; /* Muestra cursor de puntero sobre el enlace */
+  transition: color var(--t-fast); /* Anima el cambio de color del enlace */
+}
+.see-all:hover { color: var(--text); } /* Cambia el color del enlace de ver todo al pasar el ratón */
+
+/* Estilos del bloque hero de la página de inicio */
+.hero { /* Sección hero principal de la tienda con titular y llamada a la acción */
+  max-width: 1440px; /* Limita el ancho máximo del hero */
+  margin: 0 auto; /* Centra el hero horizontalmente */
+  padding: 64px 24px 48px; /* Añade relleno interno al hero */
+  position: relative; /* Establece contexto de posicionamiento para el degradado de fondo */
+}
+.hero::before { /* Capa de degradado de fondo sutil del hero */
+  content: ''; /* Genera el pseudoelemento del degradado del hero */
+  position: absolute; /* Posiciona el degradado relativo al hero */
+  inset: 0; /* Expande el degradado a todos los bordes del hero */
+  background: var(--grad-fade); /* Aplica el degradado violeta desvanecido al fondo del hero */
+  pointer-events: none; /* Impide que el degradado bloquee los clics del usuario */
+  z-index: -1; /* Coloca el degradado detrás del contenido del hero */
+}
+.hero-grid { /* Rejilla de dos columnas del contenido del hero */
+  display: grid; /* Activa el layout de rejilla para el hero */
+  grid-template-columns: 1.4fr 1fr; /* Divide el hero en columna principal más ancha y lateral */
+  gap: 32px; /* Añade separación entre las columnas del hero */
+  align-items: stretch; /* Estira las columnas del hero a la misma altura */
+}
+
+/* Bloque principal del hero con titular y CTA */
+.hero-main { /* Panel izquierdo principal del hero con el mensaje de la tienda */
+  background: var(--surface); /* Aplica fondo de superficie al panel principal del hero */
+  border: 1px solid var(--border); /* Añade borde sutil al panel principal del hero */
+  border-radius: var(--r-xl); /* Redondea fuertemente las esquinas del panel del hero */
+  padding: 56px 48px; /* Añade relleno generoso al panel principal del hero */
+  position: relative; /* Establece contexto para la decoración radial del hero */
+  overflow: hidden; /* Recorta la decoración radial al contorno del panel */
+}
+.hero-main::after { /* Orbe decorativo radial en la esquina del panel del hero */
+  content: ''; /* Genera el pseudoelemento del orbe decorativo del hero */
+  position: absolute; /* Posiciona el orbe relativo al panel del hero */
+  top: -50%; right: -10%; /* Coloca el orbe en la esquina superior derecha del panel */
+  width: 500px; height: 500px; /* Define el tamaño del orbe decorativo del hero */
+  background: radial-gradient(circle, rgba(139,92,246,0.18), transparent 60%); /* Crea el brillo radial violeta del hero */
+  pointer-events: none; /* Impide que el orbe bloquee los clics del usuario */
+}
+.hero-badge { /* Etiqueta de estado o novedad sobre el titular del hero */
+  display: inline-flex; align-items: center; /* Alinea el contenido de la etiqueta del hero */
+  background: var(--accent-dim); /* Aplica fondo violeta semitransparente a la etiqueta */
+  color: var(--accent-hover); /* Aplica el color de acento al texto de la etiqueta del hero */
+  font-size: .78rem; font-weight: 500; /* Define tamaño y peso del texto de la etiqueta */
+  padding: 6px 12px; /* Añade relleno a la etiqueta del hero */
+  border-radius: 999px; /* Hace completamente redondeada la etiqueta del hero */
+  border: 1px solid var(--accent-ring); /* Añade borde anillo al contorno de la etiqueta */
+  margin-bottom: 24px; /* Separa la etiqueta del titular del hero */
+  position: relative; /* Establece contexto de posicionamiento para la etiqueta */
+}
+.hero-main h1 { /* Titular principal del hero de la tienda */
+  font-family: 'Syne', sans-serif; /* Aplica la tipografía Syne al titular del hero */
+  font-size: clamp(2.2rem, 4vw, 3.6rem); /* Escala el tamaño del titular según el ancho de la ventana */
+  font-weight: 800; /* Aplica el peso máximo al titular del hero */
+  line-height: 1.05; /* Reduce el interlineado del titular del hero */
+  letter-spacing: -.03em; /* Ajusta el espaciado negativo del titular del hero */
+  margin-bottom: 20px; /* Separa el titular del subtítulo del hero */
+  position: relative; /* Establece contexto de posicionamiento para el titular */
+}
+.hero-main h1 .hl { /* Palabra destacada con degradado violeta dentro del titular del hero */
+  background: var(--grad-accent); /* Aplica el degradado violeta-índigo al texto destacado */
+  -webkit-background-clip: text; /* Recorta el degradado al contorno del texto destacado */
+  background-clip: text; /* Versión estándar del recorte de degradado al texto */
+  -webkit-text-fill-color: transparent; /* Hace transparente el relleno para mostrar el degradado */
+}
+.hero-main p { /* Subtítulo descriptivo del hero de la tienda */
+  font-size: 1.05rem; /* Define el tamaño del subtítulo del hero */
+  color: var(--text-muted); /* Aplica el color de texto secundario al subtítulo del hero */
+  max-width: 540px; /* Limita el ancho del subtítulo para mejor legibilidad */
+  margin-bottom: 32px; /* Separa el subtítulo de los botones CTA del hero */
+  position: relative; /* Establece contexto de posicionamiento para el subtítulo */
+}
+.hero-cta { /* Grupo de botones de llamada a la acción del hero */
+  display: flex; gap: 12px; /* Alinea los botones CTA horizontalmente con separación */
+  position: relative; /* Establece contexto de posicionamiento para el grupo de botones */
+  flex-wrap: wrap; /* Permite que los botones salten de línea en pantallas pequeñas */
+}
+.hero-deco { /* Icono decorativo grande y transparente en la esquina del hero */
+  position: absolute; /* Posiciona el icono decorativo en la esquina del panel */
+  bottom: 24px; right: 32px; /* Coloca el icono en la esquina inferior derecha del hero */
+  font-size: 6rem; /* Define el tamaño grande del icono decorativo del hero */
+  opacity: .06; /* Aplica opacidad muy baja al icono decorativo del hero */
+  pointer-events: none; /* Impide que el icono decorativo bloquee los clics */
+}
+
+/* Botones principales de la tienda */
+.btn-primary { /* Botón de acción primaria de la tienda */
+  background: var(--text); /* Aplica fondo blanco al botón primario */
+  color: var(--bg); /* Aplica color oscuro al texto del botón primario */
+  font-weight: 600; /* Aplica negrita al texto del botón primario */
+  font-size: .9rem; /* Define el tamaño del texto del botón primario */
+  padding: 12px 22px; /* Añade relleno interno al botón primario */
+  border-radius: var(--r); /* Redondea las esquinas del botón primario */
+  transition: all var(--t); /* Anima los cambios de estado del botón primario */
+  display: inline-flex; align-items: center; gap: 8px; /* Alinea icono y texto dentro del botón primario */
+}
+.btn-primary:hover { background: var(--accent); color: #fff; transform: translateY(-1px); } /* Cambia el botón primario a violeta y lo eleva al pasar el ratón */
+.btn-ghost { /* Botón de acción secundaria con borde y fondo transparente */
+  background: transparent; /* Fondo transparente del botón secundario */
+  border: 1px solid var(--border-mid); /* Añade borde de intensidad media al botón secundario */
+  color: var(--text); /* Aplica el color de texto principal al botón secundario */
+  font-weight: 500; /* Aplica peso medio al texto del botón secundario */
+  font-size: .9rem; /* Define el tamaño del texto del botón secundario */
+  padding: 12px 22px; /* Añade relleno interno al botón secundario */
+  border-radius: var(--r); /* Redondea las esquinas del botón secundario */
+  transition: all var(--t); /* Anima los cambios de estado del botón secundario */
+  display: inline-flex; align-items: center; gap: 8px; /* Alinea icono y texto dentro del botón secundario */
+}
+.btn-ghost:hover { background: var(--surface-2); border-color: var(--border-strong); } /* Resalta el botón secundario al pasar el ratón */
+
+/* Variante de botón extra grande para la home */
+.btn-xl { /* Botón de mayor tamaño para los CTA destacados de la página de inicio */
+  font-size: 1.05rem; /* Amplía el tamaño de texto del botón extra grande */
+  padding: 18px 32px; /* Añade relleno generoso al botón extra grande */
+  border-radius: var(--r-lg); /* Redondea más las esquinas del botón extra grande */
+  font-weight: 600; /* Aplica negrita al texto del botón extra grande */
+}
+
+/* Variante del panel del hero a ancho completo */
+.hero-main--full { width: 100%; max-width: none; padding: 72px 56px; } /* Extiende el hero a todo el ancho cuando no hay tarjetas laterales */
+.hero-main--full h1 { font-size: clamp(2.4rem, 5vw, 4.4rem); } /* Amplía el titular del hero cuando ocupa todo el ancho */
+.hero-main--full p  { font-size: 1.15rem; max-width: 620px; } /* Amplía el subtítulo del hero cuando ocupa todo el ancho */
+
+/* Columna lateral del hero con tarjetas de acceso rápido */
+.hero-side { /* Panel lateral del hero con tarjetas de configurador y novedades */
+  display: flex; /* Activa el layout flex para las tarjetas laterales del hero */
+  flex-direction: column; /* Apila las tarjetas laterales verticalmente */
+  gap: 16px; /* Añade separación entre las tarjetas laterales del hero */
+}
+.hero-side-card { /* Tarjeta de acceso rápido en la columna lateral del hero */
+  flex: 1; /* Distribuye el espacio disponible entre las tarjetas del lateral */
+  background: var(--surface); /* Aplica fondo de superficie a la tarjeta lateral del hero */
+  border: 1px solid var(--border); /* Añade borde sutil a la tarjeta lateral del hero */
+  border-radius: var(--r-xl); /* Redondea fuertemente las esquinas de la tarjeta lateral */
+  padding: 28px; /* Añade relleno interno a la tarjeta lateral del hero */
+  cursor: pointer; /* Muestra cursor de puntero sobre la tarjeta lateral */
+  position: relative; /* Establece contexto para la flecha y el icono decorativo */
+  overflow: hidden; /* Recorta el icono decorativo al contorno de la tarjeta */
+  transition: all var(--t); /* Anima los cambios de estado de la tarjeta lateral */
+}
+.hero-side-card:hover { /* Estado hover de la tarjeta lateral del hero */
+  border-color: var(--accent-ring); /* Aplica el borde de acento a la tarjeta lateral al pasar el ratón */
+  background: var(--surface-2); /* Aclara el fondo de la tarjeta lateral al pasar el ratón */
+  transform: translateY(-2px); /* Eleva ligeramente la tarjeta lateral al pasar el ratón */
+}
+.hsc-label { /* Etiqueta de categoría superior de la tarjeta lateral del hero */
+  display: inline-block; /* Muestra la etiqueta como bloque en línea */
+  font-size: .7rem; font-weight: 600; /* Define tamaño y peso de la etiqueta */
+  color: var(--accent-hover); /* Aplica el color de acento a la etiqueta de la tarjeta */
+  text-transform: uppercase; /* Convierte en mayúsculas el texto de la etiqueta */
+  letter-spacing: .08em; /* Añade espaciado entre letras de la etiqueta */
+  margin-bottom: 12px; /* Separa la etiqueta del título de la tarjeta */
+}
+.hsc-title { /* Título principal de la tarjeta lateral del hero */
+  font-family: 'Syne', sans-serif; /* Aplica la tipografía Syne al título de la tarjeta */
+  font-size: 1.4rem; font-weight: 700; /* Define tamaño y peso del título de la tarjeta */
+  margin-bottom: 6px; /* Separa el título del subtítulo de la tarjeta */
+  letter-spacing: -.02em; /* Ajusta el espaciado del título de la tarjeta */
+}
+.hsc-sub { /* Subtítulo descriptivo de la tarjeta lateral del hero */
+  color: var(--text-muted); /* Aplica color secundario al subtítulo de la tarjeta */
+  font-size: .88rem; /* Define el tamaño del subtítulo de la tarjeta */
+}
+.hsc-arrow { /* Flecha de navegación en la esquina inferior derecha de la tarjeta lateral */
+  position: absolute; /* Posiciona la flecha en la esquina de la tarjeta */
+  bottom: 24px; right: 24px; /* Coloca la flecha en la esquina inferior derecha */
+  font-size: 1.2rem; /* Define el tamaño de la flecha de navegación */
+  color: var(--text-dim); /* Aplica color atenuado a la flecha de navegación */
+  transition: all var(--t); /* Anima el movimiento de la flecha */
+}
+.hero-side-card:hover .hsc-arrow { /* Flecha de la tarjeta lateral al pasar el ratón */
+  color: var(--accent-hover); /* Cambia el color de la flecha al acento al hacer hover */
+  transform: translateX(4px); /* Desplaza la flecha hacia la derecha al hacer hover */
+}
+.hsc-deco { /* Icono decorativo semitransparente en la esquina superior de la tarjeta lateral */
+  position: absolute; /* Posiciona el icono decorativo en la tarjeta */
+  top: 24px; right: 24px; /* Coloca el icono en la esquina superior derecha de la tarjeta */
+  font-size: 2.4rem; /* Define el tamaño grande del icono decorativo */
+  opacity: .12; /* Aplica opacidad baja al icono decorativo de la tarjeta */
+}
+
+/* Rejilla de tarjetas de categorías de productos */
+.cats-grid { /* Cuadrícula de tarjetas de categorías de la tienda */
+  display: grid; /* Activa el layout de rejilla para las categorías */
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Genera columnas responsivas de mínimo 160px */
+  gap: 12px; /* Añade separación entre las tarjetas de categoría */
+}
+.cat-card { /* Tarjeta individual de categoría de producto */
+  background: var(--surface); /* Aplica fondo de superficie a la tarjeta de categoría */
+  border: 1px solid var(--border); /* Añade borde sutil a la tarjeta de categoría */
+  border-radius: var(--r); /* Redondea las esquinas de la tarjeta de categoría */
+  padding: 24px 16px; /* Añade relleno interno a la tarjeta de categoría */
+  text-align: center; /* Centra el contenido de la tarjeta de categoría */
+  cursor: pointer; /* Muestra cursor de puntero sobre la tarjeta de categoría */
+  transition: all var(--t); /* Anima los cambios de estado de la tarjeta de categoría */
+  display: flex; flex-direction: column; align-items: center; gap: 10px; /* Apila y centra icono y nombre en la tarjeta */
+  text-decoration: none; /* Elimina el subrayado del enlace de la tarjeta de categoría */
+}
+.cat-card:hover { /* Estado hover de la tarjeta de categoría */
+  background: var(--surface-2); /* Aclara el fondo de la tarjeta al pasar el ratón */
+  border-color: var(--accent-ring); /* Aplica el borde de acento a la tarjeta al pasar el ratón */
+  transform: translateY(-2px); /* Eleva ligeramente la tarjeta al pasar el ratón */
+}
+.cat-card.active { border-color: var(--accent); background: var(--accent-dim); } /* Estiliza la tarjeta de categoría seleccionada actualmente */
+.cat-icon { /* Contenedor del icono emoji de la categoría */
+  font-size: 2rem; /* Define el tamaño del emoji de la categoría */
+  width: 56px; height: 56px; /* Define el tamaño del contenedor del icono de categoría */
+  display: flex; align-items: center; justify-content: center; /* Centra el emoji dentro del contenedor */
+  background: var(--surface-2); /* Aplica fondo al contenedor del icono de categoría */
+  border-radius: var(--r); /* Redondea las esquinas del contenedor del icono */
+  transition: all var(--t); /* Anima el cambio de fondo del icono al hacer hover */
+}
+.cat-card:hover .cat-icon { background: var(--surface-3); } /* Oscurece el fondo del icono de categoría al pasar el ratón */
+.cat-name { /* Nombre de la categoría debajo del icono */
+  font-size: .85rem; /* Define el tamaño del nombre de la categoría */
+  font-weight: 500; /* Aplica peso medio al nombre de la categoría */
+  color: var(--text); /* Aplica el color de texto principal al nombre de la categoría */
+}
+
+/* Variante grande de la rejilla de categorías para la home */
+.cats-grid--big { /* Rejilla de categorías en tamaño ampliado para la página de inicio */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Genera columnas responsivas más anchas para la home */
+  gap: 18px; /* Amplía la separación entre las tarjetas grandes de categoría */
+}
+.cats-grid--big .cat-card { /* Tarjeta de categoría grande para la página de inicio */
+  padding: 40px 20px; /* Amplía el relleno de la tarjeta grande */
+  gap: 18px; /* Amplía la separación entre icono y nombre en la tarjeta grande */
+  border-radius: var(--r-lg); /* Redondea más las esquinas de la tarjeta grande */
+}
+.cats-grid--big .cat-icon { /* Icono de categoría en tamaño extra grande */
+  width: 88px; height: 88px; /* Amplía el tamaño del contenedor del icono grande */
+  font-size: 2.6rem; /* Amplía el tamaño del emoji en el icono grande */
+  border-radius: var(--r-lg); /* Redondea más las esquinas del icono grande */
+}
+.cats-grid--big .cat-name { /* Nombre de categoría en tamaño ampliado */
+  font-size: 1.05rem; /* Amplía el tamaño del nombre en la tarjeta grande */
+  font-weight: 600; /* Aplica negrita al nombre en la tarjeta grande */
+}
+.cats-grid--big .cat-card:hover { /* Estado hover de la tarjeta grande de categoría */
+  transform: translateY(-4px); /* Eleva más la tarjeta grande al pasar el ratón */
+  box-shadow: var(--shadow-lg); /* Aplica sombra grande a la tarjeta al pasar el ratón */
+}
+
+/* Animaciones de orbes decorativos para las tarjetas de acceso rápido */
+@keyframes orb-offers { /* Animación del orbe principal de la tarjeta de ofertas */
+  0%   { transform: translate(0%, 0%)   scale(1);    filter: hue-rotate(0deg); } /* Estado inicial del orbe de ofertas */
+  25%  { transform: translate(-30%, 40%) scale(1.3); filter: hue-rotate(20deg); } /* Posición intermedia del orbe de ofertas al 25% */
+  50%  { transform: translate(20%, 60%)  scale(0.85); filter: hue-rotate(-15deg); } /* Posición intermedia del orbe de ofertas al 50% */
+  75%  { transform: translate(40%, -20%) scale(1.2); filter: hue-rotate(30deg); } /* Posición intermedia del orbe de ofertas al 75% */
+  100% { transform: translate(0%, 0%)   scale(1);    filter: hue-rotate(0deg); } /* Estado final del orbe de ofertas que repite el inicio */
+}
+@keyframes orb-config { /* Animación del orbe principal de la tarjeta del configurador */
+  0%   { transform: translate(0%, 0%)   scale(1);    filter: hue-rotate(0deg); } /* Estado inicial del orbe del configurador */
+  25%  { transform: translate(30%, 30%)  scale(1.25); filter: hue-rotate(-20deg); } /* Posición intermedia del orbe del configurador al 25% */
+  50%  { transform: translate(-20%, 50%) scale(0.9);  filter: hue-rotate(25deg); } /* Posición intermedia del orbe del configurador al 50% */
+  75%  { transform: translate(-35%, -15%) scale(1.15); filter: hue-rotate(-10deg); } /* Posición intermedia del orbe del configurador al 75% */
+  100% { transform: translate(0%, 0%)   scale(1);    filter: hue-rotate(0deg); } /* Estado final del orbe del configurador que repite el inicio */
+}
+@keyframes orb-fav { /* Animación del orbe principal de la tarjeta de favoritos */
+  0%   { transform: translate(0%, 0%)   scale(1);    filter: hue-rotate(0deg); } /* Estado inicial del orbe de favoritos */
+  25%  { transform: translate(-25%, -35%) scale(1.2); filter: hue-rotate(15deg); } /* Posición intermedia del orbe de favoritos al 25% */
+  50%  { transform: translate(35%, 20%)  scale(0.8);  filter: hue-rotate(-25deg); } /* Posición intermedia del orbe de favoritos al 50% */
+  75%  { transform: translate(10%, 50%)  scale(1.35); filter: hue-rotate(20deg); } /* Posición intermedia del orbe de favoritos al 75% */
+  100% { transform: translate(0%, 0%)   scale(1);    filter: hue-rotate(0deg); } /* Estado final del orbe de favoritos que repite el inicio */
+}
+@keyframes orb-pulse { /* Animación de pulsación de opacidad para todos los orbes decorativos */
+  0%, 100% { opacity: .13; } /* Opacidad mínima del orbe en los extremos del ciclo */
+  50%       { opacity: .22; } /* Opacidad máxima del orbe en el centro del ciclo */
+}
+
+/* Animaciones del segundo orbe (::before) — sentido contrario para dar profundidad */
+@keyframes orb2-offers { /* Animación del orbe secundario de la tarjeta de ofertas */
+  0%   { transform: translate(100%, 80%)  scale(0.7); } /* Estado inicial del segundo orbe de ofertas */
+  33%  { transform: translate(60%, 120%)  scale(1.1); } /* Posición intermedia del segundo orbe de ofertas al 33% */
+  66%  { transform: translate(130%, 40%)  scale(0.85); } /* Posición intermedia del segundo orbe de ofertas al 66% */
+  100% { transform: translate(100%, 80%)  scale(0.7); } /* Estado final del segundo orbe de ofertas que repite el inicio */
+}
+@keyframes orb2-config { /* Animación del orbe secundario de la tarjeta del configurador */
+  0%   { transform: translate(-20%, 100%) scale(0.8); } /* Estado inicial del segundo orbe del configurador */
+  33%  { transform: translate(40%, 80%)   scale(1.0); } /* Posición intermedia del segundo orbe del configurador al 33% */
+  66%  { transform: translate(-40%, 60%)  scale(0.9); } /* Posición intermedia del segundo orbe del configurador al 66% */
+  100% { transform: translate(-20%, 100%) scale(0.8); } /* Estado final del segundo orbe del configurador que repite el inicio */
+}
+@keyframes orb2-fav { /* Animación del orbe secundario de la tarjeta de favoritos */
+  0%   { transform: translate(80%, -20%)  scale(0.75); } /* Estado inicial del segundo orbe de favoritos */
+  33%  { transform: translate(120%, 30%)  scale(1.05); } /* Posición intermedia del segundo orbe de favoritos al 33% */
+  66%  { transform: translate(60%, -40%)  scale(0.85); } /* Posición intermedia del segundo orbe de favoritos al 66% */
+  100% { transform: translate(80%, -20%)  scale(0.75); } /* Estado final del segundo orbe de favoritos que repite el inicio */
+}
+
+/* Rejilla de tarjetas de acceso rápido de la página de inicio */
+.quick-grid { /* Cuadrícula de acciones rápidas: ofertas, configurador y favoritos */
+  display: grid; /* Activa el layout de rejilla para las tarjetas de acceso rápido */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Genera columnas responsivas de mínimo 280px */
+  gap: 16px; /* Añade separación entre las tarjetas de acceso rápido */
+}
+.quick-card { /* Tarjeta individual de acceso rápido con orbes decorativos */
+  display: flex; /* Activa el layout flex para el contenido de la tarjeta */
+  align-items: center; /* Alinea verticalmente el icono, texto y flecha */
+  gap: 18px; /* Añade separación entre los elementos de la tarjeta */
+  background: var(--surface); /* Aplica fondo de superficie a la tarjeta de acceso rápido */
+  border: 1px solid var(--border); /* Añade borde sutil a la tarjeta de acceso rápido */
+  border-radius: var(--r-lg); /* Redondea las esquinas de la tarjeta de acceso rápido */
+  padding: 28px 28px; /* Añade relleno interno a la tarjeta de acceso rápido */
+  transition: all var(--t); /* Anima los cambios de estado de la tarjeta */
+  position: relative; /* Establece contexto para los orbes decorativos */
+  overflow: hidden; /* Recorta los orbes al contorno de la tarjeta */
+  text-decoration: none; /* Elimina el subrayado del enlace de la tarjeta */
+  color: inherit; /* Hereda el color del contenedor para el texto de la tarjeta */
+}
+
+/* Orbe decorativo primario (::after) de las tarjetas de acceso rápido */
+.quick-card::after { /* Orbe de color principal en la esquina superior derecha de la tarjeta */
+  content: ''; /* Genera el pseudoelemento del orbe primario */
+  position: absolute; /* Posiciona el orbe relativo a la tarjeta */
+  top: -40%; right: -10%; /* Coloca el orbe en la esquina superior derecha */
+  width: 220px; height: 220px; /* Define el tamaño del orbe primario */
+  border-radius: 50%; /* Hace circular el orbe primario */
+  pointer-events: none; /* Impide que el orbe bloquee los clics del usuario */
+  animation: orb-pulse 3s ease-in-out infinite; /* Aplica la animación de pulsación al orbe primario */
+}
+/* Orbe decorativo secundario (::before) de las tarjetas de acceso rápido */
+.quick-card::before { /* Orbe de color secundario en la esquina inferior izquierda de la tarjeta */
+  content: ''; /* Genera el pseudoelemento del orbe secundario */
+  position: absolute; /* Posiciona el orbe secundario relativo a la tarjeta */
+  bottom: -30%; left: -10%; /* Coloca el orbe secundario en la esquina inferior izquierda */
+  width: 160px; height: 160px; /* Define el tamaño del orbe secundario */
+  border-radius: 50%; /* Hace circular el orbe secundario */
+  opacity: .08; /* Aplica baja opacidad al orbe secundario */
+  pointer-events: none; /* Impide que el orbe secundario bloquee los clics */
+  animation: orb-pulse 4s ease-in-out infinite reverse; /* Aplica animación inversa al orbe secundario */
+}
+
+.quick-card:hover { /* Estado hover de la tarjeta de acceso rápido */
+  transform: translateY(-3px); /* Eleva la tarjeta al pasar el ratón */
+  border-color: var(--accent-ring); /* Aplica borde de acento a la tarjeta al pasar el ratón */
+  box-shadow: var(--shadow-lg); /* Aplica sombra grande a la tarjeta al pasar el ratón */
+}
+.quick-card:hover::after  { opacity: .28; } /* Aumenta la opacidad del orbe primario al hacer hover */
+.quick-card:hover::before { opacity: .15; } /* Aumenta la opacidad del orbe secundario al hacer hover */
+
+/* Orbes de la tarjeta de ofertas (rojo/naranja) */
+.quick-card--offers::after { /* Orbe primario rojo-naranja de la tarjeta de ofertas */
+  background: radial-gradient(circle, #ef4444 0%, #f97316 50%, transparent 75%); /* Crea el degradado radial rojo-naranja del orbe de ofertas */
+  animation: orb-offers 8s ease-in-out infinite, orb-pulse 3s ease-in-out infinite; /* Combina animación de movimiento y pulsación del orbe de ofertas */
+}
+.quick-card--offers::before { /* Orbe secundario naranja-rojo de la tarjeta de ofertas */
+  background: radial-gradient(circle, #f97316 0%, #ef4444 60%, transparent 80%); /* Crea el degradado radial naranja-rojo del segundo orbe de ofertas */
+  animation: orb2-offers 11s ease-in-out infinite, orb-pulse 4s ease-in-out infinite reverse; /* Combina animación de movimiento y pulsación inversa del segundo orbe */
+}
+
+/* Orbes de la tarjeta del configurador (violeta/azul) */
+.quick-card--config::after { /* Orbe primario violeta-azul de la tarjeta del configurador */
+  background: radial-gradient(circle, #8b5cf6 0%, #6366f1 50%, transparent 75%); /* Crea el degradado radial violeta-azul del orbe del configurador */
+  animation: orb-config 9s ease-in-out infinite, orb-pulse 3.5s ease-in-out infinite; /* Combina animaciones del orbe del configurador */
+}
+.quick-card--config::before { /* Orbe secundario azul-violeta de la tarjeta del configurador */
+  background: radial-gradient(circle, #6366f1 0%, #8b5cf6 60%, transparent 80%); /* Crea el degradado radial azul-violeta del segundo orbe del configurador */
+  animation: orb2-config 12s ease-in-out infinite, orb-pulse 4.5s ease-in-out infinite reverse; /* Combina animaciones del segundo orbe del configurador */
+}
+
+/* Orbes de la tarjeta de favoritos (rosa/fucsia) */
+.quick-card--fav::after { /* Orbe primario rosa-fucsia de la tarjeta de favoritos */
+  background: radial-gradient(circle, #ec4899 0%, #db2777 50%, transparent 75%); /* Crea el degradado radial rosa-fucsia del orbe de favoritos */
+  animation: orb-fav 7s ease-in-out infinite, orb-pulse 2.8s ease-in-out infinite; /* Combina animaciones del orbe de favoritos */
+}
+.quick-card--fav::before { /* Orbe secundario fucsia-rosa de la tarjeta de favoritos */
+  background: radial-gradient(circle, #db2777 0%, #ec4899 60%, transparent 80%); /* Crea el degradado radial fucsia-rosa del segundo orbe de favoritos */
+  animation: orb2-fav 10s ease-in-out infinite, orb-pulse 3.8s ease-in-out infinite reverse; /* Combina animaciones del segundo orbe de favoritos */
+}
+
+.quick-icon { /* Contenedor del icono emoji de la tarjeta de acceso rápido */
+  font-size: 2.4rem; /* Define el tamaño del emoji en la tarjeta de acceso rápido */
+  width: 64px; height: 64px; /* Define el tamaño del contenedor del icono */
+  background: var(--surface-2); /* Aplica fondo al contenedor del icono */
+  border-radius: var(--r); /* Redondea las esquinas del contenedor del icono */
+  display: flex; align-items: center; justify-content: center; /* Centra el emoji dentro del contenedor */
+  flex-shrink: 0; /* Impide que el icono se encoja */
+}
+.quick-info { flex: 1; min-width: 0; } /* Bloque de texto de la tarjeta de acceso rápido que ocupa el espacio disponible */
+.quick-title { /* Título principal de la tarjeta de acceso rápido */
+  font-family: 'Syne', sans-serif; /* Aplica la tipografía Syne al título de la tarjeta rápida */
+  font-size: 1.3rem; /* Define el tamaño del título de la tarjeta rápida */
+  font-weight: 700; /* Aplica negrita al título de la tarjeta rápida */
+  letter-spacing: -.01em; /* Ajusta el espaciado del título de la tarjeta rápida */
+  margin-bottom: 4px; /* Separa el título del subtítulo de la tarjeta rápida */
+}
+.quick-sub { /* Subtítulo descriptivo de la tarjeta de acceso rápido */
+  color: var(--text-muted); /* Aplica color secundario al subtítulo de la tarjeta rápida */
+  font-size: .88rem; /* Define el tamaño del subtítulo de la tarjeta rápida */
+  line-height: 1.4; /* Ajusta el interlineado del subtítulo de la tarjeta rápida */
+}
+.quick-arrow { /* Flecha de navegación al extremo derecho de la tarjeta rápida */
+  font-size: 1.4rem; /* Define el tamaño de la flecha de navegación */
+  color: var(--text-dim); /* Aplica color atenuado a la flecha de navegación */
+  transition: all var(--t); /* Anima el movimiento de la flecha */
+  flex-shrink: 0; /* Impide que la flecha se encoja */
+}
+.quick-card:hover .quick-arrow { /* Flecha de la tarjeta rápida al pasar el ratón */
+  color: var(--accent-hover); /* Cambia el color de la flecha al acento al hacer hover */
+  transform: translateX(4px); /* Desplaza la flecha hacia la derecha al hacer hover */
+}
+
+/* Rejilla principal del catálogo de productos */
+.products-grid { /* Cuadrícula de tarjetas de producto de la tienda */
+  display: grid; /* Activa el layout de rejilla para las tarjetas de producto */
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* Genera columnas responsivas de mínimo 240px */
+  gap: 16px; /* Añade separación entre las tarjetas de producto */
+}
+
+/* Estilos de la tarjeta de producto individual */
+.product-card { /* Tarjeta de producto del catálogo de la tienda */
+  background: var(--surface); /* Aplica fondo de superficie a la tarjeta de producto */
+  border: 1px solid var(--border); /* Añade borde sutil a la tarjeta de producto */
+  border-radius: var(--r-lg); /* Redondea las esquinas de la tarjeta de producto */
+  overflow: hidden; /* Recorta la imagen al contorno redondeado de la tarjeta */
+  cursor: pointer; /* Muestra cursor de puntero sobre la tarjeta de producto */
+  transition: all var(--t); /* Anima los cambios de estado de la tarjeta */
+  position: relative; /* Establece contexto para el badge y el botón de favorito */
+  display: flex; flex-direction: column; /* Apila verticalmente los elementos de la tarjeta */
+}
+.product-card:hover { /* Estado hover de la tarjeta de producto */
+  border-color: var(--border-strong); /* Resalta el borde de la tarjeta al pasar el ratón */
+  transform: translateY(-3px); /* Eleva la tarjeta de producto al pasar el ratón */
+  box-shadow: var(--shadow-lg); /* Aplica sombra grande a la tarjeta al pasar el ratón */
+}
+.pc-badge { /* Badge de etiqueta sobre la imagen del producto */
+  position: absolute; /* Posiciona el badge sobre la imagen del producto */
+  top: 10px; left: 10px; /* Coloca el badge en la esquina superior izquierda */
+  font-size: .65rem; font-weight: 700; /* Define tamaño y peso del texto del badge */
+  padding: 4px 8px; /* Añade relleno interno al badge del producto */
+  background: var(--accent); /* Aplica color de acento al badge del producto por defecto */
+  color: #fff; /* Aplica color blanco al texto del badge */
+  border-radius: var(--r-xs); /* Redondea mínimamente las esquinas del badge */
+  letter-spacing: .04em; /* Añade espaciado entre letras del badge */
+  z-index: 2; /* Coloca el badge por encima de la imagen del producto */
+}
+.pc-badge.top    { background: var(--danger); } /* Aplica color rojo al badge de producto destacado */
+.pc-badge.oferta { background: #f0b429; color: #000; } /* Aplica color ámbar y texto negro al badge de oferta */
+.pc-img { /* Contenedor de la imagen del producto en la tarjeta */
+  background: linear-gradient(180deg,#fff 0%,#f5f5f7 100%); /* Aplica degradado blanco al fondo de la imagen del producto */
+  aspect-ratio: 4 / 3; /* Mantiene proporción 4:3 para la imagen del producto */
+  position: relative; /* Establece contexto de posicionamiento para la imagen */
+  display: flex; align-items: center; justify-content: center; /* Centra la imagen dentro del contenedor */
+  overflow: hidden; /* Recorta la imagen al contenedor del producto */
+}
+.pc-img img { /* Imagen del producto dentro de la tarjeta */
+  width: 100%; height: 100%; /* Ocupa todo el espacio del contenedor de imagen */
+  object-fit: contain; /* Ajusta la imagen sin recortarla dentro del contenedor */
+  padding: 12px; /* Añade relleno para que la imagen no toque los bordes */
+  transition: transform var(--t-slow); /* Anima el zoom de la imagen al hacer hover */
+}
+.product-card:hover .pc-img img { transform: scale(1.05); } /* Aplica zoom sutil a la imagen del producto al pasar el ratón */
+.pc-img-fallback { /* Icono emoji de reserva cuando la imagen del producto falla */
+  font-size: 4rem; /* Define el tamaño del emoji de reserva */
+  opacity: .3; /* Aplica baja opacidad al emoji de reserva */
+  display: none; /* Oculta el emoji de reserva por defecto */
+  align-items: center; justify-content: center; /* Centra el emoji de reserva en el contenedor */
+  color: #333; /* Aplica color oscuro al emoji de reserva */
+}
+
+/* Botón de favorito flotante sobre la imagen del producto */
+.pc-fav-btn { /* Botón de corazón para guardar el producto en favoritos */
+  position: absolute; /* Posiciona el botón sobre la imagen del producto */
+  top: 10px; right: 10px; /* Coloca el botón en la esquina superior derecha de la imagen */
+  background: rgba(10,10,11,0.7); /* Aplica fondo oscuro semitransparente al botón de favorito */
+  backdrop-filter: blur(8px); /* Desenfoca el fondo detrás del botón de favorito */
+  border-radius: 50%; /* Hace circular el botón de favorito */
+  width: 32px; height: 32px; /* Define el tamaño del botón de favorito */
+  display: flex; align-items: center; justify-content: center; /* Centra el icono dentro del botón de favorito */
+  font-size: .9rem; /* Define el tamaño del icono de corazón */
+  color: rgba(255,255,255,0.55); /* Aplica color blanco semitransparente al icono del botón */
+  transition: all var(--t); /* Anima los cambios de estado del botón de favorito */
+  z-index: 3; /* Coloca el botón por encima del badge del producto */
+}
+.pc-fav-btn:hover { /* Estado hover del botón de favorito del producto */
+  transform: scale(1.1); /* Amplía el botón de favorito al pasar el ratón */
+  color: var(--danger); /* Aplica color rojo al icono de favorito al pasar el ratón */
+  background: rgba(10,10,11,0.9); /* Oscurece el fondo del botón de favorito al pasar el ratón */
+}
+.pc-fav-btn.favorited { /* Estado del botón de favorito cuando el producto está guardado */
+  color: var(--danger); /* Mantiene el color rojo cuando el producto está en favoritos */
+  background: rgba(239,68,68,0.18); /* Aplica fondo rojo semitransparente al botón de favorito activo */
+}
+
+/* Cuerpo informativo de la tarjeta de producto */
+.pc-body { /* Área de información textual debajo de la imagen del producto */
+  padding: 14px 16px 16px; /* Añade relleno al cuerpo de la tarjeta de producto */
+  display: flex; flex-direction: column; /* Apila verticalmente los elementos del cuerpo */
+  flex: 1; /* Ocupa el espacio restante de la tarjeta de producto */
+  gap: 6px; /* Añade separación entre los elementos del cuerpo de la tarjeta */
+}
+.pc-brand { /* Etiqueta de marca del producto en la tarjeta */
+  font-size: .72rem; /* Define el pequeño tamaño del nombre de marca */
+  font-weight: 600; /* Aplica negrita al nombre de marca del producto */
+  color: var(--text-dim); /* Aplica color atenuado al nombre de marca */
+  text-transform: uppercase; /* Convierte en mayúsculas el nombre de marca */
+  letter-spacing: .06em; /* Añade espaciado entre letras del nombre de marca */
+}
+.pc-name { /* Nombre del producto en la tarjeta del catálogo */
+  font-size: .88rem; /* Define el tamaño del nombre del producto */
+  font-weight: 500; /* Aplica peso medio al nombre del producto */
+  color: var(--text); /* Aplica el color de texto principal al nombre del producto */
+  line-height: 1.35; /* Ajusta el interlineado del nombre del producto */
+  display: -webkit-box; /* Activa el modelo de caja multilinea WebKit */
+  -webkit-line-clamp: 2; /* Limita el nombre del producto a dos líneas */
+  -webkit-box-orient: vertical; /* Establece orientación vertical para el recorte del texto */
+  overflow: hidden; /* Oculta el texto desbordante del nombre del producto */
+  min-height: 2.7em; /* Reserva altura para dos líneas en el nombre del producto */
+}
+.pc-stars { /* Bloque de valoración con estrellas del producto */
+  display: flex; align-items: center; gap: 4px; /* Alinea las estrellas y el contador de valoraciones */
+  font-size: .72rem; /* Define el tamaño del bloque de valoración */
+  color: var(--text-dim); /* Aplica color atenuado al bloque de valoración */
+  margin-top: 2px; /* Añade separación mínima encima del bloque de valoración */
+}
+.pc-stars span:not(:first-child) { color: var(--text-dim); } /* Estiliza el contador de reseñas con color atenuado */
+.pc-price-row { /* Fila inferior de precio y botón de añadir al carrito */
+  display: flex; align-items: flex-end; justify-content: space-between; /* Distribuye precio y botón en extremos opuestos */
+  margin-top: auto; /* Empuja la fila de precio al fondo de la tarjeta */
+  padding-top: 10px; /* Añade separación encima de la fila de precio */
+  gap: 8px; /* Añade separación entre precio y botón */
+}
+.pc-old-price { /* Precio original tachado cuando hay oferta en el producto */
+  font-size: .78rem; /* Define el tamaño del precio original */
+  color: var(--text-dim); /* Aplica color atenuado al precio original */
+  text-decoration: line-through; /* Aplica tachado al precio original */
+}
+.pc-price { /* Precio actual del producto en la tarjeta */
+  font-size: 1.1rem; /* Define el tamaño destacado del precio actual */
+  font-weight: 700; /* Aplica negrita al precio actual del producto */
+  color: var(--text); /* Aplica el color de texto principal al precio actual */
+  font-family: 'DM Sans', system-ui, sans-serif; /* Aplica la tipografía numérica al precio actual */
+  letter-spacing: -.01em; /* Ajusta el espaciado del precio actual */
+}
+.pc-add-btn { /* Botón de añadir producto al carrito en la tarjeta */
+  width: 36px; height: 36px; /* Define el tamaño cuadrado del botón de añadir */
+  border-radius: var(--r-sm); /* Redondea las esquinas del botón de añadir */
+  background: var(--surface-2); /* Aplica fondo secundario al botón de añadir */
+  border: 1px solid var(--border-mid); /* Añade borde al botón de añadir */
+  color: var(--text); /* Aplica el color de texto principal al icono del botón */
+  display: flex; align-items: center; justify-content: center; /* Centra el icono dentro del botón de añadir */
+  font-size: 1.1rem; font-weight: 600; /* Define tamaño y peso del icono del botón */
+  transition: all var(--t-fast); /* Anima los cambios de estado del botón de añadir */
+  flex-shrink: 0; /* Impide que el botón de añadir se encoja */
+}
+.pc-add-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); } /* Cambia el botón de añadir a violeta al pasar el ratón */
+.pc-add-btn.added { background: var(--success); color: #fff; border-color: var(--success); } /* Cambia el botón a verde cuando el producto se ha añadido al carrito */
+
+/* Encabezado de la vista de listado de productos por categoría */
+.pv-header { /* Cabecera de la vista de categoría con botón de volver y título */
+  margin-bottom: 24px; /* Añade separación entre el encabezado y el contenido de la vista */
+}
+.pv-title { /* Título de la vista de listado de categoría */
+  display: flex; align-items: center; gap: 14px; /* Alinea el botón de volver y el título de la vista */
+  font-family: 'Syne', sans-serif; /* Aplica la tipografía Syne al título de la vista */
+  font-size: 1.7rem; /* Define el tamaño del título de la vista */
+  font-weight: 700; /* Aplica negrita al título de la vista */
+  letter-spacing: -.02em; /* Ajusta el espaciado del título de la vista */
+}
+.back-btn { /* Botón de volver atrás en la navegación de la tienda */
+  background: var(--surface); /* Aplica fondo de superficie al botón de volver */
+  border: 1px solid var(--border); /* Añade borde sutil al botón de volver */
+  color: var(--text-muted); /* Aplica color secundario al texto del botón de volver */
+  font-size: .82rem; font-weight: 500; /* Define tamaño y peso del texto del botón de volver */
+  padding: 6px 12px; /* Añade relleno al botón de volver */
+  border-radius: var(--r-sm); /* Redondea las esquinas del botón de volver */
+  transition: all var(--t); /* Anima los cambios de estado del botón de volver */
+}
+.back-btn:hover { background: var(--surface-2); color: var(--text); border-color: var(--border-mid); } /* Resalta el botón de volver al pasar el ratón */
+
+/* Barra de filtros del catálogo de productos */
+.filters-bar { /* Barra horizontal de filtros para ordenar y buscar productos */
+  display: flex; align-items: center; flex-wrap: wrap; /* Alinea y permite salto de línea en los filtros */
+  gap: 14px; /* Añade separación entre los controles de filtro */
+  background: var(--surface); /* Aplica fondo de superficie a la barra de filtros */
+  border: 1px solid var(--border); /* Añade borde sutil a la barra de filtros */
+  border-radius: var(--r-lg); /* Redondea las esquinas de la barra de filtros */
+  padding: 14px 18px; /* Añade relleno interno a la barra de filtros */
+  margin-bottom: 24px; /* Separa la barra de filtros de la rejilla de productos */
+}
+.filter-group { /* Grupo de etiqueta y control dentro de la barra de filtros */
+  display: flex; align-items: center; gap: 8px; /* Alinea la etiqueta y el control del filtro */
+}
+.filter-label { /* Etiqueta descriptiva de cada filtro */
+  font-size: .8rem; /* Define el tamaño de la etiqueta del filtro */
+  color: var(--text-muted); /* Aplica color secundario a la etiqueta del filtro */
+  font-weight: 500; /* Aplica peso medio a la etiqueta del filtro */
+}
+.filter-select { /* Selector desplegable de ordenación de productos */
+  background: var(--surface-2); /* Aplica fondo secundario al selector de filtro */
+  border: 1px solid var(--border); /* Añade borde sutil al selector de filtro */
+  color: var(--text); /* Aplica el color de texto principal al selector de filtro */
+  font-size: .82rem; /* Define el tamaño del texto del selector de filtro */
+  padding: 7px 28px 7px 12px; /* Añade relleno con espacio para la flecha personalizada */
+  border-radius: var(--r-sm); /* Redondea las esquinas del selector de filtro */
+  cursor: pointer; /* Muestra cursor de puntero sobre el selector de filtro */
+  appearance: none; /* Elimina el estilo nativo del selector */
+  -webkit-appearance: none; /* Versión WebKit para eliminar el estilo nativo del selector */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>"); /* Inyecta una flecha SVG personalizada en el selector de filtro */
+  background-repeat: no-repeat; /* Evita que la flecha SVG se repita en el selector */
+  background-position: right 10px center; /* Posiciona la flecha SVG a la derecha del selector */
+  transition: all var(--t-fast); /* Anima los cambios de estado del selector de filtro */
+}
+.filter-select:hover, .filter-select:focus { /* Estado hover y foco del selector de filtro */
+  border-color: var(--accent); /* Aplica el color de acento al borde del selector al interactuar */
+  outline: none; /* Elimina el contorno nativo del foco del selector */
+}
+.filter-search { flex: 1; min-width: 180px; } /* Campo de búsqueda dentro de la barra de filtros que ocupa el espacio restante */
+.filter-search input { /* Campo de texto de búsqueda por nombre de producto */
+  width: 100%; /* Ocupa todo el ancho del contenedor del campo de búsqueda */
+  background: var(--surface-2); /* Aplica fondo secundario al campo de búsqueda de filtro */
+  border: 1px solid var(--border); /* Añade borde sutil al campo de búsqueda de filtro */
+  color: var(--text); /* Aplica el color de texto principal al campo de búsqueda */
+  font-size: .82rem; /* Define el tamaño del texto del campo de búsqueda */
+  padding: 8px 14px; /* Añade relleno interno al campo de búsqueda de filtro */
+  border-radius: var(--r-sm); /* Redondea las esquinas del campo de búsqueda */
+  outline: none; /* Elimina el contorno nativo del foco del campo de búsqueda */
+  transition: all var(--t-fast); /* Anima los cambios de estado del campo de búsqueda */
+}
+.filter-search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); } /* Aplica borde y anillo de acento al campo de búsqueda al enfocarlo */
+.filter-search input::placeholder { color: var(--text-dim); } /* Estiliza el placeholder del campo de búsqueda de filtro */
+.filter-count { /* Contador de productos mostrados en la barra de filtros */
+  font-size: .78rem; /* Define el tamaño del contador de productos */
+  color: var(--text-dim); /* Aplica color atenuado al contador de productos */
+  margin-left: auto; /* Empuja el contador al extremo derecho de la barra de filtros */
+}
+
+/* Control de rango de precio doble */
+.price-range-dual { /* Contenedor del filtro de rango de precio con dos deslizadores */
+  display: flex; flex-direction: column; /* Apila verticalmente el track y las etiquetas */
+  gap: 6px; /* Añade separación entre el track y las etiquetas de precio */
+  min-width: 220px; /* Define el ancho mínimo del control de rango de precio */
+}
+.prd-track-wrap { /* Contenedor del track y los deslizadores del rango de precio */
+  position: relative; /* Establece contexto de posicionamiento para el track y los thumbs */
+  height: 22px; /* Define la altura del área de los deslizadores */
+}
+.prd-track { /* Barra de fondo del rango de precio */
+  position: absolute; top: 50%; left: 0; right: 0; /* Centra verticalmente la barra del rango */
+  height: 3px; transform: translateY(-50%); /* Define el grosor de la barra y la centra */
+  background: var(--surface-3); /* Aplica fondo oscuro a la barra del rango de precio */
+  border-radius: 999px; /* Hace completamente redondeada la barra del rango */
+}
+.prd-fill { /* Segmento coloreado entre los dos deslizadores del rango */
+  position: absolute; top: 0; bottom: 0; /* Ocupa toda la altura de la barra del rango */
+  background: var(--accent); /* Aplica el color de acento al segmento del rango seleccionado */
+  border-radius: 999px; /* Hace completamente redondeado el segmento del rango */
+}
+.prd-track-wrap input[type="range"] { /* Deslizador nativo de rango superpuesto al track */
+  position: absolute; inset: 0; /* Cubre todo el área del track con el deslizador */
+  width: 100%; /* Ocupa todo el ancho del track del rango */
+  background: transparent; /* Hace transparente el fondo nativo del deslizador */
+  appearance: none; /* Elimina el estilo nativo del deslizador */
+  -webkit-appearance: none; /* Versión WebKit para eliminar el estilo nativo */
+  pointer-events: none; /* Desactiva eventos de ratón en el track del deslizador */
+  height: 22px; /* Establece la altura del deslizador de rango */
+}
+.prd-track-wrap input[type="range"]::-webkit-slider-thumb { /* Pulgar del deslizador de rango en WebKit */
+  -webkit-appearance: none; appearance: none; /* Elimina el estilo nativo del pulgar WebKit */
+  pointer-events: auto; /* Reactiva los eventos de ratón solo en el pulgar */
+  width: 16px; height: 16px; /* Define el tamaño del pulgar del deslizador */
+  background: #fff; /* Aplica fondo blanco al pulgar del deslizador */
+  border: 2px solid var(--accent); /* Añade borde de acento violeta al pulgar */
+  border-radius: 50%; /* Hace circular el pulgar del deslizador */
+  cursor: pointer; /* Muestra cursor de puntero sobre el pulgar */
+  box-shadow: var(--shadow-sm); /* Aplica sombra pequeña al pulgar del deslizador */
+}
+.prd-track-wrap input[type="range"]::-moz-range-thumb { /* Pulgar del deslizador de rango en Firefox */
+  pointer-events: auto; /* Reactiva los eventos de ratón solo en el pulgar Firefox */
+  width: 16px; height: 16px; /* Define el tamaño del pulgar del deslizador Firefox */
+  background: #fff; /* Aplica fondo blanco al pulgar del deslizador Firefox */
+  border: 2px solid var(--accent); /* Añade borde de acento al pulgar del deslizador Firefox */
+  border-radius: 50%; /* Hace circular el pulgar del deslizador Firefox */
+  cursor: pointer; /* Muestra cursor de puntero sobre el pulgar Firefox */
+}
+.prd-labels { /* Etiquetas de precio mínimo y máximo debajo del deslizador */
+  display: flex; align-items: center; gap: 6px; /* Alinea las etiquetas de precio horizontalmente */
+  font-size: .75rem; /* Define el tamaño de las etiquetas de precio */
+  color: var(--text-muted); /* Aplica color secundario a las etiquetas de precio */
+}
+.prd-val { font-weight: 600; color: var(--text); } /* Resalta el valor numérico del precio en las etiquetas del rango */
+
+/* Mensaje de catálogo vacío cuando no hay productos */
+.no-products { /* Bloque de estado vacío cuando no hay productos con los filtros actuales */
+  grid-column: 1 / -1; /* Ocupa todo el ancho de la rejilla de productos */
+  text-align: center; /* Centra el contenido del mensaje de sin productos */
+  padding: 80px 20px; /* Añade relleno generoso al mensaje de sin productos */
+  background: var(--surface); /* Aplica fondo de superficie al mensaje de sin productos */
+  border: 1px dashed var(--border-mid); /* Añade borde discontinuo al mensaje de sin productos */
+  border-radius: var(--r-lg); /* Redondea las esquinas del mensaje de sin productos */
+  color: var(--text-muted); /* Aplica color secundario al texto del mensaje */
+}
+.no-products .np-icon { /* Icono decorativo del mensaje de catálogo vacío */
+  display: block; /* Muestra el icono como bloque centrado */
+  font-size: 3rem; /* Define el tamaño grande del icono de catálogo vacío */
+  margin-bottom: 12px; /* Añade separación entre el icono y el texto del mensaje */
+  opacity: .4; /* Aplica opacidad reducida al icono de catálogo vacío */
+}
+
+/* Estilos del configurador de PC por pasos */
+.config-grid { /* Rejilla del configurador con pasos a la izquierda y resumen a la derecha */
+  display: grid; /* Activa el layout de rejilla para el configurador */
+  grid-template-columns: 1fr 380px; /* Divide el configurador en pasos y panel de resumen */
+  gap: 24px; /* Añade separación entre los pasos y el resumen del configurador */
+  align-items: start; /* Alinea los elementos en la parte superior de la rejilla */
+}
+.config-steps { display: flex; flex-direction: column; gap: 10px; } /* Apila verticalmente los pasos del configurador */
+.config-step { /* Paso individual del configurador de PC */
+  background: var(--surface); /* Aplica fondo de superficie al paso del configurador */
+  border: 1px solid var(--border); /* Añade borde sutil al paso del configurador */
+  border-radius: var(--r); /* Redondea las esquinas del paso del configurador */
+  overflow: hidden; /* Recorta el contenido expandido al contorno del paso */
+  transition: border-color var(--t); /* Anima el cambio de borde del paso al hacer hover */
+}
+.config-step:hover { border-color: var(--border-mid); } /* Resalta el borde del paso del configurador al pasar el ratón */
+.cs-header { /* Cabecera del paso del configurador con número y componente seleccionado */
+  display: flex; align-items: center; gap: 14px; /* Alinea número, información y flecha de la cabecera */
+  padding: 16px 20px; /* Añade relleno a la cabecera del paso */
+  cursor: pointer; /* Muestra cursor de puntero sobre la cabecera del paso */
+  transition: background var(--t-fast); /* Anima el fondo de la cabecera al hacer hover */
+}
+.cs-header:hover { background: var(--surface-2); } /* Resalta el fondo de la cabecera del paso al pasar el ratón */
+.cs-num { /* Número circular del paso en el configurador */
+  width: 32px; height: 32px; /* Define el tamaño del círculo numerado del paso */
+  border-radius: 50%; /* Hace circular el número del paso */
+  background: var(--surface-2); /* Aplica fondo secundario al número del paso */
+  border: 1px solid var(--border-mid); /* Añade borde al círculo numerado */
+  color: var(--text-muted); /* Aplica color secundario al número del paso */
+  display: flex; align-items: center; justify-content: center; /* Centra el número dentro del círculo */
+  font-size: .85rem; font-weight: 600; /* Define tamaño y peso del número del paso */
+  flex-shrink: 0; /* Impide que el número se encoja */
+  transition: all var(--t); /* Anima los cambios de estado del número del paso */
+}
+.cs-num.done { background: var(--success); color: #fff; border-color: var(--success); } /* Estiliza el número del paso como completado con color verde */
+.cs-info { flex: 1; min-width: 0; } /* Bloque de información del paso que ocupa el espacio disponible */
+.cs-title { /* Título del componente a seleccionar en el paso */
+  font-size: .92rem; font-weight: 600; /* Define tamaño y peso del título del paso */
+  color: var(--text); /* Aplica el color de texto principal al título del paso */
+}
+.cs-selected { /* Texto del componente ya seleccionado en el paso */
+  font-size: .78rem; /* Define el tamaño del texto del componente seleccionado */
+  color: var(--text-dim); /* Aplica color atenuado al texto del componente seleccionado */
+  margin-top: 2px; /* Añade separación mínima encima del texto del componente */
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; /* Trunca el nombre largo del componente con puntos suspensivos */
+}
+.cs-body { /* Contenido expandible del paso con la lista de componentes */
+  display: none; /* Oculta el cuerpo del paso por defecto */
+  padding: 4px 20px 18px; /* Añade relleno al cuerpo expandido del paso */
+  border-top: 1px solid var(--border); /* Añade borde separador entre cabecera y cuerpo del paso */
+}
+.cs-body.open { display: block; } /* Muestra el cuerpo del paso cuando está expandido */
+.cs-product-list { /* Rejilla de componentes seleccionables dentro del paso */
+  display: grid; /* Activa el layout de rejilla para los componentes del paso */
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Genera columnas responsivas de componentes */
+  gap: 10px; /* Añade separación entre las tarjetas de componente */
+  margin-top: 14px; /* Añade separación encima de la rejilla de componentes */
+  max-height: 360px; /* Limita la altura de la rejilla de componentes */
+  overflow-y: auto; /* Añade scroll si hay más componentes que el espacio disponible */
+  padding-right: 4px; /* Añade margen para la scrollbar de la lista de componentes */
+}
+.cs-product { /* Tarjeta de componente seleccionable en el configurador */
+  background: var(--surface-2); /* Aplica fondo secundario a la tarjeta del componente */
+  border: 1px solid var(--border); /* Añade borde sutil a la tarjeta del componente */
+  border-radius: var(--r-sm); /* Redondea las esquinas de la tarjeta del componente */
+  padding: 10px; /* Añade relleno interno a la tarjeta del componente */
+  cursor: pointer; /* Muestra cursor de puntero sobre la tarjeta del componente */
+  transition: all var(--t-fast); /* Anima los cambios de estado de la tarjeta del componente */
+  display: flex; flex-direction: column; gap: 6px; /* Apila verticalmente imagen, nombre y precio del componente */
+}
+.cs-product:hover { /* Estado hover de la tarjeta de componente en el configurador */
+  background: var(--surface-3); /* Oscurece el fondo de la tarjeta del componente al pasar el ratón */
+  border-color: var(--border-mid); /* Resalta el borde de la tarjeta del componente al pasar el ratón */
+  transform: translateY(-1px); /* Eleva ligeramente la tarjeta del componente al pasar el ratón */
+}
+.cs-product.selected { /* Estado de tarjeta de componente seleccionada en el configurador */
+  border-color: var(--accent); /* Aplica borde de acento a la tarjeta del componente seleccionado */
+  background: var(--accent-dim); /* Aplica fondo violeta semitransparente al componente seleccionado */
+}
+.cs-p-icon { /* Contenedor de imagen del componente en la tarjeta del configurador */
+  background: #fff; /* Aplica fondo blanco para mostrar correctamente la imagen del componente */
+  border-radius: var(--r-xs); /* Redondea mínimamente las esquinas del contenedor de imagen */
+  aspect-ratio: 4 / 3; /* Mantiene proporción 4:3 para la imagen del componente */
+  display: flex; align-items: center; justify-content: center; /* Centra la imagen dentro del contenedor */
+  overflow: hidden; /* Recorta la imagen al contorno del contenedor */
+}
+.cs-p-icon img { width: 100%; height: 100%; object-fit: contain; padding: 4px; } /* Ajusta la imagen del componente al contenedor con relleno */
+.cs-p-fallback { font-size: 1.8rem; opacity: .4; color: #555; display: none; } /* Icono emoji de reserva cuando la imagen del componente falla */
+.cs-p-info { display: flex; flex-direction: column; gap: 2px; } /* Apila nombre y precio del componente en la tarjeta */
+.cs-p-name { /* Nombre del componente en la tarjeta del configurador */
+  font-size: .75rem; /* Define el pequeño tamaño del nombre del componente */
+  font-weight: 500; /* Aplica peso medio al nombre del componente */
+  line-height: 1.25; /* Ajusta el interlineado del nombre del componente */
+  display: -webkit-box; /* Activa el modelo de caja multilinea WebKit */
+  -webkit-line-clamp: 2; /* Limita el nombre del componente a dos líneas */
+  -webkit-box-orient: vertical; /* Establece orientación vertical para el recorte */
+  overflow: hidden; /* Oculta el texto desbordante del nombre del componente */
+}
+.cs-p-price { /* Precio del componente en la tarjeta del configurador */
+  font-size: .82rem; /* Define el tamaño del precio del componente */
+  font-weight: 700; /* Aplica negrita al precio del componente */
+  color: var(--accent-hover); /* Aplica el color de acento al precio del componente */
+}
+
+/* Panel de resumen fijo del configurador de PC */
+.config-summary { /* Panel lateral fijo con el resumen de componentes seleccionados */
+  background: var(--surface); /* Aplica fondo de superficie al panel de resumen */
+  border: 1px solid var(--border); /* Añade borde sutil al panel de resumen */
+  border-radius: var(--r-lg); /* Redondea las esquinas del panel de resumen */
+  padding: 20px; /* Añade relleno interno al panel de resumen */
+  position: sticky; /* Fija el panel de resumen al desplazarse */
+  top: 120px; /* Ancla el panel de resumen debajo de los encabezados fijos */
+}
+.cs-sum-title { /* Título del panel de resumen del configurador */
+  font-family: 'Syne', sans-serif; /* Aplica la tipografía Syne al título del resumen */
+  font-size: 1.1rem; /* Define el tamaño del título del resumen del configurador */
+  font-weight: 700; /* Aplica negrita al título del resumen del configurador */
+  margin-bottom: 16px; /* Añade separación entre el título y la lista del resumen */
+  letter-spacing: -.01em; /* Ajusta el espaciado del título del resumen */
+}
+.cs-sum-items { /* Lista de componentes seleccionados en el panel de resumen */
+  display: flex; flex-direction: column; gap: 8px; /* Apila verticalmente los componentes del resumen */
+  max-height: 360px; /* Limita la altura de la lista del resumen */
+  overflow-y: auto; /* Añade scroll si hay muchos componentes en el resumen */
+  margin-bottom: 16px; /* Añade separación entre la lista y el total del resumen */
+}
+.cs-sum-empty { /* Mensaje de resumen vacío cuando no hay componentes seleccionados */
+  color: var(--text-dim); /* Aplica color atenuado al mensaje de resumen vacío */
+  font-size: .85rem; /* Define el tamaño del mensaje de resumen vacío */
+  text-align: center; /* Centra el mensaje de resumen vacío */
+  padding: 24px 12px; /* Añade relleno al mensaje de resumen vacío */
+  border: 1px dashed var(--border-mid); /* Añade borde discontinuo al mensaje vacío */
+  border-radius: var(--r-sm); /* Redondea las esquinas del mensaje vacío */
+}
+.cs-sum-item { /* Elemento de componente seleccionado en el resumen del configurador */
+  display: flex; align-items: center; gap: 10px; /* Alinea imagen, nombre y precio del componente */
+  padding: 8px; /* Añade relleno interno al elemento del resumen */
+  background: var(--surface-2); /* Aplica fondo secundario al elemento del resumen */
+  border-radius: var(--r-sm); /* Redondea las esquinas del elemento del resumen */
+  font-size: .78rem; /* Define el tamaño del texto del elemento del resumen */
+}
+.csi-icon { /* Miniatura del componente en el resumen del configurador */
+  width: 32px; height: 32px; /* Define el tamaño de la miniatura del componente en el resumen */
+  background: #fff; /* Aplica fondo blanco para mostrar la imagen del componente */
+  border-radius: var(--r-xs); /* Redondea mínimamente las esquinas de la miniatura */
+  flex-shrink: 0; /* Impide que la miniatura se encoja */
+  overflow: hidden; /* Recorta la imagen al contorno de la miniatura */
+  display: flex; align-items: center; justify-content: center; /* Centra la imagen dentro de la miniatura */
+}
+.csi-icon img { width: 100%; height: 100%; object-fit: contain; } /* Ajusta la imagen del componente a la miniatura del resumen */
+.csi-fallback { font-size: 1rem; opacity: .5; color: #555; display: none; } /* Icono de reserva cuando la imagen del componente del resumen falla */
+.csi-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } /* Nombre del componente truncado con puntos suspensivos en el resumen */
+.csi-price { font-weight: 600; color: var(--accent-hover); font-size: .8rem; } /* Precio del componente en el resumen del configurador */
+.csi-remove { /* Botón de eliminar componente del resumen del configurador */
+  color: var(--text-dim); /* Aplica color atenuado al botón de eliminar */
+  cursor: pointer; /* Muestra cursor de puntero sobre el botón de eliminar */
+  padding: 4px; /* Añade relleno al área clicable del botón de eliminar */
+  font-size: .8rem; /* Define el tamaño del icono del botón de eliminar */
+  transition: color var(--t-fast); /* Anima el cambio de color del botón de eliminar */
+}
+.csi-remove:hover { color: var(--danger); } /* Cambia el botón de eliminar a color rojo al pasar el ratón */
+.cs-divider { height: 1px; background: var(--border); margin: 14px 0; } /* Línea divisoria entre la lista y el total del resumen */
+.cs-total-row { /* Fila de etiqueta del total en el resumen del configurador */
+  display: flex; justify-content: space-between; align-items: center; /* Distribuye etiqueta y precio en extremos opuestos */
+  font-size: .9rem; /* Define el tamaño del texto de la fila del total */
+  color: var(--text-muted); /* Aplica color secundario a la etiqueta del total */
+  font-weight: 500; /* Aplica peso medio a la etiqueta del total */
+}
+.cs-total-price { /* Precio total del configurador de PC */
+  font-family: 'DM Sans', system-ui, sans-serif; /* Aplica la tipografía numérica al precio total */
+  font-size: 1.6rem; /* Define el tamaño grande del precio total del configurador */
+  font-weight: 800; /* Aplica el peso máximo al precio total del configurador */
+  color: var(--text); /* Aplica el color de texto principal al precio total */
+  letter-spacing: -.02em; /* Ajusta el espaciado del precio total del configurador */
+}
+.config-compat { /* Mensaje de compatibilidad verificada del configurador */
+  display: none; /* Oculta el mensaje de compatibilidad por defecto */
+  margin-top: 10px; /* Añade separación encima del mensaje de compatibilidad */
+  padding: 8px 12px; /* Añade relleno al mensaje de compatibilidad */
+  background: rgba(34,197,94,0.1); /* Aplica fondo verde semitransparente al mensaje de compatibilidad */
+  color: var(--success); /* Aplica color verde al texto del mensaje de compatibilidad */
+  border: 1px solid rgba(34,197,94,0.3); /* Añade borde verde semitransparente al mensaje de compatibilidad */
+  border-radius: var(--r-sm); /* Redondea las esquinas del mensaje de compatibilidad */
+  font-size: .78rem; /* Define el tamaño del texto del mensaje de compatibilidad */
+  text-align: center; /* Centra el texto del mensaje de compatibilidad */
+}
+.config-compat.visible { display: block; } /* Muestra el mensaje de compatibilidad cuando está verificada */
+.config-add-all { /* Botón de añadir todos los componentes al carrito desde el configurador */
+  width: 100%; /* Ocupa todo el ancho del panel de resumen */
+  margin-top: 12px; /* Añade separación encima del botón de añadir todo */
+  padding: 12px; /* Añade relleno interno al botón de añadir todo */
+  background: var(--accent); /* Aplica el color de acento al botón de añadir todo */
+  color: #fff; /* Aplica color blanco al texto del botón de añadir todo */
+  border-radius: var(--r); /* Redondea las esquinas del botón de añadir todo */
+  font-weight: 600; /* Aplica negrita al texto del botón de añadir todo */
+  font-size: .9rem; /* Define el tamaño del texto del botón de añadir todo */
+  transition: all var(--t); /* Anima los cambios de estado del botón de añadir todo */
+}
+.config-add-all:hover:not(:disabled) { background: var(--accent-hover); transform: translateY(-1px); } /* Aclara el botón de añadir todo al pasar el ratón cuando está activo */
+.config-add-all:disabled { /* Estado deshabilitado del botón de añadir todo */
+  background: var(--surface-3); /* Aplica fondo oscuro al botón deshabilitado */
+  color: var(--text-dim); /* Aplica color atenuado al texto del botón deshabilitado */
+  cursor: not-allowed; /* Muestra cursor de prohibición sobre el botón deshabilitado */
+}
+
+/* Tooltip de previsualización de componente en el configurador */
+#config-tooltip { /* Panel flotante con imagen y precio al pasar sobre un componente */
+  position: fixed; /* Posiciona el tooltip de forma fija en pantalla */
+  z-index: 5000; /* Coloca el tooltip por encima de todos los demás elementos */
+  background: var(--surface); /* Aplica fondo de superficie al tooltip */
+  border: 1px solid var(--border-mid); /* Añade borde de intensidad media al tooltip */
+  border-radius: var(--r); /* Redondea las esquinas del tooltip */
+  padding: 10px; /* Añade relleno interno al tooltip */
+  box-shadow: var(--shadow-lg); /* Aplica sombra grande al tooltip */
+  pointer-events: none; /* Impide que el tooltip bloquee los clics del usuario */
+  opacity: 0; /* Oculta el tooltip por defecto con opacidad cero */
+  transform: scale(.95); /* Aplica escala reducida al tooltip por defecto */
+  transition: opacity var(--t-fast), transform var(--t-fast); /* Anima la aparición y escala del tooltip */
+  max-width: 220px; /* Limita el ancho máximo del tooltip del configurador */
+}
+#config-tooltip.visible { opacity: 1; transform: scale(1); } /* Muestra el tooltip con opacidad y escala normales */
+#config-tooltip img { /* Imagen del componente dentro del tooltip */
+  width: 100%; /* Ocupa todo el ancho del tooltip */
+  height: 130px; /* Define la altura fija de la imagen dentro del tooltip */
+  object-fit: contain; /* Ajusta la imagen sin recortarla dentro del tooltip */
+  background: #fff; /* Aplica fondo blanco para mostrar la imagen del componente */
+  border-radius: var(--r-xs); /* Redondea mínimamente las esquinas de la imagen del tooltip */
+  margin-bottom: 8px; /* Añade separación entre la imagen y el texto del tooltip */
+}
+.ctt-name { /* Nombre del componente dentro del tooltip del configurador */
+  font-size: .8rem; /* Define el tamaño del nombre en el tooltip */
+  font-weight: 500; /* Aplica peso medio al nombre en el tooltip */
+  margin-bottom: 4px; /* Añade separación entre el nombre y el precio en el tooltip */
+}
+.ctt-price { /* Precio del componente dentro del tooltip del configurador */
+  font-size: .9rem; /* Define el tamaño del precio en el tooltip */
+  font-weight: 700; /* Aplica negrita al precio en el tooltip */
+  color: var(--accent-hover); /* Aplica el color de acento al precio en el tooltip */
+}
+
+/* Estilos de la vista de detalle de producto */
+.detail-grid { /* Rejilla de dos columnas de la vista de detalle del producto */
+  display: grid; /* Activa el layout de rejilla para la vista de detalle */
+  grid-template-columns: 1.1fr 1fr; /* Divide la vista en galería más ancha e información */
+  gap: 40px; /* Añade separación entre la galería y la información del detalle */
+  align-items: start; /* Alinea los elementos en la parte superior de la rejilla */
+}
+.detail-gallery { /* Contenedor de la imagen principal del producto en detalle */
+  background: #fff; /* Aplica fondo blanco para mostrar la imagen del producto */
+  border-radius: var(--r-xl); /* Redondea fuertemente las esquinas de la galería */
+  aspect-ratio: 1 / 1; /* Mantiene proporción cuadrada para la galería del detalle */
+  overflow: hidden; /* Recorta la imagen al contorno de la galería */
+  display: flex; align-items: center; justify-content: center; /* Centra la imagen dentro de la galería */
+  position: sticky; /* Fija la galería al desplazarse en la vista de detalle */
+  top: 120px; /* Ancla la galería debajo de los encabezados fijos */
+}
+.detail-gallery img { width: 100%; height: 100%; object-fit: contain; padding: 32px; } /* Ajusta la imagen del producto con relleno dentro de la galería */
+.detail-img-fallback { font-size: 8rem; opacity: .3; display: none; align-items: center; justify-content: center; color: #555; } /* Icono de reserva grande cuando la imagen del detalle falla */
+.detail-info { padding: 0; } /* Contenedor de información textual del producto en la vista de detalle */
+.detail-brand { /* Nombre de la marca del producto en la vista de detalle */
+  font-size: .82rem; /* Define el tamaño del nombre de la marca */
+  text-transform: uppercase; /* Convierte en mayúsculas el nombre de la marca */
+  letter-spacing: .1em; /* Añade espaciado entre letras del nombre de la marca */
+  font-weight: 600; /* Aplica negrita al nombre de la marca */
+  color: var(--accent-hover); /* Aplica el color de acento al nombre de la marca */
+  margin-bottom: 10px; /* Añade separación entre la marca y el nombre del producto */
+}
+.detail-name { /* Nombre completo del producto en la vista de detalle */
+  font-family: 'Syne', sans-serif; /* Aplica la tipografía Syne al nombre del producto */
+  font-size: clamp(1.6rem, 3vw, 2.4rem); /* Escala el nombre del producto según el ancho de ventana */
+  font-weight: 700; /* Aplica negrita al nombre del producto */
+  letter-spacing: -.02em; /* Ajusta el espaciado del nombre del producto */
+  line-height: 1.15; /* Ajusta el interlineado del nombre del producto */
+  margin-bottom: 16px; /* Añade separación entre el nombre y las valoraciones */
+}
+.detail-stars { /* Bloque de valoración con estrellas en la vista de detalle */
+  display: flex; align-items: center; gap: 10px; /* Alinea las estrellas y el contador de valoraciones */
+  margin-bottom: 24px; /* Añade separación entre las valoraciones y el precio */
+  font-size: .92rem; /* Define el tamaño del bloque de valoración */
+}
+.ds-stars { color: #f59e0b; } /* Aplica color ámbar a las estrellas de valoración del detalle */
+.ds-count { color: var(--text-muted); } /* Aplica color secundario al contador de reseñas del detalle */
+.detail-price-row { /* Fila de precios del producto en la vista de detalle */
+  display: flex; align-items: baseline; gap: 14px; /* Alinea precio actual, precio anterior y descuento */
+  margin-bottom: 8px; /* Añade separación entre la fila de precios y el IVA */
+}
+.detail-price { /* Precio actual del producto en la vista de detalle */
+  font-family: 'DM Sans', system-ui, sans-serif; /* Aplica la tipografía numérica al precio del detalle */
+  font-size: 2.4rem; /* Define el tamaño grande del precio en el detalle */
+  font-weight: 800; /* Aplica el peso máximo al precio del detalle */
+  color: var(--text); /* Aplica el color de texto principal al precio del detalle */
+  letter-spacing: -.02em; /* Ajusta el espaciado del precio del detalle */
+}
+.detail-old { /* Precio original tachado cuando hay descuento en el detalle */
+  font-size: 1.1rem; /* Define el tamaño del precio original en el detalle */
+  color: var(--text-dim); /* Aplica color atenuado al precio original del detalle */
+  text-decoration: line-through; /* Aplica tachado al precio original del detalle */
+}
+.detail-discount { /* Badge de porcentaje de descuento en la vista de detalle */
+  background: var(--danger); /* Aplica color rojo al badge de descuento */
+  color: #fff; /* Aplica color blanco al texto del badge de descuento */
+  font-size: .82rem; font-weight: 700; /* Define tamaño y peso del texto del badge de descuento */
+  padding: 4px 10px; /* Añade relleno al badge de descuento */
+  border-radius: var(--r-sm); /* Redondea las esquinas del badge de descuento */
+}
+.detail-iva { /* Texto de IVA incluido en la vista de detalle del producto */
+  font-size: .82rem; /* Define el tamaño del texto del IVA */
+  color: var(--text-muted); /* Aplica color secundario al texto del IVA */
+  margin-bottom: 24px; /* Añade separación entre el IVA y las etiquetas del producto */
+}
+.detail-tags { /* Contenedor de etiquetas de características del producto */
+  display: flex; flex-wrap: wrap; gap: 6px; /* Muestra las etiquetas en fila con salto de línea */
+  margin-bottom: 24px; /* Añade separación entre las etiquetas y la descripción */
+}
+.detail-tag { /* Etiqueta de característica del producto en la vista de detalle */
+  font-size: .72rem; /* Define el tamaño de la etiqueta del producto */
+  background: var(--surface-2); /* Aplica fondo secundario a la etiqueta del producto */
+  border: 1px solid var(--border); /* Añade borde sutil a la etiqueta del producto */
+  color: var(--text-muted); /* Aplica color secundario al texto de la etiqueta */
+  padding: 4px 10px; /* Añade relleno a la etiqueta del producto */
+  border-radius: 999px; /* Hace completamente redondeada la etiqueta del producto */
+  font-weight: 500; /* Aplica peso medio al texto de la etiqueta */
+}
+.detail-desc { /* Descripción textual del producto en la vista de detalle */
+  font-size: .95rem; /* Define el tamaño de la descripción del producto */
+  color: var(--text-muted); /* Aplica color secundario a la descripción del producto */
+  line-height: 1.6; /* Ajusta el interlineado de la descripción del producto */
+  margin-bottom: 28px; /* Añade separación entre la descripción y los botones de acción */
+}
+.detail-actions { /* Fila de botones de acción en la vista de detalle del producto */
+  display: flex; gap: 12px; /* Alinea horizontalmente los botones de acción */
+  margin-bottom: 32px; /* Añade separación entre los botones y las especificaciones */
+}
+.detail-add { /* Botón principal de añadir al carrito en la vista de detalle */
+  flex: 1; /* Ocupa el espacio disponible del área de botones de acción */
+  background: var(--text); /* Aplica fondo blanco al botón de añadir al carrito */
+  color: var(--bg); /* Aplica color oscuro al texto del botón de añadir */
+  font-weight: 600; /* Aplica negrita al texto del botón de añadir */
+  font-size: .92rem; /* Define el tamaño del texto del botón de añadir */
+  padding: 14px 24px; /* Añade relleno generoso al botón de añadir al carrito */
+  border-radius: var(--r); /* Redondea las esquinas del botón de añadir */
+  transition: all var(--t); /* Anima los cambios de estado del botón de añadir */
+}
+.detail-add:hover { background: var(--accent); color: #fff; } /* Cambia el botón de añadir a violeta al pasar el ratón */
+.detail-wish { /* Botón de añadir a favoritos en la vista de detalle */
+  width: 50px; /* Define el ancho fijo del botón de favorito del detalle */
+  background: var(--surface); /* Aplica fondo de superficie al botón de favorito */
+  border: 1px solid var(--border-mid); /* Añade borde al botón de favorito del detalle */
+  color: var(--text-muted); /* Aplica color secundario al icono del botón de favorito */
+  border-radius: var(--r); /* Redondea las esquinas del botón de favorito del detalle */
+  font-size: 1.3rem; /* Define el tamaño del icono de corazón del botón */
+  transition: all var(--t); /* Anima los cambios de estado del botón de favorito */
+}
+.detail-wish:hover { color: var(--danger); border-color: var(--danger); } /* Cambia el botón de favorito a rojo al pasar el ratón */
+.detail-wish.favorited { color: var(--danger); border-color: var(--danger); background: rgba(239,68,68,0.1); } /* Estiliza el botón de favorito cuando el producto está guardado */
+
+/* Tabla de especificaciones técnicas del producto en detalle */
+.detail-specs { /* Contenedor de la tabla de especificaciones del producto */
+  background: var(--surface); /* Aplica fondo de superficie a la tabla de especificaciones */
+  border: 1px solid var(--border); /* Añade borde sutil a la tabla de especificaciones */
+  border-radius: var(--r-lg); /* Redondea las esquinas de la tabla de especificaciones */
+  padding: 24px; /* Añade relleno interno a la tabla de especificaciones */
+}
+.detail-specs-title { /* Título de la sección de especificaciones técnicas */
+  font-family: 'Syne', sans-serif; /* Aplica la tipografía Syne al título de especificaciones */
+  font-size: 1.1rem; /* Define el tamaño del título de especificaciones */
+  font-weight: 700; /* Aplica negrita al título de especificaciones */
+  margin-bottom: 16px; /* Añade separación entre el título y las filas de especificaciones */
+  letter-spacing: -.01em; /* Ajusta el espaciado del título de especificaciones */
+}
+.detail-spec-row { /* Fila individual de especificación técnica del producto */
+  display: flex; align-items: flex-start; gap: 24px; /* Alinea la clave y el valor de la especificación */
+  padding: 10px 0; /* Añade relleno vertical a la fila de especificación */
+  border-bottom: 1px solid var(--border); /* Añade borde inferior entre filas de especificaciones */
+  font-size: .85rem; /* Define el tamaño del texto de la especificación */
+}
+.detail-spec-row:last-child { border-bottom: none; } /* Elimina el borde inferior de la última fila de especificaciones */
+.dsr-key { /* Clave o etiqueta de la especificación técnica */
+  color: var(--text-muted); /* Aplica color secundario a la clave de la especificación */
+  text-transform: capitalize; /* Aplica mayúscula inicial a la clave de la especificación */
+  flex: 0 0 140px; /* Fija el ancho de la columna de clave de la especificación */
+  min-width: 140px; /* Asegura el ancho mínimo de la columna de clave */
+}
+.dsr-val { color: var(--text); font-weight: 500; flex: 1; white-space: pre-line; line-height: 1.7; } /* Valor de la especificación técnica con saltos de línea respetados */
+
+/* Estilos del carrito lateral deslizante */
+.cart-overlay { /* Capa oscura semitransparente detrás del carrito lateral */
+  position: fixed; inset: 0; /* Cubre toda la pantalla con la capa oscura */
+  background: rgba(0,0,0,0.6); /* Aplica fondo negro semitransparente a la capa del carrito */
+  backdrop-filter: blur(4px); /* Desenfoca el contenido detrás de la capa oscura */
+  opacity: 0; visibility: hidden; /* Oculta la capa oscura del carrito por defecto */
+  transition: all var(--t); /* Anima la aparición de la capa oscura del carrito */
+  z-index: 1000; /* Coloca la capa oscura por encima del contenido principal */
+}
+.cart-overlay.open { opacity: 1; visibility: visible; } /* Muestra la capa oscura cuando el carrito está abierto */
+.cart-drawer { /* Panel lateral deslizante del carrito de la tienda */
+  position: fixed; /* Posiciona el carrito de forma fija en pantalla */
+  top: 0; right: 0; bottom: 0; /* Ancla el carrito al borde derecho de la pantalla */
+  width: 100%; max-width: 420px; /* Define el ancho máximo del carrito lateral */
+  background: var(--bg-elev); /* Aplica el fondo elevado al carrito lateral */
+  border-left: 1px solid var(--border); /* Añade borde izquierdo al carrito lateral */
+  transform: translateX(100%); /* Oculta el carrito fuera del borde derecho por defecto */
+  transition: transform var(--t-slow); /* Anima el deslizamiento del carrito */
+  z-index: 1001; /* Coloca el carrito por encima de la capa oscura */
+  display: flex; flex-direction: column; /* Apila verticalmente las secciones del carrito */
+}
+.cart-drawer.open { transform: translateX(0); box-shadow: -16px 0 60px rgba(0,0,0,0.6); } /* Desliza el carrito hacia la vista y añade sombra */
+.cart-header { /* Cabecera del carrito lateral con título y botón de cerrar */
+  display: flex; justify-content: space-between; align-items: center; /* Distribuye título y botón de cerrar en extremos opuestos */
+  padding: 20px 24px; /* Añade relleno a la cabecera del carrito */
+  border-bottom: 1px solid var(--border); /* Añade borde inferior a la cabecera del carrito */
+}
+.cart-title { /* Título del panel del carrito lateral */
+  font-family: 'Syne', sans-serif; /* Aplica la tipografía Syne al título del carrito */
+  font-size: 1.15rem; /* Define el tamaño del título del carrito */
+  font-weight: 700; /* Aplica negrita al título del carrito */
+  letter-spacing: -.01em; /* Ajusta el espaciado del título del carrito */
+}
+.cart-close { /* Botón de cerrar el carrito lateral */
+  width: 34px; height: 34px; /* Define el tamaño del botón de cerrar el carrito */
+  border-radius: var(--r-sm); /* Redondea las esquinas del botón de cerrar */
+  color: var(--text-muted); /* Aplica color secundario al icono del botón de cerrar */
+  font-size: 1rem; /* Define el tamaño del icono del botón de cerrar */
+  transition: all var(--t-fast); /* Anima los cambios de estado del botón de cerrar */
+  display: flex; align-items: center; justify-content: center; /* Centra el icono dentro del botón de cerrar */
+}
+.cart-close:hover { background: var(--surface); color: var(--text); } /* Resalta el botón de cerrar el carrito al pasar el ratón */
+.cart-items { /* Área de lista de productos en el carrito lateral */
+  flex: 1; /* Ocupa el espacio disponible entre la cabecera y el pie del carrito */
+  overflow-y: auto; /* Añade scroll vertical a la lista de productos del carrito */
+  padding: 12px 16px; /* Añade relleno interno al área de productos del carrito */
+}
+.cart-empty { /* Mensaje de carrito vacío cuando no hay productos */
+  text-align: center; /* Centra el mensaje de carrito vacío */
+  padding: 60px 20px; /* Añade relleno generoso al mensaje de carrito vacío */
+  color: var(--text-dim); /* Aplica color atenuado al mensaje de carrito vacío */
+  font-size: .9rem; /* Define el tamaño del mensaje de carrito vacío */
+}
+.cart-empty .ce-icon { /* Icono del mensaje de carrito vacío */
+  display: block; /* Muestra el icono como bloque centrado */
+  font-size: 3rem; /* Define el tamaño grande del icono de carrito vacío */
+  margin-bottom: 12px; /* Añade separación entre el icono y el texto del carrito vacío */
+  opacity: .4; /* Aplica opacidad reducida al icono de carrito vacío */
+}
+.cart-item { /* Tarjeta de producto dentro del carrito lateral */
+  display: grid; /* Activa el layout de rejilla para la tarjeta del carrito */
+  grid-template-columns: 64px 1fr auto; /* Divide la tarjeta en imagen, información y botón de eliminar */
+  gap: 12px; /* Añade separación entre las columnas de la tarjeta del carrito */
+  padding: 12px; /* Añade relleno interno a la tarjeta del carrito */
+  background: var(--surface); /* Aplica fondo de superficie a la tarjeta del carrito */
+  border: 1px solid var(--border); /* Añade borde sutil a la tarjeta del carrito */
+  border-radius: var(--r); /* Redondea las esquinas de la tarjeta del carrito */
+  margin-bottom: 10px; /* Añade separación entre las tarjetas del carrito */
+}
+.ci-img { /* Contenedor de imagen del producto en el carrito */
+  width: 64px; height: 64px; /* Define el tamaño de la imagen del producto en el carrito */
+  background: #fff; /* Aplica fondo blanco para mostrar la imagen del producto */
+  border-radius: var(--r-sm); /* Redondea las esquinas del contenedor de imagen del carrito */
+  overflow: hidden; /* Recorta la imagen al contorno del contenedor */
+  display: flex; align-items: center; justify-content: center; /* Centra la imagen dentro del contenedor */
+}
+.ci-img img { width: 100%; height: 100%; object-fit: contain; padding: 4px; } /* Ajusta la imagen del producto al contenedor del carrito */
+.ci-fallback { font-size: 1.6rem; opacity: .4; color: #555; display: none; } /* Icono de reserva cuando la imagen del producto del carrito falla */
+.ci-info { display: flex; flex-direction: column; gap: 4px; min-width: 0; } /* Apila nombre, precio y cantidad del producto en el carrito */
+.ci-name { /* Nombre del producto en el carrito lateral */
+  font-size: .82rem; /* Define el tamaño del nombre del producto en el carrito */
+  font-weight: 500; /* Aplica peso medio al nombre del producto en el carrito */
+  display: -webkit-box; /* Activa el modelo de caja multilinea WebKit */
+  -webkit-line-clamp: 2; /* Limita el nombre del producto del carrito a dos líneas */
+  -webkit-box-orient: vertical; /* Establece orientación vertical para el recorte */
+  overflow: hidden; /* Oculta el texto desbordante del nombre del producto */
+  line-height: 1.3; /* Ajusta el interlineado del nombre del producto en el carrito */
+}
+.ci-price { /* Precio del producto en el carrito lateral */
+  font-size: .9rem; /* Define el tamaño del precio del producto en el carrito */
+  font-weight: 700; /* Aplica negrita al precio del producto en el carrito */
+  color: var(--accent-hover); /* Aplica el color de acento al precio del producto en el carrito */
+}
+.ci-qty { /* Control de cantidad del producto en el carrito */
+  display: inline-flex; align-items: center; /* Alinea horizontalmente los botones de cantidad */
+  background: var(--surface-2); /* Aplica fondo secundario al control de cantidad */
+  border: 1px solid var(--border); /* Añade borde sutil al control de cantidad */
+  border-radius: var(--r-sm); /* Redondea las esquinas del control de cantidad */
+  width: fit-content; /* Ajusta el ancho del control de cantidad al contenido */
+  margin-top: 2px; /* Añade separación mínima encima del control de cantidad */
+}
+.ci-qty-btn { /* Botón de incrementar o decrementar cantidad en el carrito */
+  width: 26px; height: 26px; /* Define el tamaño del botón de cantidad del carrito */
+  color: var(--text-muted); /* Aplica color secundario al símbolo del botón de cantidad */
+  font-weight: 600; /* Aplica negrita al símbolo del botón de cantidad */
+  font-size: .9rem; /* Define el tamaño del símbolo del botón de cantidad */
+  transition: color var(--t-fast); /* Anima el cambio de color del botón de cantidad */
+}
+.ci-qty-btn:hover { color: var(--text); } /* Resalta el botón de cantidad al pasar el ratón */
+.ci-qty-num { /* Número de unidades del producto en el carrito */
+  min-width: 24px; /* Define el ancho mínimo del número de cantidad */
+  text-align: center; /* Centra el número de cantidad */
+  font-size: .82rem; /* Define el tamaño del número de cantidad */
+  font-weight: 600; /* Aplica negrita al número de cantidad */
+}
+.ci-remove { /* Botón de eliminar producto del carrito */
+  width: 30px; height: 30px; /* Define el tamaño del botón de eliminar del carrito */
+  color: var(--text-dim); /* Aplica color atenuado al icono del botón de eliminar */
+  border-radius: var(--r-sm); /* Redondea las esquinas del botón de eliminar */
+  transition: all var(--t-fast); /* Anima los cambios de estado del botón de eliminar */
+  display: flex; align-items: center; justify-content: center; /* Centra el icono dentro del botón de eliminar */
+  align-self: flex-start; /* Alinea el botón de eliminar en la parte superior de la tarjeta */
+}
+.ci-remove:hover { color: var(--danger); background: rgba(239,68,68,0.1); } /* Cambia el botón de eliminar a rojo al pasar el ratón */
+.cart-footer { /* Pie del carrito lateral con total y botón de compra */
+  padding: 20px 24px; /* Añade relleno interno al pie del carrito */
+  border-top: 1px solid var(--border); /* Añade borde superior al pie del carrito */
+  background: var(--bg-elev); /* Aplica el fondo elevado al pie del carrito */
+}
+.cart-total-row { /* Fila del total del carrito lateral */
+  display: flex; justify-content: space-between; align-items: center; /* Distribuye etiqueta y precio en extremos opuestos */
+  margin-bottom: 14px; /* Añade separación entre el total y el botón de compra */
+  font-size: .9rem; /* Define el tamaño del texto del total del carrito */
+  color: var(--text-muted); /* Aplica color secundario a la etiqueta del total */
+}
+.cart-total-price { /* Precio total del carrito lateral */
+  font-family: 'DM Sans', system-ui, sans-serif; /* Aplica la tipografía numérica al precio total del carrito */
+  font-size: 1.5rem; /* Define el tamaño destacado del precio total del carrito */
+  font-weight: 800; /* Aplica el peso máximo al precio total del carrito */
+  color: var(--text); /* Aplica el color de texto principal al precio total del carrito */
+  letter-spacing: -.02em; /* Ajusta el espaciado del precio total del carrito */
+}
+.cart-checkout { /* Botón de finalizar compra en el pie del carrito */
+  width: 100%; /* Ocupa todo el ancho del pie del carrito */
+  padding: 13px; /* Añade relleno al botón de finalizar compra */
+  background: var(--accent); /* Aplica el color de acento al botón de finalizar compra */
+  color: #fff; /* Aplica color blanco al texto del botón de finalizar compra */
+  font-weight: 600; /* Aplica negrita al texto del botón de finalizar compra */
+  font-size: .92rem; /* Define el tamaño del texto del botón de finalizar compra */
+  border-radius: var(--r); /* Redondea las esquinas del botón de finalizar compra */
+  transition: all var(--t); /* Anima los cambios de estado del botón de finalizar compra */
+}
+.cart-checkout:hover { background: var(--accent-hover); transform: translateY(-1px); } /* Aclara y eleva el botón de finalizar compra al pasar el ratón */
+
+/* Estilos del modal de inicio de sesión y registro */
+.modal-overlay { /* Capa oscura de fondo del modal de login y registro */
+  position: fixed; inset: 0; /* Cubre toda la pantalla con la capa del modal */
+  background: rgba(0,0,0,0.7); /* Aplica fondo negro semitransparente a la capa del modal */
+  backdrop-filter: blur(6px); /* Desenfoca el contenido detrás del modal */
+  display: none; /* Oculta el modal por defecto */
+  align-items: center; justify-content: center; /* Centra el modal en la pantalla */
+  z-index: 2000; /* Coloca el modal por encima del carrito lateral */
+  padding: 20px; /* Añade relleno para separar el modal de los bordes de la pantalla */
+}
+.modal-overlay.open { display: flex; } /* Muestra el modal centrado cuando tiene la clase open */
+.modal { /* Panel del modal de login y registro */
+  background: var(--surface); /* Aplica fondo de superficie al panel del modal */
+  border: 1px solid var(--border-mid); /* Añade borde de intensidad media al panel del modal */
+  border-radius: var(--r-xl); /* Redondea fuertemente las esquinas del modal */
+  padding: 36px 32px; /* Añade relleno generoso al panel del modal */
+  max-width: 400px; /* Limita el ancho máximo del panel del modal */
+  width: 100%; /* Ocupa todo el ancho disponible hasta el máximo */
+  position: relative; /* Establece contexto para el botón de cerrar el modal */
+  box-shadow: var(--shadow-lg); /* Aplica sombra grande al panel del modal */
+}
+.modal-close { /* Botón de cerrar el modal en la esquina superior derecha */
+  position: absolute; /* Posiciona el botón de cerrar en la esquina del modal */
+  top: 14px; right: 14px; /* Coloca el botón de cerrar en la esquina superior derecha */
+  width: 32px; height: 32px; /* Define el tamaño del botón de cerrar el modal */
+  color: var(--text-muted); /* Aplica color secundario al icono del botón de cerrar */
+  border-radius: var(--r-sm); /* Redondea las esquinas del botón de cerrar el modal */
+  font-size: 1rem; /* Define el tamaño del icono del botón de cerrar */
+  transition: all var(--t-fast); /* Anima los cambios de estado del botón de cerrar */
+  display: flex; align-items: center; justify-content: center; /* Centra el icono dentro del botón de cerrar */
+}
+.modal-close:hover { background: var(--surface-2); color: var(--text); } /* Resalta el botón de cerrar el modal al pasar el ratón */
+.modal-logo { text-align: center; margin-bottom: 18px; } /* Centra el logotipo dentro del modal de login */
+.modal-title { /* Título principal del modal de login o registro */
+  font-family: 'Syne', sans-serif; /* Aplica la tipografía Syne al título del modal */
+  font-size: 1.4rem; /* Define el tamaño del título del modal */
+  font-weight: 700; /* Aplica negrita al título del modal */
+  text-align: center; /* Centra el título del modal */
+  letter-spacing: -.02em; /* Ajusta el espaciado del título del modal */
+  margin-bottom: 6px; /* Añade separación entre el título y el subtítulo del modal */
+}
+.modal-sub { /* Subtítulo descriptivo del modal de login o registro */
+  text-align: center; /* Centra el subtítulo del modal */
+  color: var(--text-muted); /* Aplica color secundario al subtítulo del modal */
+  font-size: .88rem; /* Define el tamaño del subtítulo del modal */
+  margin-bottom: 24px; /* Añade separación entre el subtítulo y el formulario del modal */
+}
+.form-group { margin-bottom: 16px; } /* Añade separación inferior a cada grupo de campo del formulario */
+.form-label { /* Etiqueta de campo del formulario de login o registro */
+  display: block; /* Muestra la etiqueta como bloque encima del campo */
+  font-size: .8rem; /* Define el tamaño de la etiqueta del campo */
+  color: var(--text-muted); /* Aplica color secundario a la etiqueta del campo */
+  margin-bottom: 6px; /* Añade separación entre la etiqueta y el campo */
+  font-weight: 500; /* Aplica peso medio a la etiqueta del campo */
+}
+.form-input { /* Campo de texto del formulario de login o registro */
+  width: 100%; /* Ocupa todo el ancho del formulario */
+  background: var(--surface-2); /* Aplica fondo secundario al campo de formulario */
+  border: 1px solid var(--border); /* Añade borde sutil al campo de formulario */
+  color: var(--text); /* Aplica el color de texto principal al campo de formulario */
+  border-radius: var(--r-sm); /* Redondea las esquinas del campo de formulario */
+  padding: 11px 14px; /* Añade relleno interno al campo de formulario */
+  font-size: .88rem; /* Define el tamaño del texto del campo de formulario */
+  outline: none; /* Elimina el contorno nativo del foco del campo */
+  transition: all var(--t-fast); /* Anima los cambios de estado del campo de formulario */
+}
+.form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); } /* Aplica borde y anillo de acento al campo al enfocarlo */
+.form-input::placeholder { color: var(--text-dim); } /* Estiliza el placeholder de los campos del formulario */
+.modal-btn { /* Botón de envío del formulario de login o registro */
+  width: 100%; /* Ocupa todo el ancho del formulario del modal */
+  background: var(--accent); /* Aplica el color de acento al botón del modal */
+  color: #fff; /* Aplica color blanco al texto del botón del modal */
+  padding: 12px; /* Añade relleno interno al botón del modal */
+  border-radius: var(--r); /* Redondea las esquinas del botón del modal */
+  font-weight: 600; /* Aplica negrita al texto del botón del modal */
+  font-size: .9rem; /* Define el tamaño del texto del botón del modal */
+  margin-top: 6px; /* Añade separación encima del botón del modal */
+  transition: all var(--t); /* Anima los cambios de estado del botón del modal */
+}
+.modal-btn:hover { background: var(--accent-hover); } /* Aclara el botón del modal al pasar el ratón */
+.modal-switch { /* Texto de cambio entre login y registro en el modal */
+  text-align: center; /* Centra el texto de cambio del modal */
+  font-size: .82rem; /* Define el tamaño del texto de cambio del modal */
+  color: var(--text-muted); /* Aplica color secundario al texto de cambio del modal */
+  margin-top: 18px; /* Añade separación entre el formulario y el texto de cambio */
+}
+.modal-switch a { /* Enlace de cambio entre login y registro */
+  color: var(--accent-hover); /* Aplica el color de acento al enlace de cambio del modal */
+  font-weight: 600; /* Aplica negrita al enlace de cambio del modal */
+  cursor: pointer; /* Muestra cursor de puntero sobre el enlace de cambio */
+  margin-left: 4px; /* Añade separación izquierda al enlace de cambio del modal */
+}
+.modal-switch a:hover { text-decoration: underline; } /* Subraya el enlace de cambio del modal al pasar el ratón */
+
+/* Estilos del historial de pedidos del usuario */
+.orders-badge { /* Badge de contador de pedidos en la subnav */
+  position: absolute; /* Posiciona el badge sobre el botón de pedidos de la subnav */
+  top: 6px; right: 0; /* Coloca el badge en la esquina superior derecha del botón */
+  min-width: 16px; height: 16px; padding: 0 4px; /* Define el tamaño mínimo del badge de pedidos */
+  background: var(--accent); /* Aplica el color de acento al badge de pedidos */
+  color: #fff; /* Aplica color blanco al número del badge de pedidos */
+  border-radius: 8px; /* Hace circular el badge de pedidos */
+  font-size: .65rem; font-weight: 700; /* Define tamaño y peso del número del badge */
+  display: none; align-items: center; justify-content: center; /* Oculta y centra el badge por defecto */
+}
+.orders-badge.visible { display: flex; } /* Muestra el badge de pedidos cuando hay pedidos activos */
+
+/* Botón de acción peligrosa con borde en el historial de pedidos */
+.btn-danger-ghost { /* Botón de acción destructiva estilizado como ghost */
+  background: transparent; /* Fondo transparente del botón de acción peligrosa */
+  border: 1px solid var(--border-mid); /* Añade borde de intensidad media al botón */
+  color: var(--text-muted); /* Aplica color secundario al texto del botón */
+  font-weight: 500; /* Aplica peso medio al texto del botón */
+  font-size: .82rem; /* Define el tamaño del texto del botón */
+  padding: 8px 14px; /* Añade relleno interno al botón de acción peligrosa */
+  border-radius: var(--r-sm); /* Redondea las esquinas del botón de acción peligrosa */
+  transition: all var(--t); /* Anima los cambios de estado del botón de acción peligrosa */
+}
+.btn-danger-ghost:hover { /* Estado hover del botón de acción peligrosa */
+  color: var(--danger); /* Cambia el texto del botón al color rojo al pasar el ratón */
+  border-color: var(--danger); /* Cambia el borde del botón al color rojo al pasar el ratón */
+  background: rgba(239,68,68,0.08); /* Añade fondo rojo semitransparente al botón al pasar el ratón */
+}
+
+/* Resumen estadístico del historial de pedidos */
+.orders-summary { /* Contenedor de las estadísticas del historial de pedidos */
+  display: flex; /* Activa el layout flex para las estadísticas de pedidos */
+  gap: 12px; /* Añade separación entre las tarjetas de estadísticas */
+  flex-wrap: wrap; /* Permite que las tarjetas de estadísticas salten de línea */
+  margin: 0 0 28px; /* Añade separación debajo de las estadísticas de pedidos */
+}
+.orders-stat { /* Tarjeta de estadística individual del historial de pedidos */
+  flex: 1; /* Distribuye el espacio disponible entre las tarjetas de estadísticas */
+  min-width: 140px; /* Define el ancho mínimo de la tarjeta de estadística */
+  background: var(--surface); /* Aplica fondo de superficie a la tarjeta de estadística */
+  border: 1px solid var(--border); /* Añade borde sutil a la tarjeta de estadística */
+  border-radius: var(--r-lg); /* Redondea las esquinas de la tarjeta de estadística */
+  padding: 18px 22px; /* Añade relleno interno a la tarjeta de estadística */
+  display: flex; /* Activa el layout flex para el contenido de la tarjeta */
+  flex-direction: column; /* Apila verticalmente el número y la etiqueta de la estadística */
+  gap: 4px; /* Añade separación mínima entre número y etiqueta */
+}
+.os-num { /* Número destacado de la estadística de pedidos */
+  font-family: 'DM Sans', system-ui, sans-serif; /* Aplica la tipografía numérica a la estadística */
+  font-size: 1.8rem; /* Define el tamaño grande del número de la estadística */
+  font-weight: 800; /* Aplica el peso máximo al número de la estadística */
+  color: var(--text); /* Aplica el color de texto principal al número de la estadística */
+  letter-spacing: -.02em; /* Ajusta el espaciado del número de la estadística */
+}
+.os-lbl { /* Etiqueta descriptiva de la estadística de pedidos */
+  font-size: .78rem; /* Define el tamaño de la etiqueta de la estadística */
+  color: var(--text-muted); /* Aplica color secundario a la etiqueta de la estadística */
+  text-transform: uppercase; /* Convierte en mayúsculas la etiqueta de la estadística */
+  letter-spacing: .08em; /* Añade espaciado entre letras de la etiqueta de la estadística */
+}
+
+/* Mensaje de historial de pedidos vacío */
+.orders-empty { /* Bloque de estado vacío cuando el usuario no tiene pedidos */
+  text-align: center; /* Centra el contenido del mensaje de pedidos vacío */
+  padding: 80px 20px; /* Añade relleno generoso al mensaje de pedidos vacío */
+  background: var(--surface); /* Aplica fondo de superficie al mensaje de pedidos vacío */
+  border: 1px dashed var(--border-mid); /* Añade borde discontinuo al mensaje de pedidos vacío */
+  border-radius: var(--r-lg); /* Redondea las esquinas del mensaje de pedidos vacío */
+}
+.orders-empty .oe-icon { font-size: 4rem; margin-bottom: 14px; opacity: .35; } /* Icono grande y semitransparente del mensaje de pedidos vacío */
+.orders-empty .oe-title { font-size: 1.1rem; font-weight: 600; color: var(--text); } /* Título del mensaje de historial de pedidos vacío */
+.orders-empty .oe-sub { font-size: .85rem; color: var(--text-muted); margin-top: 6px; } /* Subtítulo del mensaje de historial de pedidos vacío */
+
+.orders-list { display: flex; flex-direction: column; gap: 12px; } /* Apila verticalmente las tarjetas de pedido en el historial */
+
+/* Tarjeta de pedido en el historial */
+.order-card { /* Tarjeta expandible de pedido en el historial de pedidos */
+  background: var(--surface); /* Aplica fondo de superficie a la tarjeta de pedido */
+  border: 1px solid var(--border); /* Añade borde sutil a la tarjeta de pedido */
+  border-radius: var(--r-lg); /* Redondea las esquinas de la tarjeta de pedido */
+  overflow: hidden; /* Recorta el contenido expandido al contorno de la tarjeta */
+  transition: border-color var(--t); /* Anima el cambio de borde de la tarjeta de pedido */
+}
+.order-card:hover { border-color: var(--border-mid); } /* Resalta el borde de la tarjeta de pedido al pasar el ratón */
+
+.order-head { /* Cabecera de la tarjeta de pedido con ID, fecha y estado */
+  display: flex; align-items: center; justify-content: space-between; /* Distribuye la información y las acciones en extremos opuestos */
+  padding: 18px 22px; /* Añade relleno a la cabecera de la tarjeta de pedido */
+  cursor: pointer; /* Muestra cursor de puntero sobre la cabecera del pedido */
+  gap: 14px; /* Añade separación entre los elementos de la cabecera */
+  transition: background var(--t-fast); /* Anima el fondo de la cabecera del pedido al hacer hover */
+}
+.order-head:hover { background: var(--surface-2); } /* Resalta el fondo de la cabecera del pedido al pasar el ratón */
+.order-head-left { display: flex; flex-direction: column; gap: 4px; min-width: 0; } /* Apila ID y fecha del pedido verticalmente */
+.order-id { /* Identificador único del pedido en la cabecera */
+  font-family: 'DM Sans', system-ui, sans-serif; /* Aplica la tipografía numérica al ID del pedido */
+  font-size: 1.1rem; /* Define el tamaño del ID del pedido */
+  font-weight: 700; /* Aplica negrita al ID del pedido */
+  color: var(--accent-hover); /* Aplica el color de acento al ID del pedido */
+  letter-spacing: -.01em; /* Ajusta el espaciado del ID del pedido */
+}
+.order-date { /* Fecha del pedido en la cabecera de la tarjeta */
+  font-size: .8rem; /* Define el tamaño de la fecha del pedido */
+  color: var(--text-muted); /* Aplica color secundario a la fecha del pedido */
+}
+.order-head-right { /* Zona derecha de la cabecera con estado, total y flecha */
+  display: flex; align-items: center; gap: 14px; /* Alinea horizontalmente estado, total y flecha */
+  flex-shrink: 0; /* Impide que la zona derecha se encoja */
+}
+.order-status { /* Badge de estado del pedido en la cabecera */
+  font-size: .68rem; /* Define el tamaño del texto del estado del pedido */
+  text-transform: uppercase; /* Convierte en mayúsculas el texto del estado */
+  letter-spacing: .08em; /* Añade espaciado entre letras del estado */
+  padding: 4px 10px; /* Añade relleno al badge de estado del pedido */
+  background: rgba(34,197,94,0.12); /* Aplica fondo verde semitransparente al badge de estado */
+  color: var(--success); /* Aplica color verde al texto del estado del pedido */
+  border: 1px solid rgba(34,197,94,0.3); /* Añade borde verde semitransparente al badge de estado */
+  border-radius: 999px; /* Hace completamente redondeado el badge de estado */
+  font-weight: 600; /* Aplica negrita al texto del badge de estado */
+}
+.order-total { /* Total económico del pedido en la cabecera */
+  font-family: 'DM Sans', system-ui, sans-serif; /* Aplica la tipografía numérica al total del pedido */
+  font-size: 1.2rem; /* Define el tamaño del total del pedido */
+  font-weight: 800; /* Aplica el peso máximo al total del pedido */
+  color: var(--text); /* Aplica el color de texto principal al total del pedido */
+}
+.order-meta { /* Metadato adicional del pedido en la cabecera */
+  font-size: .78rem; /* Define el tamaño del metadato del pedido */
+  color: var(--text-dim); /* Aplica color atenuado al metadato del pedido */
+}
+.order-toggle { /* Flecha de expandir o contraer la tarjeta de pedido */
+  color: var(--text-dim); /* Aplica color atenuado a la flecha de toggle del pedido */
+  transition: transform var(--t-fast); /* Anima la rotación de la flecha del toggle */
+  font-size: .9rem; /* Define el tamaño de la flecha del toggle del pedido */
+}
+.order-card.open .order-toggle { transform: rotate(180deg); } /* Rota la flecha cuando la tarjeta de pedido está expandida */
+
+.order-body { /* Cuerpo expandible de la tarjeta de pedido con los artículos */
+  display: none; /* Oculta el cuerpo del pedido por defecto */
+  padding: 0 22px 18px; /* Añade relleno al cuerpo expandido del pedido */
+  border-top: 1px solid var(--border); /* Añade borde superior entre cabecera y cuerpo del pedido */
+}
+.order-card.open .order-body { display: block; } /* Muestra el cuerpo del pedido cuando está expandido */
+
+.order-item { /* Fila de artículo dentro del cuerpo del pedido */
+  display: grid; /* Activa el layout de rejilla para la fila del artículo */
+  grid-template-columns: auto 1fr auto; /* Divide la fila en cantidad, nombre y precio */
+  gap: 12px; /* Añade separación entre las columnas de la fila del artículo */
+  padding: 12px 4px; /* Añade relleno vertical a la fila del artículo */
+  border-bottom: 1px solid var(--border); /* Añade borde inferior entre artículos del pedido */
+  align-items: center; /* Alinea verticalmente los elementos de la fila */
+  font-size: .85rem; /* Define el tamaño del texto de la fila del artículo */
+}
+.order-item:last-of-type { border-bottom: none; } /* Elimina el borde inferior del último artículo del pedido */
+.oi-qty { /* Cantidad del artículo en la fila del pedido */
+  color: var(--text-dim); /* Aplica color atenuado a la cantidad del artículo */
+  font-weight: 600; /* Aplica negrita a la cantidad del artículo */
+  min-width: 28px; /* Define el ancho mínimo de la columna de cantidad */
+}
+.oi-name { /* Nombre del artículo en la fila del pedido */
+  color: var(--text); /* Aplica el color de texto principal al nombre del artículo */
+  overflow: hidden; /* Oculta el texto desbordante del nombre del artículo */
+  text-overflow: ellipsis; /* Trunca el nombre largo con puntos suspensivos */
+  white-space: nowrap; /* Impide el salto de línea en el nombre del artículo */
+  transition: color var(--t-fast); /* Anima el cambio de color del nombre del artículo */
+}
+.oi-name:hover { color: var(--accent-hover); } /* Cambia el color del nombre del artículo al acento al pasar el ratón */
+.oi-price { /* Precio del artículo en la fila del pedido */
+  font-weight: 600; /* Aplica negrita al precio del artículo en el pedido */
+  color: var(--text); /* Aplica el color de texto principal al precio del artículo */
+  font-family: 'DM Sans', system-ui, sans-serif; /* Aplica la tipografía numérica al precio del artículo */
+}
+
+.order-actions { /* Fila de acciones del pedido al pie del cuerpo expandido */
+  display: flex; gap: 10px; /* Alinea horizontalmente los botones de acción del pedido */
+  margin-top: 14px; /* Añade separación encima de la fila de acciones */
+  padding-top: 14px; /* Añade relleno encima de la fila de acciones */
+  border-top: 1px solid var(--border); /* Añade borde superior sobre la fila de acciones del pedido */
+  flex-wrap: wrap; /* Permite que los botones salten de línea en pantallas pequeñas */
+}
+
+/* Ajustes responsive del historial de pedidos para móvil */
+@media (max-width: 640px) { /* Reglas específicas para pantallas de hasta 640px de ancho */
+  .order-head { flex-direction: column; align-items: flex-start; gap: 10px; padding: 16px 18px; } /* Apila verticalmente los elementos de la cabecera del pedido en móvil */
+  .order-head-right { width: 100%; justify-content: space-between; } /* Extiende la zona derecha al ancho completo en móvil */
+  .order-body { padding: 0 18px 16px; } /* Reduce el relleno del cuerpo del pedido en móvil */
+}
+
+/* Estilos del modal de confirmación de pedido */
+.oc-modal { max-width: 460px; padding: 32px 28px; } /* Define el tamaño y relleno del modal de confirmación de pedido */
+.oc-success { /* Icono de éxito animado en el modal de confirmación */
+  font-size: 3.5rem; /* Define el tamaño grande del icono de éxito */
+  text-align: center; /* Centra el icono de éxito del modal */
+  margin-bottom: 12px; /* Añade separación entre el icono y el contenido del modal */
+  animation: ocPop .4s cubic-bezier(.34,1.56,.64,1); /* Aplica animación de aparición elástica al icono de éxito */
+}
+@keyframes ocPop { /* Animación de aparición elástica del icono de éxito */
+  0%   { transform: scale(0); opacity: 0; } /* Estado inicial invisible y sin escala del icono */
+  60%  { transform: scale(1.2); } /* Sobrepasa la escala normal en el punto intermedio */
+  100% { transform: scale(1); opacity: 1; } /* Estado final con escala y opacidad normales */
+}
+.oc-id-box { /* Caja con el identificador único del pedido confirmado */
+  margin: 20px 0; /* Añade separación vertical alrededor de la caja del ID */
+  padding: 16px; /* Añade relleno interno a la caja del ID del pedido */
+  background: var(--accent-dim); /* Aplica fondo violeta semitransparente a la caja del ID */
+  border: 1px solid var(--accent-ring); /* Añade borde de acento a la caja del ID del pedido */
+  border-radius: var(--r); /* Redondea las esquinas de la caja del ID del pedido */
+  text-align: center; /* Centra el contenido de la caja del ID del pedido */
+}
+.oc-id-label { /* Etiqueta superior de la caja del ID del pedido confirmado */
+  display: block; /* Muestra la etiqueta como bloque encima del ID */
+  font-size: .72rem; /* Define el pequeño tamaño de la etiqueta del ID */
+  text-transform: uppercase; /* Convierte en mayúsculas la etiqueta del ID */
+  letter-spacing: .1em; /* Añade espaciado entre letras de la etiqueta del ID */
+  color: var(--text-muted); /* Aplica color secundario a la etiqueta del ID del pedido */
+  margin-bottom: 6px; /* Añade separación entre la etiqueta y el valor del ID */
+}
+.oc-id-value { /* Valor del identificador único del pedido confirmado */
+  display: block; /* Muestra el ID como bloque centrado */
+  font-family: 'Syne', sans-serif; /* Aplica la tipografía Syne al ID del pedido */
+  font-size: 1.5rem; /* Define el tamaño grande del ID del pedido */
+  font-weight: 800; /* Aplica el peso máximo al ID del pedido */
+  color: var(--accent-hover); /* Aplica el color de acento al ID del pedido confirmado */
+  letter-spacing: .02em; /* Añade espaciado ligero entre caracteres del ID */
+}
+.oc-meta { /* Metadatos del pedido confirmado en el modal */
+  display: flex; justify-content: space-between; gap: 10px; /* Distribuye los metadatos horizontalmente */
+  font-size: .8rem; /* Define el tamaño de los metadatos del pedido confirmado */
+  color: var(--text-muted); /* Aplica color secundario a los metadatos del pedido */
+  margin-bottom: 16px; /* Añade separación entre los metadatos y la lista de artículos */
+  flex-wrap: wrap; /* Permite que los metadatos salten de línea en pantallas pequeñas */
+}
+.oc-items { /* Lista de artículos del pedido dentro del modal de confirmación */
+  max-height: 180px; /* Limita la altura de la lista de artículos del modal */
+  overflow-y: auto; /* Añade scroll si hay muchos artículos en el pedido confirmado */
+  margin-bottom: 14px; /* Añade separación entre la lista y el total del modal */
+  border: 1px solid var(--border); /* Añade borde sutil a la lista de artículos del modal */
+  border-radius: var(--r-sm); /* Redondea las esquinas de la lista de artículos */
+  padding: 4px; /* Añade relleno interno a la lista de artículos del modal */
+}
+.oc-item { /* Fila de artículo en la lista del modal de confirmación */
+  display: grid; /* Activa el layout de rejilla para la fila del artículo confirmado */
+  grid-template-columns: auto 1fr auto; /* Divide la fila en cantidad, nombre y precio */
+  gap: 10px; /* Añade separación entre las columnas de la fila */
+  padding: 8px 10px; /* Añade relleno a la fila del artículo confirmado */
+  font-size: .8rem; /* Define el tamaño del texto de la fila */
+  align-items: center; /* Alinea verticalmente los elementos de la fila */
+  border-bottom: 1px solid var(--border); /* Añade borde inferior entre artículos del modal */
+}
+.oc-item:last-child { border-bottom: none; } /* Elimina el borde inferior del último artículo del modal */
+.oc-item-qty { /* Cantidad del artículo en el modal de confirmación */
+  color: var(--text-dim); /* Aplica color atenuado a la cantidad del artículo */
+  font-weight: 600; /* Aplica negrita a la cantidad del artículo confirmado */
+  min-width: 24px; /* Define el ancho mínimo de la columna de cantidad */
+}
+.oc-item-name { /* Nombre del artículo en el modal de confirmación */
+  color: var(--text); /* Aplica el color de texto principal al nombre del artículo */
+  overflow: hidden; /* Oculta el texto desbordante del nombre del artículo */
+  text-overflow: ellipsis; /* Trunca el nombre largo con puntos suspensivos */
+  white-space: nowrap; /* Impide el salto de línea en el nombre del artículo */
+}
+.oc-item-price { /* Precio del artículo en el modal de confirmación */
+  font-weight: 600; /* Aplica negrita al precio del artículo confirmado */
+  color: var(--accent-hover); /* Aplica el color de acento al precio del artículo confirmado */
+}
+.oc-total-row { /* Fila del total en el modal de confirmación del pedido */
+  display: flex; justify-content: space-between; align-items: center; /* Distribuye etiqueta y precio en extremos opuestos */
+  padding: 12px 0 16px; /* Añade relleno vertical a la fila del total del modal */
+  border-top: 1px solid var(--border); /* Añade borde superior sobre la fila del total del modal */
+  margin-bottom: 6px; /* Añade separación entre el total y el botón de cierre del modal */
+}
+.oc-total-price { /* Precio total del pedido confirmado en el modal */
+  font-family: 'DM Sans', system-ui, sans-serif; /* Aplica la tipografía numérica al total del modal */
+  font-size: 1.6rem; /* Define el tamaño grande del total del pedido confirmado */
+  font-weight: 800; /* Aplica el peso máximo al total del pedido confirmado */
+  color: var(--text); /* Aplica el color de texto principal al total del pedido */
+  letter-spacing: -.02em; /* Ajusta el espaciado del total del pedido confirmado */
+}
+
+/* Estilos de las notificaciones toast */
+.toast-container { /* Contenedor fijo de las notificaciones toast en la esquina inferior derecha */
+  position: fixed; /* Posiciona el contenedor de toasts de forma fija */
+  bottom: 24px; right: 24px; /* Ancla el contenedor en la esquina inferior derecha */
+  display: flex; flex-direction: column; gap: 10px; /* Apila verticalmente las notificaciones toast */
+  z-index: 5000; /* Coloca el contenedor de toasts por encima de todos los elementos */
+  pointer-events: none; /* Permite clics a través del contenedor de toasts */
+}
+.toast { /* Notificación toast individual de la tienda */
+  background: var(--surface); /* Aplica fondo de superficie a la notificación toast */
+  border: 1px solid var(--border-mid); /* Añade borde de intensidad media a la notificación toast */
+  border-radius: var(--r); /* Redondea las esquinas de la notificación toast */
+  padding: 12px 18px; /* Añade relleno interno a la notificación toast */
+  display: flex; align-items: center; gap: 10px; /* Alinea icono y texto de la notificación toast */
+  box-shadow: var(--shadow-lg); /* Aplica sombra grande a la notificación toast */
+  min-width: 240px; max-width: 340px; /* Define el ancho mínimo y máximo de la notificación toast */
+  animation: toastIn .3s cubic-bezier(.4,0,.2,1); /* Aplica animación de entrada a la notificación toast */
+  font-size: .85rem; /* Define el tamaño del texto de la notificación toast */
+  pointer-events: auto; /* Reactiva los clics en la notificación toast */
+}
+.toast.success { border-color: rgba(34,197,94,0.4); } /* Aplica borde verde a las notificaciones de éxito */
+.toast.fadeout { animation: toastOut .3s cubic-bezier(.4,0,.2,1) forwards; } /* Aplica animación de salida a la notificación toast que desaparece */
+@keyframes toastIn { /* Animación de entrada de la notificación toast */
+  from { transform: translateX(120%); opacity: 0; } /* Estado inicial fuera del borde derecho de la pantalla */
+  to   { transform: translateX(0); opacity: 1; } /* Estado final en posición visible */
+}
+@keyframes toastOut { /* Animación de salida de la notificación toast */
+  to { transform: translateX(120%); opacity: 0; } /* Estado final fuera del borde derecho de la pantalla */
+}
+
+/* Estilos del pie de página de la tienda */
+footer { /* Pie de página con información de la tienda y copyright */
+  border-top: 1px solid var(--border); /* Añade borde superior al pie de página */
+  margin-top: 80px; /* Añade separación entre el contenido y el pie de página */
+  background: var(--bg-elev); /* Aplica el fondo elevado al pie de página */
+}
+.footer-inner { /* Contenedor interno del pie de página de la tienda */
+  max-width: 1440px; /* Limita el ancho máximo del contenido del pie de página */
+  margin: 0 auto; /* Centra el contenido del pie de página horizontalmente */
+  padding: 48px 24px; /* Añade relleno generoso al contenido del pie de página */
+  display: grid; /* Activa el layout de rejilla para el pie de página */
+  grid-template-columns: 1fr; /* Define una sola columna para el pie de página */
+  gap: 32px; /* Añade separación entre las secciones del pie de página */
+}
+.footer-brand p { /* Párrafo descriptivo de la marca en el pie de página */
+  color: var(--text-muted); /* Aplica color secundario al texto de la marca en el pie */
+  font-size: .9rem; /* Define el tamaño del texto de la marca en el pie de página */
+  max-width: 480px; /* Limita el ancho del párrafo de la marca para mejor legibilidad */
+  margin-top: 14px; /* Añade separación entre el logo y el párrafo de la marca */
+  line-height: 1.6; /* Ajusta el interlineado del párrafo de la marca */
+}
+.footer-bottom { /* Barra inferior del pie de página con copyright */
+  max-width: 1440px; /* Limita el ancho máximo de la barra inferior del pie */
+  margin: 0 auto; /* Centra la barra inferior del pie horizontalmente */
+  padding: 20px 24px; /* Añade relleno a la barra inferior del pie de página */
+  border-top: 1px solid var(--border); /* Añade borde superior a la barra de copyright */
+  display: flex; justify-content: space-between; align-items: center; /* Distribuye el copyright en extremos opuestos */
+  font-size: .78rem; /* Define el pequeño tamaño del texto del copyright */
+  color: var(--text-dim); /* Aplica color atenuado al texto del copyright */
+  gap: 12px; /* Añade separación entre los elementos del copyright */
+  flex-wrap: wrap; /* Permite que los elementos del copyright salten de línea */
+}
+
+/* Utilidades generales de la tienda */
+.highlight { color: var(--accent-hover); font-weight: 600; } /* Resalta texto con color de acento y negrita */
+.pulse { animation: pulse 2s infinite; } /* Aplica animación de pulso al elemento con esta clase */
+@keyframes pulse { /* Animación de pulso con sombra de acento */
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-ring); } /* Estado sin sombra al inicio y fin del ciclo */
+  50%      { box-shadow: 0 0 0 8px transparent; } /* Estado con sombra expandida en el centro del ciclo */
+}
+
+/* Reglas de diseño responsive para pantallas medianas */
+@media (max-width: 1024px) { /* Reglas para pantallas de hasta 1024px de ancho */
+  .hero-grid { grid-template-columns: 1fr; } /* Apila las columnas del hero en pantallas medianas */
+  .hero-side { flex-direction: row; } /* Muestra las tarjetas laterales del hero en fila en tablets */
+  .hero-main { padding: 40px 32px; } /* Reduce el relleno del panel principal del hero en tablets */
+  .config-grid { grid-template-columns: 1fr; } /* Apila el configurador en una columna en tablets */
+  .config-summary { position: static; } /* Desactiva la posición fija del resumen del configurador en tablets */
+  .detail-grid { grid-template-columns: 1fr; gap: 24px; } /* Apila galería e información del detalle en tablets */
+  .detail-gallery { position: static; aspect-ratio: 16 / 10; max-height: 380px; } /* Desactiva la galería fija y limita su altura en tablets */
+}
+
+/* Reglas de diseño responsive para pantallas pequeñas */
+@media (max-width: 768px) { /* Reglas para pantallas de hasta 768px de ancho */
+  .header-main { grid-template-columns: auto 1fr; gap: 12px; padding: 12px 16px; } /* Adapta la rejilla del encabezado para pantallas pequeñas */
+  .search-wrap { grid-column: 1 / -1; order: 3; max-width: none; } /* Mueve el buscador debajo del encabezado en móvil */
+  .hbtn-label { display: none; } /* Oculta las etiquetas de texto de los botones del encabezado en móvil */
+  .login-btn-header { padding: 8px 12px; font-size: .78rem; } /* Reduce el relleno y tamaño del botón de login en móvil */
+  .subnav { top: 117px; } /* Ajusta la posición de la subnav al nuevo alto del encabezado en móvil */
+  .subnav-inner { padding: 0 16px; } /* Reduce el relleno horizontal de la subnav en móvil */
+  .section { padding: 32px 16px; } /* Reduce el relleno de las secciones en pantallas pequeñas */
+  .hero { padding: 32px 16px; } /* Reduce el relleno del hero en pantallas pequeñas */
+  .hero-main { padding: 32px 24px; } /* Reduce el relleno del panel principal del hero en móvil */
+  .hero-main h1 { font-size: 2rem; } /* Reduce el tamaño del titular del hero en pantallas pequeñas */
+  .hero-side { flex-direction: column; } /* Apila las tarjetas laterales del hero en columna en móvil */
+  .filters-bar { padding: 12px; gap: 10px; } /* Reduce el relleno y separación de la barra de filtros en móvil */
+  .filter-search { width: 100%; flex: none; } /* Extiende el campo de búsqueda al ancho completo en móvil */
+  .filter-count { width: 100%; margin-left: 0; text-align: center; } /* Mueve el contador de productos al ancho completo en móvil */
+  .price-range-dual { width: 100%; } /* Extiende el rango de precio al ancho completo en móvil */
+  .cart-drawer { max-width: 100%; } /* Extiende el carrito lateral al ancho completo en móvil */
+  .footer-inner { padding: 32px 16px; } /* Reduce el relleno del pie de página en pantallas pequeñas */
+  .footer-bottom { padding: 16px; } /* Reduce el relleno de la barra de copyright en pantallas pequeñas */
+  .pv-title { font-size: 1.3rem; } /* Reduce el tamaño del título de la vista de producto en móvil */
+  .section-title { font-size: 1.3rem; } /* Reduce el tamaño del título de sección en pantallas pequeñas */
+  .modal { padding: 28px 22px; } /* Reduce el relleno del modal de login en pantallas pequeñas */
+}
+
+/* Reglas adicionales de diseño responsive para pantallas pequeñas */
+@media (max-width: 768px) { /* Segunda regla para pantallas de hasta 768px con ajustes de home */
+  .hero-main--full { padding: 40px 24px; } /* Reduce el relleno del hero a ancho completo en móvil */
+  .btn-xl { font-size: .95rem; padding: 14px 22px; } /* Reduce el tamaño del botón extra grande en móvil */
+  .quick-card { padding: 22px 20px; gap: 14px; } /* Reduce el relleno y separación de las tarjetas rápidas en móvil */
+  .quick-icon { width: 52px; height: 52px; font-size: 1.8rem; } /* Reduce el tamaño del icono de las tarjetas rápidas en móvil */
+  .quick-title { font-size: 1.1rem; } /* Reduce el tamaño del título de las tarjetas rápidas en móvil */
+  .quick-sub { font-size: .82rem; } /* Reduce el tamaño del subtítulo de las tarjetas rápidas en móvil */
+  .cats-grid--big { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; } /* Reduce el ancho mínimo de la rejilla grande de categorías en móvil */
+  .cats-grid--big .cat-card { padding: 28px 14px; gap: 12px; } /* Reduce el relleno de las tarjetas grandes de categoría en móvil */
+  .cats-grid--big .cat-icon { width: 64px; height: 64px; font-size: 2rem; } /* Reduce el tamaño del icono grande de categoría en móvil */
+  .cats-grid--big .cat-name { font-size: .92rem; } /* Reduce el tamaño del nombre de categoría grande en móvil */
+}
+
+/* Reglas de diseño responsive para pantallas muy pequeñas */
+@media (max-width: 480px) { /* Reglas para pantallas de hasta 480px de ancho */
+  .cats-grid { grid-template-columns: repeat(2, 1fr); } /* Limita la rejilla de categorías a dos columnas en móvil pequeño */
+  .cats-grid--big { grid-template-columns: repeat(2, 1fr); } /* Limita la rejilla grande de categorías a dos columnas en móvil pequeño */
+  .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } /* Limita el catálogo a dos columnas en móvil pequeño */
+  .pc-name { font-size: .8rem; min-height: 2.4em; } /* Reduce el tamaño del nombre del producto en móvil pequeño */
+  .pc-price { font-size: .95rem; } /* Reduce el tamaño del precio del producto en móvil pequeño */
+  .pc-add-btn { width: 32px; height: 32px; } /* Reduce el tamaño del botón de añadir al carrito en móvil pequeño */
+  .pc-body { padding: 10px 12px 12px; } /* Reduce el relleno del cuerpo de la tarjeta de producto en móvil pequeño */
+  .toast-container { right: 12px; left: 12px; bottom: 12px; } /* Extiende el contenedor de toasts al ancho completo en móvil pequeño */
+  .toast { min-width: 0; max-width: none; } /* Elimina los límites de ancho de las notificaciones en móvil pequeño */
+  .detail-price { font-size: 1.8rem; } /* Reduce el tamaño del precio en la vista de detalle en móvil pequeño */
+  .detail-actions { flex-direction: row; } /* Mantiene los botones de acción del detalle en fila en móvil pequeño */
+  .topbar { font-size: .68rem; padding: 6px 12px; } /* Reduce el tamaño del topbar en pantallas muy pequeñas */
+}

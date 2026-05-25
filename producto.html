@@ -1,0 +1,46 @@
+<!-- Declaración del tipo de documento HTML5 -->
+<!DOCTYPE html> <!-- Declara el tipo de documento como HTML5 -->
+<!-- Apertura del documento con idioma español -->
+<html lang="es"> <!-- Abre el documento HTML con idioma español para SEO y accesibilidad -->
+<!-- Bloque de metadatos de la página de detalle de producto -->
+<head> <!-- Abre la cabecera con metadatos de la página de detalle individual de producto -->
+  <meta charset="UTF-8"> <!-- Define la codificación de caracteres UTF-8 para soporte multilingüe -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura el viewport para diseño responsivo en móviles -->
+  <meta name="theme-color" content="#0a0a0b"> <!-- Define el color de la barra del navegador en móviles -->
+  <title>Producto · C-Shop</title> <!-- Título genérico de la pestaña, actualizado dinámicamente por producto.js con el nombre del producto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Preconecta con el servidor de Google Fonts para reducir latencia -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Preconecta con el CDN de fuentes de Google con CORS habilitado -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"> <!-- Carga las fuentes tipográficas Syne y DM Sans usadas en toda la tienda -->
+  <link rel="stylesheet" href="styles.css"> <!-- Enlaza la hoja de estilos principal de C-Shop -->
+</head> <!-- Cierra la cabecera de metadatos -->
+<!-- Cuerpo visible de la página de detalle de producto -->
+<body> <!-- Abre el cuerpo de la página de detalle individual de producto -->
+
+<!-- Contenedor principal de la página de detalle de producto -->
+<main> <!-- Abre el contenido principal de la página de detalle de producto -->
+<!-- Sección de detalle individual del producto seleccionado -->
+  <section class="section visible"> <!-- Abre la sección principal visible con el detalle del producto -->
+<!-- Cabecera con botón de retorno contextual -->
+    <div class="pv-header"> <!-- Contenedor de la cabecera de la vista de detalle de producto -->
+      <div class="pv-title"> <!-- Contenedor del título y navegación de retorno del detalle de producto -->
+        <a class="back-btn" id="detailBackBtn" href="index.html" data-i18n="nav.back">← Volver</a> <!-- Botón de retorno, su destino es actualizado por producto.js según la página de origen -->
+      </div> <!-- Cierra el contenedor del título de la vista de detalle -->
+    </div> <!-- Cierra la cabecera de la vista de detalle de producto -->
+<!-- Cuadrícula del detalle de producto: imagen, info, especificaciones y acciones -->
+    <div class="detail-grid" id="detailContent"></div> <!-- Cuadrícula populada dinámicamente por producto.js con imagen, precio, specs y botones de carrito y favorito -->
+  </section> <!-- Cierra la sección principal de detalle de producto -->
+</main> <!-- Cierra el contenido principal de la página de detalle de producto -->
+
+<!-- Bloque de scripts de la página de detalle de producto -->
+<script defer src="js/i18n.js?v=1"></script> <!-- Carga el sistema de internacionalización para textos multilingüe -->
+<script defer src="js/data-lite.js?v=5"></script> <!-- Carga el módulo de acceso a datos de productos de la tienda -->
+<script defer src="js/common.js?v=5"></script> <!-- Carga utilidades y funciones compartidas entre todas las páginas -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script> <!-- Carga el núcleo de Firebase para la conexión con la base de datos -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script> <!-- Carga el módulo de autenticación de Firebase para el login de usuarios -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script> <!-- Carga el módulo Firestore de Firebase para la base de datos de productos y pedidos -->
+<script defer src="js/auth.js?v=5"></script> <!-- Carga la lógica de autenticación y sesión de usuario de C-Shop -->
+<script defer src="js/layout.js?v=5"></script> <!-- Carga el módulo que construye la navegación, carrito y modal de login -->
+<script defer src="js/products.js?v=5"></script> <!-- Carga el módulo de renderizado de tarjetas de producto -->
+<script defer src="js/producto.js?v=5"></script> <!-- Carga la lógica específica de detalle: lectura del ID por URL, renderizado de ficha completa y especificaciones técnicas -->
+</body> <!-- Cierra el cuerpo de la página de detalle de producto -->
+</html> <!-- Cierra el documento HTML de la página de detalle de producto -->

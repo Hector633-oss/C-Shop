@@ -1,0 +1,62 @@
+<!-- Declaración del tipo de documento HTML5 -->
+<!DOCTYPE html> <!-- Declara el tipo de documento como HTML5 -->
+<!-- Apertura del documento con idioma español -->
+<html lang="es"> <!-- Abre el documento HTML con idioma español para SEO y accesibilidad -->
+<!-- Bloque de metadatos de la página de historial de pedidos -->
+<head> <!-- Abre la cabecera con metadatos de la página de historial de pedidos del usuario -->
+  <meta charset="UTF-8"> <!-- Define la codificación de caracteres UTF-8 para soporte multilingüe -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Configura el viewport para diseño responsivo en móviles -->
+  <meta name="theme-color" content="#0a0a0b"> <!-- Define el color de la barra del navegador en móviles -->
+  <title>Mis pedidos · C-Shop</title> <!-- Título de la pestaña del navegador para la página de historial de pedidos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Preconecta con el servidor de Google Fonts para reducir latencia -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Preconecta con el CDN de fuentes de Google con CORS habilitado -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"> <!-- Carga las fuentes tipográficas Syne y DM Sans usadas en toda la tienda -->
+  <link rel="stylesheet" href="styles.css"> <!-- Enlaza la hoja de estilos principal de C-Shop -->
+</head> <!-- Cierra la cabecera de metadatos -->
+<!-- Cuerpo visible de la página de historial de pedidos -->
+<body> <!-- Abre el cuerpo de la página de historial de compras del usuario -->
+
+<!-- Contenedor principal de la página de pedidos -->
+<main> <!-- Abre el contenido principal de la página de historial de pedidos -->
+<!-- Sección del historial de pedidos con resumen estadístico y listado -->
+  <section class="section visible"> <!-- Abre la sección principal visible de la página de pedidos -->
+<!-- Cabecera con título, botón de retorno y botón de vaciado del historial -->
+    <div class="pv-header" style="display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap"> <!-- Cabecera de la página de pedidos con distribución flexible y espacio entre título y botón de vaciado -->
+      <div class="pv-title"> <!-- Contenedor del título y navegación de retorno de la página de pedidos -->
+        <a class="back-btn" href="index.html" data-i18n="nav.back">← Volver</a> <!-- Botón de retorno a la página de inicio -->
+        <span data-i18n="orders.title">📦 Mis pedidos</span> <!-- Título de la página de historial de pedidos del usuario -->
+      </div> <!-- Cierra el contenedor del título de pedidos -->
+      <button class="btn-danger-ghost" onclick="clearAllOrders()"
+              data-i18n="orders.clear_history">Vaciar historial</button> <!-- Botón que elimina todo el historial de pedidos del usuario -->
+    </div> <!-- Cierra la cabecera de la página de pedidos -->
+
+<!-- Bloque de resumen estadístico de pedidos del usuario -->
+    <div class="orders-summary" id="ordersSummary"></div> <!-- Contenedor del resumen estadístico de pedidos, populado dinámicamente por pedidos.js con totales y conteos -->
+
+<!-- Bloque de estado vacío cuando no hay pedidos realizados -->
+    <div id="ordersEmpty" class="orders-empty" style="display:none"> <!-- Contenedor del estado vacío de pedidos, visible solo cuando no hay historial -->
+      <div class="oe-icon">📦</div> <!-- Icono decorativo grande para el estado vacío del historial de pedidos -->
+      <div class="oe-title" data-i18n="orders.empty_title">Aún no has hecho ningún pedido</div> <!-- Título del estado vacío del historial de pedidos -->
+      <div class="oe-sub"   data-i18n="orders.empty_sub">Cuando finalices una compra, aparecerá aquí tu historial.</div> <!-- Mensaje explicativo del estado vacío del historial de pedidos -->
+      <a class="btn-primary btn-xl" href="index.html" style="margin-top:18px"
+         data-i18n="orders.start_shopping">Empezar a comprar</a> <!-- Botón de llamada a la acción que lleva al usuario a la página de inicio para empezar a comprar -->
+    </div> <!-- Cierra el contenedor del estado vacío de pedidos -->
+
+<!-- Lista de pedidos realizados por el usuario -->
+    <div class="orders-list" id="ordersList"></div> <!-- Contenedor del listado de pedidos, populado dinámicamente por pedidos.js con las tarjetas de cada pedido -->
+  </section> <!-- Cierra la sección principal de la página de pedidos -->
+</main> <!-- Cierra el contenido principal de la página de pedidos -->
+
+<!-- Bloque de scripts de la página de pedidos -->
+<script defer src="js/i18n.js?v=1"></script> <!-- Carga el sistema de internacionalización para textos multilingüe -->
+<script defer src="js/data-lite.js?v=5"></script> <!-- Carga el módulo de acceso a datos de productos de la tienda -->
+<script defer src="js/common.js?v=5"></script> <!-- Carga utilidades y funciones compartidas entre todas las páginas -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script> <!-- Carga el núcleo de Firebase para la conexión con la base de datos -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script> <!-- Carga el módulo de autenticación de Firebase para el login de usuarios -->
+<script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script> <!-- Carga el módulo Firestore de Firebase para la base de datos de productos y pedidos -->
+<script defer src="js/auth.js?v=5"></script> <!-- Carga la lógica de autenticación y sesión de usuario de C-Shop -->
+<script defer src="js/layout.js?v=5"></script> <!-- Carga el módulo que construye la navegación, carrito y modal de login -->
+<script defer src="js/products.js?v=5"></script> <!-- Carga el módulo de renderizado de tarjetas de producto -->
+<script defer src="js/pedidos.js?v=5"></script> <!-- Carga la lógica específica de pedidos: lectura del historial de Firestore, renderizado de tarjetas de pedido y resumen estadístico -->
+</body> <!-- Cierra el cuerpo de la página de historial de pedidos -->
+</html> <!-- Cierra el documento HTML de la página de historial de pedidos -->
