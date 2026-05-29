@@ -1970,7 +1970,7 @@ main { display: block; } /* Establece el elemento main como bloque de contenido 
 }
 .oc-id-value { /* Valor del identificador único del pedido confirmado */
   display: block; /* Muestra el ID como bloque centrado */
-  font-family: 'Rajdhani'; /* Aplica la tipografía Syne al ID del pedido */
+  font-family: 'Rajdhani', sans-serif; /* Aplica la tipografía Syne al ID del pedido */
   font-size: 1.5rem; /* Define el tamaño grande del ID del pedido */
   font-weight: 800; /* Aplica el peso máximo al ID del pedido */
   color: var(--accent-hover); /* Aplica el color de acento al ID del pedido confirmado */
