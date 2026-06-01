@@ -1304,6 +1304,51 @@ main { display: block; } /* Establece el elemento main como bloque de contenido 
   text-align: center; /* Centra el texto del mensaje de compatibilidad */
 }
 .config-compat.visible { display: block; } /* Muestra el mensaje de compatibilidad cuando está verificada */
+.config-compat.has-issues { /* Estado de incompatibilidades en el panel de compatibilidad */
+  background: rgba(245,158,11,0.1); /* Aplica fondo ámbar semitransparente al panel de incompatibilidades */
+  color: var(--warning); /* Aplica color ámbar al texto del panel de incompatibilidades */
+  border-color: rgba(245,158,11,0.3); /* Aplica borde ámbar semitransparente al panel de incompatibilidades */
+  text-align: left; /* Alinea el texto a la izquierda en el panel de incompatibilidades */
+}
+.compat-issues-header { /* Cabecera del listado de incompatibilidades */
+  font-weight: 700; /* Aplica negrita a la cabecera del listado de incompatibilidades */
+  margin-bottom: 6px; /* Añade separación entre la cabecera y el primer elemento del listado */
+  font-size: .8rem; /* Define el tamaño de la cabecera del listado de incompatibilidades */
+}
+.compat-issue-line { /* Línea individual de incompatibilidad en el panel de resumen */
+  font-size: .72rem; /* Define el pequeño tamaño del texto de cada incompatibilidad */
+  line-height: 1.4; /* Ajusta el interlineado de cada línea de incompatibilidad */
+  padding: 3px 0; /* Añade relleno vertical a cada línea de incompatibilidad */
+}
+.compat-issue-line + .compat-issue-line { /* Separador entre líneas de incompatibilidad consecutivas */
+  border-top: 1px solid rgba(245,158,11,0.2); /* Añade línea divisoria sutil entre incompatibilidades */
+  margin-top: 2px; /* Añade separación encima de la línea divisoria */
+}
+
+/* Tarjeta de componente incompatible en el configurador */
+.cs-product.compat-warn { /* Estado de tarjeta de componente con incompatibilidad detectada */
+  border-color: rgba(245,158,11,0.5); /* Aplica borde ámbar semitransparente a los componentes incompatibles */
+  opacity: .72; /* Atenúa ligeramente los componentes incompatibles */
+}
+.cs-product.compat-warn:hover { /* Hover de tarjeta de componente incompatible */
+  border-color: var(--warning); /* Aplica borde ámbar sólido al pasar el ratón sobre componente incompatible */
+  opacity: 1; /* Restaura la opacidad completa al pasar el ratón sobre componente incompatible */
+}
+.cs-product.compat-warn.selected { /* Componente incompatible ya seleccionado */
+  border-color: var(--warning); /* Mantiene el borde ámbar en el componente incompatible seleccionado */
+  background: rgba(245,158,11,0.1); /* Aplica fondo ámbar al componente incompatible seleccionado */
+  opacity: 1; /* Mantiene opacidad completa en el componente incompatible seleccionado */
+}
+.cs-p-warn { /* Badge de aviso de incompatibilidad dentro de la tarjeta del componente */
+  font-size: .64rem; /* Define el pequeño tamaño del badge de incompatibilidad */
+  font-weight: 700; /* Aplica negrita al badge de incompatibilidad */
+  color: var(--warning); /* Aplica color ámbar al texto del badge de incompatibilidad */
+  background: rgba(245,158,11,0.15); /* Aplica fondo ámbar semitransparente al badge de incompatibilidad */
+  border-radius: var(--r-xs); /* Redondea las esquinas del badge de incompatibilidad */
+  padding: 2px 5px; /* Añade relleno al badge de incompatibilidad */
+  text-align: center; /* Centra el texto del badge de incompatibilidad */
+  cursor: help; /* Muestra cursor de ayuda sobre el badge de incompatibilidad */
+}
 .config-add-all { /* Botón de añadir todos los componentes al carrito desde el configurador */
   width: 100%; /* Ocupa todo el ancho del panel de resumen */
   margin-top: 12px; /* Añade separación encima del botón de añadir todo */
@@ -1970,7 +2015,7 @@ main { display: block; } /* Establece el elemento main como bloque de contenido 
 }
 .oc-id-value { /* Valor del identificador único del pedido confirmado */
   display: block; /* Muestra el ID como bloque centrado */
-  font-family: 'Rajdhani', sans-serif; /* Aplica la tipografía Syne al ID del pedido */
+  font-family: 'Syne', sans-serif; /* Aplica la tipografía Syne al ID del pedido */
   font-size: 1.5rem; /* Define el tamaño grande del ID del pedido */
   font-weight: 800; /* Aplica el peso máximo al ID del pedido */
   color: var(--accent-hover); /* Aplica el color de acento al ID del pedido confirmado */
