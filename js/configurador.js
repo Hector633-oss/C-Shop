@@ -21,6 +21,199 @@ const configParts = [ // Define el array de configuración de las 14 piezas que 
   { id:'headphones',   catId:'headphones', filter:'',                    icon:'🎧' }, // Pieza de auriculares del configurador, carga todos los productos de la categoría de auriculares
 ];
 
+// ===== MOTOR DE COMPATIBILIDAD =====
+
+// Extrae vatios de una cadena de texto como "450W" o "1000 W"
+function _specWatts(val) {
+  const m = String(val || '').match(/(\d+)\s*[Ww]/);
+  return m ? parseInt(m[1]) : null;
+}
+
+// Normaliza una cadena (socket, factor de forma) para comparación sin tildes ni separadores
+function _normStr(s) {
+  return String(s || '').toUpperCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[\s_-]/g, '');
+}
+
+// Extrae el tipo DDR (DDR4/DDR5) de una cadena de texto, ignorando GDDR (memoria de GPU)
+function _extractDdr(s) {
+  const clean = String(s || '').replace(/GDDR\w*/gi, '');
+  const m = clean.match(/\bDDR\s*\d/i);
+  return m ? m[0].replace(/\s/g, '').toUpperCase() : null;
+}
+
+// Obtiene los vatios de una fuente de alimentación: busca en todas las claves que contengan "potencia"
+// o "watt", y como último recurso extrae el número seguido de W del propio nombre del producto
+function _getPsuW(p) {
+  for (const [k, v] of Object.entries(p.specs || {})) {
+    if (/potencia|watt|power|vatios/i.test(k)) {
+      const w = _specWatts(v);
+      if (w) return w;
+    }
+  }
+  return _specWatts(p.name);
+}
+
+// Obtiene el TDP en vatios: busca en claves que contengan "tdp", "consumo", "disipaci" o "potencia"
+// (GPUs/CPUs suelen guardar el consumo como "Potencia" en Firestore)
+function _getTdpW(p) {
+  for (const [k, v] of Object.entries(p.specs || {})) {
+    if (/\btdp\b|consumo|disipaci|potencia/i.test(k)) {
+      const w = _specWatts(v);
+      if (w) return w;
+    }
+  }
+  return null;
+}
+
+// Devuelve los sockets conocidos que aparecen en specs o nombre de un componente (ej. refrigeración)
+function _getMentionedSockets(p) {
+  const known = ['AM5','AM4','LGA1851','LGA1700','LGA1200','TR5','STR5'];
+  const text   = _normStr(Object.values(p.specs || {}).join(' ') + ' ' + p.name);
+  return known.map(_normStr).filter(s => text.includes(s));
+}
+
+// Obtiene el socket: busca en claves que contengan "socket" o "zócalo",
+// y como fallback detecta sockets conocidos en el nombre del producto
+function _getSocket(p) {
+  for (const [k, v] of Object.entries(p.specs || {})) {
+    if (/socket|z.?calo/i.test(k)) {
+      const s = String(v).trim();
+      if (s) return _normStr(s);
+    }
+  }
+  const known = ['AM5','AM4','LGA1851','LGA1700','LGA1200','TR5','STR5'];
+  const haystack = _normStr(p.name + ' ' + (p.brand || ''));
+  for (const sock of known) {
+    if (haystack.includes(_normStr(sock))) return _normStr(sock);
+  }
+  return null;
+}
+
+// Obtiene el tipo DDR: escanea TODOS los valores de specs y el nombre del producto
+function _getDdr(p) {
+  for (const v of Object.values(p.specs || {})) {
+    const d = _extractDdr(v);
+    if (d) return d;
+  }
+  return _extractDdr(p.name);
+}
+
+// Obtiene el factor de forma: busca en claves que contengan "factor", "formato" o "form",
+// y como fallback detecta patrones conocidos en el nombre del producto
+function _getFormFactor(p) {
+  for (const [k, v] of Object.entries(p.specs || {})) {
+    if (/factor|formato|form.factor/i.test(k)) {
+      const ff = _normStr(v);
+      if (ff) return ff;
+    }
+  }
+  const name = _normStr(p.name + ' ' + (p.brand || ''));
+  for (const ff of ['MINIITX','MICROATX','MATX','EATX','ATX']) {
+    if (name.includes(ff)) return ff;
+  }
+  return null;
+}
+
+// Devuelve true si el factor de forma de la torre (c) admite la placa base (m)
+function _caseFits(c, m) {
+  if (!c || !m) return true;
+  const isITX  = s => s.includes('ITX') || s.includes('MINIITX');
+  const isMatx = s => s.includes('MATX') || s.includes('MICROATX');
+  const isAtx  = s => s.includes('ATX') && !isMatx(s) && !isITX(s);
+  const isEatx = s => s.includes('EATX') || s.includes('EXTENDEDATX');
+  if (isEatx(m)) return isEatx(c);
+  if (isAtx(m))  return isAtx(c) || isEatx(c);
+  if (isMatx(m)) return isMatx(c) || isAtx(c) || isEatx(c);
+  return true;
+}
+
+// Devuelve un array de incidencias de incompatibilidad para las selecciones dadas
+function checkCompatibility(sel) {
+  const issues  = [];
+  const { cpu, gpu, psu, mb, ram } = sel;
+  const pcCase  = sel.case;
+  const cool    = sel.cooler;
+
+  // Regla 1: potencia PSU vs consumo total GPU + CPU
+  if (psu) {
+    const psuW   = _getPsuW(psu);
+    const gpuTdp = gpu ? (_getTdpW(gpu) || 0) : 0;
+    const cpuTdp = cpu ? (_getTdpW(cpu) || 0) : 0;
+    const needed = gpuTdp + cpuTdp + 100;
+    if (psuW && (gpuTdp || cpuTdp) && psuW < needed) {
+      issues.push({
+        type : 'psu_power',
+        parts: ['psu', gpu && 'gpu', cpu && 'cpu'].filter(Boolean),
+        es   : `⚡ PSU insuficiente: ${psuW}W para GPU (${gpuTdp}W) + CPU (${cpuTdp}W). Necesitas ≥${needed}W.`,
+        en   : `⚡ Insufficient PSU: ${psuW}W for GPU (${gpuTdp}W) + CPU (${cpuTdp}W). Need ≥${needed}W.`,
+      });
+    }
+  }
+
+  // Regla 2: socket CPU ↔ placa base
+  if (cpu && mb) {
+    const cs = _getSocket(cpu), ms = _getSocket(mb);
+    if (cs && ms && cs !== ms) {
+      issues.push({
+        type : 'socket',
+        parts: ['cpu', 'mb'],
+        es   : `🔌 Socket incompatible: CPU ${cs} ≠ Placa base ${ms}.`,
+        en   : `🔌 Socket mismatch: CPU ${cs} ≠ Motherboard ${ms}.`,
+      });
+    }
+  }
+
+  // Regla 3: tipo RAM ↔ placa base
+  if (ram && mb) {
+    const rd = _getDdr(ram), md = _getDdr(mb);
+    if (rd && md && rd !== md) {
+      issues.push({
+        type : 'ram_type',
+        parts: ['ram', 'mb'],
+        es   : `💾 RAM incompatible: módulo ${rd} en placa que soporta ${md}.`,
+        en   : `💾 RAM mismatch: ${rd} module in motherboard supporting ${md}.`,
+      });
+    }
+  }
+
+  // Regla 4: factor de forma torre ↔ placa base
+  if (pcCase && mb) {
+    const cf = _getFormFactor(pcCase), mf = _getFormFactor(mb);
+    if (cf && mf && !_caseFits(cf, mf)) {
+      issues.push({
+        type : 'form_factor',
+        parts: ['case', 'mb'],
+        es   : `🗄 Factor de forma: placa ${mf} no encaja en torre ${cf}.`,
+        en   : `🗄 Form factor: ${mf} board doesn't fit in ${cf} case.`,
+      });
+    }
+  }
+
+  // Regla 5: refrigeración ↔ socket CPU
+  if (cool && cpu) {
+    const coolerSocks = _getMentionedSockets(cool);
+    const cpuSock     = _getSocket(cpu);
+    if (coolerSocks.length && cpuSock && !coolerSocks.includes(_normStr(cpuSock))) {
+      issues.push({
+        type : 'cooler_socket',
+        parts: ['cooler', 'cpu'],
+        es   : `𖣘 Refrigeración incompatible: el cooler no soporta el socket ${cpuSock} de la CPU.`,
+        en   : `𖣘 Cooling incompatible: cooler doesn't support your CPU's socket ${cpuSock}.`,
+      });
+    }
+  }
+
+  return issues;
+}
+
+// Devuelve las incidencias que generaría seleccionar product en el slot partId
+function _partIssues(partId, product) {
+  return checkCompatibility({ ...configSelections, [partId]: product })
+    .filter(i => i.parts.includes(partId));
+}
+
 // Función: genera y renderiza todos los pasos del configurador de PC con sus productos y estado actual
 function renderConfigurator() { // Define la función que construye el HTML de los pasos del configurador y actualiza el resumen lateral
   const container = document.getElementById('configSteps'); // Obtiene el contenedor que agrupa todos los pasos del configurador de PC
@@ -29,8 +222,12 @@ function renderConfigurator() { // Define la función que construye el HTML de l
     const label = t(`config.part.${part.id}`); // Obtiene la etiqueta traducida de la pieza para mostrarla en la cabecera del paso
     const prods = (ALL_PRODUCTS[part.catId] || []) // Obtiene los productos de la categoría de la pieza o un array vacío
       .filter(p => !part.filter || p.name.includes(part.filter) || p.brand.includes(part.filter)); // Filtra los productos por el nombre de subtipo de componente definido en la pieza
-    const prodsHtml = prods.map(p => `
-      <div class="cs-product${configSelections[part.id]?.id === p.id ? ' selected' : ''}"
+    const prodsHtml = prods.map(p => {
+      const wi = _partIssues(part.id, p);
+      const wt = escapeHtml(wi.map(i => i[currentLang]).join(' | '));
+      const warnBadge = wi.length ? `<div class="cs-p-warn" title="${wt}">⚠️ ${currentLang === 'en' ? 'Incompatible' : 'Incompatible'}</div>` : '';
+      return `
+      <div class="cs-product${configSelections[part.id]?.id === p.id ? ' selected' : ''}${wi.length ? ' compat-warn' : ''}"
            onclick="selectConfigPart('${part.id}','${p.id}')"
            onmouseenter="showConfigTooltip(event,'${p.image}','${p.name.replace(/'/g, "\\'")}',${p.price})"
            onmousemove="moveConfigTooltip(event)"
@@ -43,8 +240,10 @@ function renderConfigurator() { // Define la función que construye el HTML de l
         <div class="cs-p-info">
           <div class="cs-p-name">${escapeHtml(p.name)}</div>
           <div class="cs-p-price">${p.price.toFixed(2)}€</div>
+          ${warnBadge}
         </div>
-      </div>`).join(''); // Genera el HTML de cada producto seleccionable dentro del paso del configurador con tooltip y evento de selección
+      </div>`;
+    }).join(''); // Genera el HTML de cada producto seleccionable dentro del paso del configurador con tooltip y evento de selección
     const isSelected = !!configSelections[part.id]; // Comprueba si el usuario ya ha seleccionado un producto para esta pieza del configurador
     return `
       <div class="config-step" id="step_${part.id}">
@@ -74,6 +273,8 @@ function selectConfigPart(partId, productId) { // Define la función que guarda 
   configSelections[partId] = product; // Guarda el producto seleccionado en el objeto de selecciones del configurador bajo el ID de pieza
   clearTimeout(ttTimeout); // Cancela el temporizador pendiente de ocultación del tooltip del configurador
   _tooltip?.classList.remove('visible'); // Oculta inmediatamente el tooltip al confirmar la selección de un producto
+  const newIssues = checkCompatibility(configSelections).filter(i => i.parts.includes(partId)); // Verifica si la nueva selección genera incompatibilidades
+  if (newIssues.length) showToast(`⚠️ ${newIssues[0][currentLang]}`, ''); // Muestra toast de aviso si hay incompatibilidades con la nueva pieza
   renderConfigurator(); // Re-renderiza el configurador de PC reflejando la nueva selección en la lista de pasos
 }
 
@@ -109,7 +310,37 @@ function updateConfigSummary() { // Define la función que reconstruye el panel 
   const total = sel.reduce((s, [, p]) => s + p.price, 0); // Calcula el precio total sumando el precio de todas las piezas seleccionadas en el configurador
   document.getElementById('configTotal').textContent = total.toFixed(2) + '€'; // Muestra el precio total del configurador en el bloque de total del resumen lateral
   document.getElementById('configAddAll').disabled = sel.length === 0; // Desactiva el botón de añadir todo al carrito si no hay ninguna pieza seleccionada
-  document.getElementById('configCompat').classList.toggle('visible', sel.length >= 4); // Muestra el indicador de compatibilidad en el resumen lateral cuando hay al menos 4 piezas seleccionadas
+
+  const compatEl = document.getElementById('configCompat'); // Obtiene el elemento del indicador de compatibilidad del panel lateral
+  if (compatEl) {
+    if (sel.length < 2) { // Con menos de 2 piezas no hay nada relevante que verificar
+      compatEl.classList.remove('visible', 'has-issues');
+    } else {
+      // Vuelca en consola los datos extraídos para facilitar el diagnóstico
+      console.group('[C-Shop Compat] Datos extraídos:');
+      for (const [pid, p] of Object.entries(configSelections)) {
+        const d = {};
+        if (pid === 'psu')              d.Vatios    = _getPsuW(p);
+        if (pid === 'gpu' || pid === 'cpu') d.TDP   = _getTdpW(p);
+        if (pid === 'cpu' || pid === 'mb')  d.Socket = _getSocket(p);
+        if (pid === 'ram' || pid === 'mb')  d.DDR    = _getDdr(p);
+        if (pid === 'case'|| pid === 'mb')  d.FF     = _getFormFactor(p);
+        console.log(`  ${pid}: "${p.name.slice(0,40)}"`, d);
+      }
+      console.groupEnd();
+      const issues = checkCompatibility(configSelections); // Ejecuta el motor de compatibilidad con las selecciones actuales
+      compatEl.classList.add('visible'); // Hace visible el bloque de compatibilidad en el panel lateral
+      if (issues.length === 0) { // No hay incompatibilidades: muestra el mensaje verde
+        compatEl.classList.remove('has-issues');
+        compatEl.textContent = t('config.compat');
+      } else { // Hay incompatibilidades: muestra la lista de problemas en rojo/naranja
+        compatEl.classList.add('has-issues');
+        const header = currentLang === 'en' ? '⚠️ Incompatibilities detected:' : '⚠️ Incompatibilidades detectadas:';
+        compatEl.innerHTML = `<div class="compat-issues-header">${header}</div>` +
+          issues.map(i => `<div class="compat-issue-line">${i[currentLang]}</div>`).join('');
+      }
+    }
+  }
 }
 
 // Función: muestra el tooltip del configurador con la imagen, nombre y precio del producto al pasar el cursor
