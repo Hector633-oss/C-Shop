@@ -180,6 +180,7 @@ const i18n = { // Define el objeto principal de internacionalización de la tien
     'config.empty':       'Ningún componente seleccionado', // Mensaje del panel lateral del configurador cuando no hay ningún componente elegido
     'config.total':       'Total', // Etiqueta del precio total acumulado en el panel lateral del configurador
     'config.compat':      '✅ Configuración compatible', // Mensaje de validación en el panel del configurador cuando los componentes son compatibles
+    'config.compat_issues': '⚠️ Incompatibilidades detectadas:', // Cabecera del panel de incompatibilidades cuando hay problemas entre componentes
     'config.add_all':     'Añadir todo al carrito', // Texto del botón para añadir todos los componentes seleccionados al carrito
     'config.not_selected':'Sin seleccionar', // Texto que aparece en una ranura vacía del configurador cuando no se ha elegido componente
     'config.no_products': 'Sin productos en esta categoría aún', // Mensaje en el configurador cuando una categoría no tiene productos en la base de datos
@@ -413,6 +414,7 @@ const i18n = { // Define el objeto principal de internacionalización de la tien
     'config.empty':       'No components selected', // Mensaje del panel lateral del configurador cuando no hay ningún componente elegido (inglés)
     'config.total':       'Total', // Etiqueta del precio total acumulado en el panel lateral del configurador en inglés
     'config.compat':      '✅ Compatible configuration', // Mensaje de validación en el panel del configurador cuando los componentes son compatibles (inglés)
+    'config.compat_issues': '⚠️ Incompatibilities detected:', // Cabecera del panel de incompatibilidades cuando hay problemas entre componentes (inglés)
     'config.add_all':     'Add all to cart', // Texto del botón para añadir todos los componentes seleccionados al carrito en inglés
     'config.not_selected':'Not selected', // Texto que aparece en una ranura vacía del configurador cuando no se ha elegido componente (inglés)
     'config.no_products': 'No products in this category yet', // Mensaje en el configurador cuando una categoría no tiene productos en la base de datos (inglés)
